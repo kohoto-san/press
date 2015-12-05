@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+</head>
+<body>
+    
+    <div class="row" style="padding: 20px;">
+    <div style="position: relative;">
+        
+        {% for post in object_list %}
+            
+            <div class="col s4 {% cycle '' 'offset-s4' 'offset-s8' %}">
+                <!--
+                <a href="card-tag" class="card-tag">World Press</a>
+                -->
+
+                <a href="{% url 'post_detail' post.slug %}" class="item-card card medium hoverable">
+                
+                    <div class="card-image">
+                        <!--
+                        http://materializecss.com/images/sample-1.jpg
+                        -->
+
+                        <img src="{{post.image.url}}">
+                        <span class="card-title">{{post.title}}</span>
+                    </div>
+                
+                    <div class="card-content">
+                        <p>{{post.text_entry}}</p>
+                    </div>
+
+                </a> <!-- /.card -->
+            </div>
+
+        {% endfor %}
+
+       
+
+    </div>
+    </div> <!-- /.row -->
+
+    <style type="text/css">
+
+        .row .col {
+            position: absolute;
+        }
+
+
+
+        .card.small .card-action, .card.medium .card-action, .card.large .card-action {
+            position: relative;            
+        }
+
+        .card.medium .card-content {
+            height: auto;
+        }
+
+        .card.medium {
+            height: auto;
+        }
+
+        .card-image{
+            background-color: #000;
+        }
+
+        .card-image img{
+            opacity: 0.8;
+        }
+
+        .card .card-image .card-title{
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .card-tag{
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 25px 30px;
+            padding: 2px 10px;
+            border-radius: 2px;
+            color: #fff;
+
+            /* #16B8D9 */
+            background-color: rgba(22, 184, 217, 0.8);
+
+            z-index: 1;
+
+            /* font-size: 16px; */
+        }
+
+        .card-tag:hover{
+            background-color: rgba(22, 184, 217, 1); 
+        }
+
+        .card-content{
+            color: #000;
+        }
+
+        .item-card{
+            display: block;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+
+    $( window ).load(function() {
+        
+        // ??? ?? ?????? ??? ????
+        var columns = 3;
+
+        $('.col').each(function( index ) {
+
+            // 0, 1, 2
+            if(index >= columns){
+                var height = $('.col:eq(' + (index-3) + ')').height();
+                var top = $('.col:eq(' + (index-3) + ')').css('top');
+                
+                if(top != "auto"){
+                    var current_height = height + parseInt(top);
+                }
+                else{
+                    var current_height = height;
+                }
+
+                $(this).css('top', current_height);
+            }
+
+        });
+
+    });
+
+    </script>
+
+</body>
+</html>
