@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    
+
+    <div class="row" style="padding: 20px; background-color: #f0f1f5;">
+    <div style="position: relative;" id="content-posts">
+        
+        {% for post in object_list %}
+            
+            <div class="col l6 offset-l3 m10 offset-m1">
+                <!--
+                <a href="card-tag" class="card-tag">World Press</a>
+                -->
+
+                <a href="{% url 'post_detail' post.slug %}" class="item-card card medium hoverable">
+                
+                    <div class="card-image">
+                        <!--
+                        http://materializecss.com/images/sample-1.jpg
+                        -->
+
+                        <img src="{{post.image.url}}">
+                        <span class="card-title">{{post.title}}</span>
+                    </div>
+                
+                    <div class="card-content">
+                        <p>{{post.text_entry}}</p>
+                    </div>
+
+                </a> <!-- /.card -->
+            </div>
+
+        {% endfor %}
+
+    </div>    	
+
+
+    	<div class="col l4 offset-l4 s12 center-align" id="load_posts">
+			<a class="center-align waves-effect waves-light btn" style="margin: auto;">Загрузить еще</a>
+       	</div>
+
+    </div> <!-- /.row -->
+
+
+
+
+    <style type="text/css">
+
+    	.card.medium .card-image {
+    		height: auto;
+		}
+
+        .row .col {
+            /* 
+            position: absolute;
+        	*/
+        	margin-bottom: 20px;
+        }
+
+
+
+        .card.small .card-action, .card.medium .card-action, .card.large .card-action {
+            position: relative;            
+        }
+
+        .card.medium .card-content {
+            height: auto;
+        }
+
+        .card.medium {
+            height: auto;
+        }
+
+        .card-image{
+            background-color: #000;
+        }
+
+        .card-image img{
+            opacity: 0.8;
+        }
+
+        .card .card-image .card-title{
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .card-tag{
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 25px 30px;
+            padding: 2px 10px;
+            border-radius: 2px;
+            color: #fff;
+
+            /* #16B8D9 */
+            background-color: rgba(22, 184, 217, 0.8);
+
+            z-index: 1;
+
+            /* font-size: 16px; */
+        }
+
+        .card-tag:hover{
+            background-color: rgba(22, 184, 217, 1); 
+        }
+
+        .card-content{
+            color: #000;
+        }
+
+        .item-card{
+            display: block;
+        }
+
+    </style>
+
+
+    <script type="text/javascript">
+
+/*
+    	data = JSON.parse("{{posts_json}}".replace(/&quot;/g,'"'));
+
+    	alert("{{posts_json}}".replace(/&quot;/g,'"'));
+    	alert(data[0]['title']);
+*/
+
+/*
+        $('#load_posts').click(function(){
+
+    		$.get('/', {page: page}, function(data){
+
+    			page += 1;
+
+        	    data = JSON.parse(data);
+
+        	    for (var i = 0; i < data.length; i++) {
+        	    	data[i]
+
+        	    	{% comment %}
+        	    		
+        	    	//post_html = "<div class='col s6 offset-s3'><a href=" + {% url 'post_detail' post.slug %} + "class='item-card card medium hoverable'><div class='card-image'><img src=" + {{post.image.url}} + "><span class='card-title'>" + {{post.title}} + "</span></div> <div class='card-content'><p>" + {{post.text_entry}} "</p></div></a></div>";
+
+        	    	{% endcomment %}
+        	    	
+        	    	var post_url = "{% url 'post_detail' 'slug' %}".replace(/slug/, data[i]['slug'].toString());
+
+        	    	post_html = "<div class='col s6 offset-s3'><a href=" + post_url + " class='item-card card medium hoverable'><div class='card-image'><img src=" + data[i]['image'] + "><span class='card-title'>" + data[i]['title'] + "</span></div> <div class='card-content'><p>" + data[i]['text_entry'] + "</p></div></a></div>";
+
+        	    	$('#content-posts').append(post_html);
+        	    };
+
+        	});
+
+        });
+*/
+
+		var page = 2;
+
+        $('#load_posts').click(function(){
+        if( $(this).find('a').hasClass("disabled") == false){
+
+    		$.get( '/', {page: page} )
+    			
+    			.done(function( data ) {
+
+    				page += 1;
+
+    				//alert(data);
+
+        	    	data = JSON.parse(data);
+
+        	    	for (var i = 0; i < data.length; i++) {
+        	    		data[i]
+
+        	    		{% comment %}
+        	    		
+        	    		//post_html = "<div class='col s6 offset-s3'><a href=" + {% url 'post_detail' post.slug %} + "class='item-card card medium hoverable'><div class='card-image'><img src=" + {{post.image.url}} + "><span class='card-title'>" + {{post.title}} + "</span></div> <div class='card-content'><p>" + {{post.text_entry}} "</p></div></a></div>";
+
+        	    		{% endcomment %}
+        	    	
+        	    		var post_url = "{% url 'post_detail' 'slug' %}".replace(/slug/, data[i]['slug'].toString());
+
+        	    		post_html = "<div class='col l6 offset-l3 m10 offset-m1'><a href=" + post_url + " class='item-card card medium hoverable'><div class='card-image'><img src=" + data[i]['image'] + "><span class='card-title'>" + data[i]['title'] + "</span></div> <div class='card-content'><p>" + data[i]['text_entry'] + "</p></div></a></div>";
+
+        	    		$('#content-posts').append(post_html);
+        	    	}; // for
+
+  				}) // done
+  				
+  				.fail(function() {
+    				$('#load_posts').prepend('<p>Упс...Кажется все посты уже загружены.</p>')
+    				$('#load_posts a').addClass('disabled');
+  				}); // fail
+
+  			}    // hasClass
+        	}); // click
+			
+
+
+
+
+/*
+    	$.ajax( "example.php" )
+  			.done(function() {
+  			  alert( "success" );
+  			})
+  			.fail(function() {
+  			  alert( "error" );
+  			})
+  			.always(function() {
+  			  alert( "complete" );
+  		});
+
+
+  		$.ajax({
+  			url: "http://fiddle.jshell.net/favicon.png",
+		})
+  		.done(function( data ) {
+    		if ( console && console.log ) {
+    		  	console.log( "Sample of data:", data.slice( 0, 100 ) );
+    		}
+  		});
+*/
+
+
+    </script>
+
+{% endblock content %}   

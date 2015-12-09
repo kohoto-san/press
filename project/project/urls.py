@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from blog.views import PostList, PostDetail
+from blog.views import PostList, PostDetail, load_posts
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,7 +25,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^$', PostList.as_view(), name='home'),
+    # url(r'^$', PostList.as_view(), name='home'),
+
+    url(r'^$', load_posts, name='home'),
+
+
     url(r'^p/(?P<slug>[\w-]+)/*$', PostDetail.as_view(), name='post_detail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    {% load staticfiles %}
+    
+    {% comment %}
+    <script src="{% static 'orphus.js' %}"></script>
+    {% endcomment %}
+
+    <meta name="google-site-verification" content="3HhTi39ub5M-usRj3mNKFquB9YORXhiT0TiKEXTui3c" />
+
+
+</head>
+<body>
+
+    {% block navbar %}
+        <nav class="white black-text" style="position: relative;">
+            <div class="nav-wrapper">
+                <a href="/" class="brand-logo">StartupDen</a>
+                
+                <!--
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="sass.html">Sass</a></li>
+                    <li><a href="badges.html">Components</a></li>
+                    <li><a href="collapsible.html">JavaScript</a></li>
+                    <li><a href="#" id="search_btn" data-search="none"><i class="material-icons">search</i></a></li>
+                </ul>
+                -->
+
+            </div>
+
+        </nav>
+
+        <form id="search_field" style="display: none;">
+            <div class="input-field">
+                <i class="material-icons prefix" style="top: 8px; left: 20px;">search</i>
+                <input style="margin: 0;" id="search" type="search" placeholder="Я ищу" required>
+
+                <!--
+                <i class="material-icons" style="color: #444; top: 8px;">close</i>
+                -->
+
+            </div>
+        </form>
+    {% endblock navbar %}
+
+
+
+    {% block content %}
+    {% endblock content %}
+
+
+
+    {% block footer %}
+    <div class="row blue-grey lighten-3" style="border-top: 1px solid #e5e5e5;">
+        <div class="col l6 offset-l3 m10 offset-m1">
+            <p style="margin: 40px 0 20px;"> StartupLand — проект о русскоязычной сфере IT и людях, которые за ней стоят. Мы пишем про стартапы, приложения, интернет вещей, венчурный капитал, игры и социальные сети. </p>
+
+            <p>Если у вас есть новость, вы хотите, чтобы мы о вас написали, вы хотите с нами пообщаться, да и по любым другим вопросам обращайтесь по адресу <a href="mailto:contact@startupden.ru" style="color: #026697;">contact@startupden.ru</a> </p>
+
+            <!--
+            <p>Заметили опечатку? Выделите ее и нажмите Ctrl+Enter</p>
+            -->
+
+        </div>
+    </div>
+    {% endblock footer %}
+
+
+
+
+    <style type="text/css">
+
+        .row{
+            margin-bottom: 0;
+        }
+
+        nav ul a{
+            color: #000;
+        }
+
+        nav .brand-logo {
+            color: #000;
+            margin-left: 20px;
+        }
+
+        .input-field input[type=search], .input-field input[type=search]:focus{
+            background-color: #D4D8E2;
+            /* border: 0; */
+            border-bottom: 1px solid #9e9e9e;
+            /* box-shadow: none; */
+            color: #444;
+            /* border: 1px solid; */
+        }
+
+/*
+        @media only screen and (min-width: 601px){
+            nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+                height: auto;
+            }
+        }
+
+        nav {
+            height: auto;
+        }
+*/
+
+        #search_field .input-field{
+            margin: 0;
+        }
+
+        ::-webkit-input-placeholder {color:#000;}
+        ::-moz-placeholder          {color:#000;}/* Firefox 19+ */
+        :-moz-placeholder           {color:#000;}/* Firefox 18- */
+        :-ms-input-placeholder      {color:#000;}
+
+    </style>
+
+    <script type="text/javascript">
+
+        $('#search_btn').click(function(){
+
+            // Открытие строки поиска
+            if( $(this).data('search') == "none" ){
+                $('#search_field').css('display', 'block');
+                $(this).find('.material-icons').text('close');
+
+                $(this).data('search', 'search');
+            }
+            // Закрытие
+            else{
+                $('#search_field').css('display', 'none');
+                $(this).find('.material-icons').text('search');
+
+                $(this).data('search', 'none');
+            }
+
+            //$('#search_field').toggle();
+        
+
+        });
+
+    </script>
+
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-64063502-4', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

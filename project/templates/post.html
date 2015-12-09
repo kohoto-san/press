@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-
-	<title></title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-
-  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-</head>
-<body>
+{% extends "base.html" %}
 
 
-    <nav class="white black-text" style="color: #000 !important;">
-        <div class="nav-wrapper">
-            <a href="/" class="brand-logo">Logo</a>
-        </div>
-    </nav>
-
-
+{% block content %}
     
+    {% load staticfiles %}
+
     <div class="post-cover" style="position: relative; min-height: 500px; background-color: #000;">
 
         <div class="post-cover-image" style="background-image: url({{post.image.url}});"></div>
@@ -35,7 +13,7 @@
         <div class="overlay valign-wrapper" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 10;">
             <div class="row valign" style="color: #fff;">
 
-                <div class="col s12 center-align">
+                <div class="col s12 l8 offset-l2 m10 offset-m1 center-align">
                     <h3 style="font-weight: 600; font-size: 3.5rem;">{{post.title}}</h3>
                     <p style="color: #e6e6e6;">{{post.date|date:"DATE_FORMAT"}}</p>
                 </div>
@@ -49,9 +27,30 @@
 
     
     <div class="row" style="margin-top: 30px; margin-bottom: 100px;">
-        <div class="col s6 offset-s3" style="font-size: 1.15rem; max-width: 750px;">
+        <div class="col l6 offset-l3 m10 offset-m1" style="font-size: 1.15rem; max-width: 750px;">
+            {{post.text_entry|safe}}
+
+            <!--
+            <hr>
+                <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
+                <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
+                <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
+            <hr>
+            -->
+
+
             {{post.text|safe}}
-        </div>
+
+            <!--
+            <hr>
+                <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
+                <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
+                <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
+            <hr id="bottom-share">
+            -->
+
+
+        </div> <!-- col s6 -->
 
         <!--
         <div class="col s6 offset-s2" style="font-size: 1.15rem; max-width: 750px;">
@@ -63,13 +62,51 @@
         </div>
         -->
 
+        <!--
+        <div class="col s2 offset-s1 share-buttons center-align">
+
+            <div class="center-align">
+                <span>Поделись!</span>
+            </div>
+
+            <div>
+                <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
+                <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
+                <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
+            </div>
+
+        </div> --> <!-- /.col .share-buttons-->
+
+        <div class="col l10 offset-l1" style="font-size: 1.15rem; margin-top: 40px;">
+            
+            {% for post in recommended_posts %}
+                <div class="col l3 m6">
+                    <a href="{% url 'post_detail' post.slug %}" class="card hoverable">
+                        
+                        <div class="card-image">
+                            <img src="/media/{{post.image}}">
+                        </div>
+
+                        <div class="card-content">
+                            <p>{{post.title}}</p>
+                        </div>
+
+                    </a>
+                </div> <!-- /.col s3 -->
+            {% endfor %}
+
+        </div> <!-- /.col s10 -->
+
     </div>
+
+
+
+    
 
 
 
 
     <style type="text/css">
-
 
         .post-cover-image{
             position: absolute;
@@ -90,14 +127,25 @@
             opacity: 0.5;
         }
 
-        nav ul a{
-            color: #000;
+        .pinned {
+            position: fixed !important;
+            margin-top: 100px;
+            right: 15px;
         }
 
-        nav .brand-logo{
-            color: #000;
-            margin-left: 20px;
+        .share-buttons{
+            position: relative;
+            right: 15px;
         }
+
+        .popup img:hover{
+            opacity: 0.4;
+        }
+
+        .card{
+            display: block;
+        }
+
 
     </style>
 
@@ -106,9 +154,65 @@
         var height = $(window).height() - 64;
         $('.post-cover').css('height', height);
 
+
+        offset = $('.post-cover').position().top + $('.post-cover').height();
+
+
+//        $(document).ready(function(){
+  //          $('.share-buttons').pushpin({ top: offset - 50, 'bottom': $('#bottom-share').position().top });
+
+            //alert($('#bottom-share').position().top);
+
+            //$('.share-buttons').css('top', (offset + 50) + 'px');
+
+    //    });
+
+
+/*
+        function Scroll(){
+
+        }
+
+        var options = [
+            {selector: '.post-cover-image', offset: 1100, callback: 'Scroll()' },
+            //{selector: '.other-class', offset: 200, callback: 'globalFunction()' },
+        ];
+        
+        Materialize.scrollFire(options);
+*/      
+
+    </script>
+
+    <script>
+    $(document).ready(function() {
+
+        $('.popup').click(function(event) {
+            var width  = 575,
+                height = 400,
+                left   = ($(window).width()  - width)  / 2,
+                top    = ($(window).height() - height) / 2,
+                opts   = 'status=1' +
+                         ',width='  + width  +
+                         ',height=' + height +
+                         ',top='    + top    +
+                         ',left='   + left;
+
+            if( $(this).hasClass('vk') ){
+                var url = this.href + window.location.href;
+            }
+            else{
+                var url = this.href;
+            }
+
+            window.open(url, 'sharing', opts);
+ 
+            return false;
+        });
+    });
+
+
     </script>
 
 
 
-</body>
-</html>
+{% endblock %}
