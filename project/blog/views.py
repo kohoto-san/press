@@ -24,7 +24,7 @@ class PostList(ListView):
 def load_posts(request):
 
     post_list = Post.objects.all().order_by('-id')
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, 5)
 
     if request.method == 'GET':
         if request.is_ajax():

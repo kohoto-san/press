@@ -1,11 +1,70 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block head %}
+    {{block.super}}
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{post.title}}" />
+    <meta property="og:description" content="{{post.text_entry}}" />
+    <meta property="og:url" content="http://startupden.ru{{ request.path }}" />
+    <meta property="og:image" content="{{post.image}}" />
+    <meta property="og:site_name" content="startupden.ru" />
+    
+    <!--
+    <meta property="fb:app_id" content="499950920109990" />
+    -->
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="{{post.title}}" />
+    <meta property="twitter:description" content="{{post.text_entry}}" />
+    <meta property="twitter:image" content="{{post.image}}" />
+    
+    <!--
+    <meta property="twitter:site" content="@vcru" />
+    <meta property="twitter:creator" content="@vcru" />
+    -->
+
+    <meta property="twitter:url" content="http://startupden.ru{{ request.path }}" />
+    <meta property="author" content="Михаил Синов" />
+{% endblock head %}
+
+
+
+
+{% block navbar %}
+
+    <div id="navbar" class="row valign-wrapper">
+        
+        <div class="col m2 s12">
+            <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
+        </div>
+
+        <div class="col l8 hide-on-med-and-down" style="font-size: 18px;">
+            {{post.title}}
+        </div>
+
+        {% if request.user.is_authenticated %}
+            
+        <div class="col l2 m5 offset-m5 s12 right-align">
+            <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
+            <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
+            <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
+        </div>
+
+        {% endif %}
+        
+
+    </div>
+
+{% endblock navbar %}
+
 
 
 {% block content %}
     
-    {% load staticfiles %}
 
-    <div class="post-cover" style="position: relative; min-height: 500px; background-color: #000;">
+    <div class="post-cover">
 
         <div class="post-cover-image" style="background-image: url({{post.image.url}});"></div>
 
@@ -27,7 +86,7 @@
 
     
     <div class="row" style="margin-top: 30px; margin-bottom: 100px;">
-        <div class="col l6 offset-l3 m10 offset-m1" style="font-size: 1.15rem; max-width: 750px;">
+        <div class="col l6 offset-l3 m10 offset-m1 s12" style="font-size: 1.15rem; max-width: 750px;">
             {{post.text_entry|safe}}
 
             <!--
@@ -37,7 +96,6 @@
                 <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
             <hr>
             -->
-
 
             {{post.text|safe}}
 
@@ -77,7 +135,7 @@
 
         </div> --> <!-- /.col .share-buttons-->
 
-        <div class="col l10 offset-l1" style="font-size: 1.15rem; margin-top: 40px;">
+        <div class="col l10 offset-l1 s12" style="font-size: 1.15rem; margin-top: 40px;">
             
             {% for post in recommended_posts %}
                 <div class="col l3 m6">
@@ -145,6 +203,36 @@
         .card{
             display: block;
         }
+
+        #navbar{
+            height: 64px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+            z-index: 100;
+            background-color: #fff;
+        }
+
+        .post-cover{
+            position: relative;
+            min-height: 500px;
+            background-color: #000;
+            margin-top: 64px;
+        }
+
+        @media (max-width : 992px){
+            #navbar{
+                position: relative;
+            }
+
+            .post-cover{
+                margin-top: 0;
+            }
+
+        }
+
+
 
 
     </style>

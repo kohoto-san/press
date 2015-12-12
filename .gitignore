@@ -1,3 +1,4 @@
 media/*
 static_root/*
-__pycache__/*
+project/blog/__pycache__/*
+project/project/__pycache__/*
