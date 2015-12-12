@@ -53,6 +53,7 @@ def load_posts(request):
             return HttpResponse(posts_json)
 
         else:
+            print(paginator.page(1).object_list)
 
             return render_to_response('index-new.html', {"object_list": paginator.page(1).object_list})
 
