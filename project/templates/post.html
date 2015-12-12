@@ -43,17 +43,12 @@
         <div class="col l8 hide-on-med-and-down" style="font-size: 18px;">
             {{post.title}}
         </div>
-
-        {% if request.user.is_authenticated %}
             
         <div class="col l2 m5 offset-m5 s12 right-align">
             <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
             <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
             <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
         </div>
-
-        {% endif %}
-
 
     </div>
 
