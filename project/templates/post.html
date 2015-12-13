@@ -40,7 +40,7 @@
             <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
         </div>
 
-        <div class="col l8 hide-on-med-and-down title" style="font-size: 18px;">
+        <div class="col l8 hide-on-med-and-down" style="font-size: 18px;">
             {{post.title}}
         </div>
             
@@ -68,7 +68,7 @@
             <div class="row valign" style="color: #fff;">
 
                 <div class="col s12 l8 offset-l2 m10 offset-m1 center-align">
-                    <h3 style="font-weight: 600; font-size: 3.5rem;">{{post.title}}</h3>
+                    <h3 class="post-cover-title">{{post.title}}</h3>
                     <p style="color: #e6e6e6;">{{post.date|date:"DATE_FORMAT"}}</p>
                 </div>
             
@@ -161,6 +161,11 @@
 
     <style type="text/css">
 
+        .post-cover-title{
+            font-weight: 600; 
+            font-size: 3.5rem;
+        }
+
         .post-cover-image{
             position: absolute;
 
@@ -228,7 +233,7 @@
         }
 
         @media (max-width: 370px){
-            .title{
+            .post-cover-title{
                 font-size: 3rem;
             }
 
