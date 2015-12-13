@@ -23,7 +23,7 @@ class PostList(ListView):
 
 def load_posts(request):
 
-    post_list = Post.objects.all().order_by('-id')
+    post_list = Post.objects.all().order_by('-id_post')
     paginator = Paginator(post_list, 5)
 
     if request.method == 'GET':
@@ -53,8 +53,6 @@ def load_posts(request):
             return HttpResponse(posts_json)
 
         else:
-            print(paginator.page(1).object_list)
-
             return render_to_response('index-new.html', {"object_list": paginator.page(1).object_list})
 
 

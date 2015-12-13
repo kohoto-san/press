@@ -8,6 +8,18 @@ from blog.models import Post, Author, Category, Image
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
+    def save_model(self, request, obj, form, change):
+        if form.is_valid():
+            if not obj.id_post:
+                count = Post.objects.count() - 1
+                post = Post.objects.all().order_by('-id_post').first()
+
+                obj.id_post = post.id_post + 1
+
+                obj.save()
+            else:
+                obj.save()
+
 
 admin.site.register(Post, PostAdmin)
 

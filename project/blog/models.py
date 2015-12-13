@@ -48,6 +48,8 @@ class Category(models.Model):
 
 class Post(models.Model):
 
+    id_post = models.IntegerField(blank=True, null=True)
+
     slug = models.SlugField()
 
     author = models.ForeignKey(Author)
@@ -66,7 +68,7 @@ class Post(models.Model):
         date_path = datetime.datetime.now()
         token = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(16))
         
-        return os.path.join('images', str(date_path.year), str(date_path.month), str(date_path.day), token + str(instance.id) + filename[-4:])
+        return os.path.join('images', str(date_path.year), str(date_path.month), str(date_path.day), token + str(instance.id) + filename[-6:])
 
 
     image = models.ImageField(upload_to=get_upload_path)
