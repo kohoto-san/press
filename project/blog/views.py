@@ -40,12 +40,14 @@ class LatestEntriesFeed(Feed):
     def item_link(self, item):
         return reverse('post_detail', args=[item.slug])
 
-"""
     item_enclosure_mime_type = "image/jpeg"
 
     def item_enclosure_url(self, item):    
-        return settings.MEDIA_URL + item.image.url
-"""
+        return 'http://startupden.ru' + item.image.url
+
+    def item_pubdate(self, item):
+        return item.date
+
 
 # published_feeds = {'mlist': LatestEntriesFeed}
 
