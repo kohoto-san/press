@@ -11,19 +11,19 @@
     <meta property="og:image" content="http://startupden.ru/media/{{post.image}}" />
     <meta property="og:site_name" content="startupden.ru" />
     
-    <!--
-    <meta property="fb:app_id" content="499950920109990" />
-    -->
-
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content="{{post.title}}" />
     <meta property="twitter:description" content="{{post.text_entry}}" />
     <meta property="twitter:image" content="http://startupden.ru/media/{{post.image}}" />
     
+    {% comment %}        
     <!--
     <meta property="twitter:site" content="@vcru" />
     <meta property="twitter:creator" content="@vcru" />
+
+    <meta property="fb:app_id" content="499950920109990" />
     -->
+    {% endcomment %}
 
     <meta property="twitter:url" content="http://startupden.ru{{ request.path }}" />
     <meta property="author" content="Михаил Синов" />
@@ -83,27 +83,57 @@
     <div class="row" style="margin-top: 30px; margin-bottom: 100px;">
         <div class="col l6 offset-l3 m10 offset-m1 s12" style="font-size: 1.15rem; max-width: 750px;">
             {{post.text_entry|safe}}
-
-            <!--
-            <hr>
-                <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
-                <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
-                <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
-            <hr>
-            -->
-
             {{post.text|safe}}
-
-            <!--
-            <hr>
-                <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
-                <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
-                <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
-            <hr id="bottom-share">
-            -->
-
-
         </div> <!-- col s6 -->
+
+{% comment %}
+    
+        <div class="col s3">
+            
+            <!-- Begin MailChimp Signup Form -->
+            <link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+            <style type="text/css">
+                
+                #mc_embed_signup{
+                    background:#fff;
+                    clear:left;
+                    font:14px Helvetica,Arial,sans-serif; 
+                }
+
+                #mc_embed_signup input.email{
+                    width: 100%;
+                    padding: 0;
+                    height: 2rem;
+                    border-radius: 3px;
+                    max-width: 250px;
+                }
+
+                #mc_embed_signup input.button {
+                    width: auto;
+                    padding: 0px 10px;
+                }
+
+            </style>
+            
+            <div id="mc_embed_signup">
+
+                <form action="//startupden.us12.list-manage.com/subscribe/post?u=cfc1db907411753d1b2ac8fb5&amp;id=5830f42f38" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                    <div id="mc_embed_signup_scroll">
+                        <label for="mce-EMAIL">Еженедельная рассылка</label>
+                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email адрес" required>
+
+                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text" name="b_cfc1db907411753d1b2ac8fb5_5830f42f38" tabindex="-1" value="">
+                        </div>
+                        <div class="clear"><input type="submit" value="Подписаться" name="subscribe" id="mc-embedded-subscribe" class="button" style="background-color: #26A69A;"></div>
+                    </div>
+                </form>
+            </div>
+
+            <!--End mc_embed_signup-->
+
+        </div> <!-- /.col -->
 
         <!--
         <div class="col s6 offset-s2" style="font-size: 1.15rem; max-width: 750px;">
@@ -129,6 +159,7 @@
             </div>
 
         </div> --> <!-- /.col .share-buttons-->
+{% endcomment %}
 
         <div class="col l10 offset-l1 s12" style="font-size: 1.15rem; margin-top: 40px;">
             

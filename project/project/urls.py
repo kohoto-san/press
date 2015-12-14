@@ -14,13 +14,18 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url, include, patterns
 from django.contrib import admin
 
-from blog.views import PostList, PostDetail, load_posts
+from blog.views import PostList, PostDetail, load_posts, LatestEntriesFeed
 
 from django.conf import settings
 from django.conf.urls.static import static
+
+# from project.feeds import LatestEntriesFeed
+# from django.utils.feedgenerator import published_feeds
+# from django.utils.feedgenerator import LatestEntriesFeed
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,7 +34,15 @@ urlpatterns = [
 
     url(r'^$', load_posts, name='home'),
 
-
     url(r'^p/(?P<slug>[\w-]+)/*$', PostDetail.as_view(), name='post_detail'),
 
+    # url(r'^feed/$', LatestEntriesFeed()),
+    # url(r'^feeds/$', 'django.contrib.syndication.views.Feed', {'feed_dict': published_feeds}, 'view_name'),
+
 ] # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += patterns(
+    '',
+    url(r'^feed/', LatestEntriesFeed()),
+    # url(r'^feed/$', LatestEntriesFeed()),
+)

@@ -11,6 +11,44 @@ import random
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.conf import settings
 
+from django.contrib.syndication.views import Feed
+from django.core.urlresolvers import reverse
+
+from django.utils.feedgenerator import Rss201rev2Feed
+
+
+class CorrectMimeTypeFeed(Rss201rev2Feed):
+    mime_type = 'application/xml'
+
+
+class LatestEntriesFeed(Feed):
+    # feed_type = CorrectMimeTypeFeed
+    title = "StartupDen.ru"
+    link = "/"
+    # description = "Updates on changes and additions to police beat central."
+
+    def items(self):
+        return Post.objects.all()[:20]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.text_entry
+
+    # item_link is only needed if NewsItem has no get_absolute_url method.
+    def item_link(self, item):
+        return reverse('post_detail', args=[item.slug])
+
+"""
+    item_enclosure_mime_type = "image/jpeg"
+
+    def item_enclosure_url(self, item):    
+        return settings.MEDIA_URL + item.image.url
+"""
+
+# published_feeds = {'mlist': LatestEntriesFeed}
+
 
 class PostList(ListView):
     model = Post
