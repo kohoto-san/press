@@ -28,7 +28,7 @@ class LatestEntriesFeed(Feed):
     # description = "Updates on changes and additions to police beat central."
 
     def items(self):
-        return Post.objects.all()[:20]
+        return Post.objects.all().order_by('-id_post')[:20]
 
     def item_title(self, item):
         return item.title
