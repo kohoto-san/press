@@ -11,7 +11,13 @@ import os
 
 class Image(models.Model):
 
-    image = models.ImageField(upload_to="images/%Y/%m/%d/")
+    def get_upload_path(instance, filename):
+        date_path = datetime.datetime.now()
+        token = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(16))
+        
+        return os.path.join('images', str(date_path.year), str(date_path.month), str(date_path.day), token + str(instance.id) + filename[-6:])
+
+    image = models.ImageField(upload_to=get_upload_path)
 
     class Meta:
         verbose_name = "Image"
