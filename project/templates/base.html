@@ -160,6 +160,15 @@
 
         });
 
+        $(document).ready(function() {
+
+            if( $(window).width() <= 370){
+                $('#navbar').removeClass('valign-wrapper');
+                $('#navbar').find('.valign').removeClass('valign');
+            }
+
+        });
+
     </script>
 
     <script type="text/javascript">
