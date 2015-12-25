@@ -1,0 +1,19 @@
+{% for post in object_list %}
+
+    <div class="card-post-disabled card-post col l6 m12 s12 {% cycle '' 'offset-l6' %}">
+        <a href="{% url 'post_detail' post.slug %}" class="item-card card medium hoverable">
+                
+            <div class="card-image">
+            	<img src="{{post.image.url}}">
+            	<span class="card-title">{{post.title}}</span>
+            </div>
+                
+            <div class="card-content">
+                <p>{{post.text_entry}}</p>
+            </div>
+
+        </a>
+    </div>
+
+
+{% endfor %}

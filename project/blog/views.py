@@ -3,18 +3,23 @@ from django.shortcuts import render, render_to_response
 from django.views.generic import ListView, CreateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from blog.models import Post
+from blog.models import Post, Typo, SubscribeEmail
 
 import json
 import random
 
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.conf import settings
 
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 
 from django.utils.feedgenerator import Rss201rev2Feed
+from django.template.loader import render_to_string
+
+from django.http import Http404  
+
+from blog.forms import SubscribeEmailForm
 
 
 class CorrectMimeTypeFeed(Rss201rev2Feed):
@@ -42,7 +47,7 @@ class LatestEntriesFeed(Feed):
 
     item_enclosure_mime_type = "image/jpeg"
 
-    def item_enclosure_url(self, item):    
+    def item_enclosure_url(self, item):
         return 'http://startupden.ru' + item.image.url
 
     def item_pubdate(self, item):
@@ -61,10 +66,32 @@ class PostList(ListView):
         return qs.order_by('-id')[:10]
 
 
-def load_posts(request):
+def load_home(request):
+    post_list_home = Post.objects.all().order_by('-id_post')
+    # print('load_home')
+    return load_posts(request, post_list_home, 'home')
 
-    post_list = Post.objects.all().order_by('-id_post')
-    paginator = Paginator(post_list, 5)
+
+def load_news(request):
+    post_list_news = Post.objects.filter(category__text="News").order_by('-id_post')
+    # print('load_news')
+    return load_posts(request, post_list_news, 'news')
+
+
+def load_articles(request):
+    post_list_art = Post.objects.exclude(category__text="News").order_by('-id_post')
+    # print('load_articles')
+    return load_posts(request, post_list_art, 'articles')
+
+
+def load_posts(request, post_list, type_page):
+
+    feat_posts_count = Post.objects.exclude(category__text="News").values_list('pk', flat=True)
+    feat_posts_id = random.sample(list(feat_posts_count), 4)
+
+    feat_posts = Post.objects.filter(pk__in=[pk_post for pk_post in feat_posts_id])
+
+    paginator = Paginator(post_list, 10)
 
     if request.method == 'GET':
         if request.is_ajax():
@@ -82,38 +109,91 @@ def load_posts(request):
                 # posts_paginator = paginator.page(paginator.num_pages)
                 return HttpResponseBadRequest()
 
+            # posts_values = posts_paginator.object_list.values('slug', 'category', 'title', 'text_entry', 'image')
 
-            posts_values = posts_paginator.object_list.values('slug', 'category', 'title', 'text_entry', 'image')
+            # for value in posts_values:
+            #   value['image'] = settings.MEDIA_URL + value['image']
 
-            for value in posts_values:
-                value['image'] = settings.MEDIA_URL + value['image']
+            # posts_json = json.dumps(list(posts_values))
 
-            posts_json = json.dumps(list(posts_values))
+            context = {'object_list': posts_paginator.object_list}
+            html = render_to_string('card-posts-ajax.html', context)
+            return HttpResponse(html)
 
-            return HttpResponse(posts_json)
+            # return HttpResponse(posts_json)
 
         else:
-            return render_to_response('index-new.html', {"object_list": paginator.page(1).object_list})
+            form = SubscribeEmailForm(label_suffix='')
+            if type_page != "articles":
+                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form})
+            else:
+                return render_to_response('index-posts.html', {'feat_posts': feat_posts, 'form': form})
+
+            # return render_to_response('index-new.html', {"object_list": paginator.page(1).object_list})
+
+    post_list = None
 
 
+def email_create(request):
 
-def recommendedPosts():
-    posts = Post.objects.all().order_by('-views_count')[:100]
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = SubscribeEmailForm(request.POST)
 
-    last = Post.objects.count() - 1
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            p = SubscribeEmail.objects.create(email=form.cleaned_data['email'])
+            p.save()
+            return HttpResponse('valid')
+        else:
+            if request.is_ajax():
+                # Prepare JSON for parsing
+                errors_dict = {}
+                if form.errors:
+                    for error in form.errors:
+                        e = form.errors[error]
+                        errors_dict[error] = e
+                        # errors_dict[error] = unicode(e)
 
-    def generate():
-        index1 = random.randint(0, last)
-        index2 = random.randint(0, last)
-        index3 = random.randint(0, last)
-        index4 = random.randint(0, last)
+                print(form.errors)
+                return HttpResponseBadRequest(json.dumps(errors_dict))
+
+            # return HttpResponse('NO valid')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        return HttpResponseRedirect('/')
+        # form = PersonForm()
 
 
-    # if index2 == index1: index2 = last
+def typo_send(request):
 
-    MyObj1 = Post.objects.all()[index1]
-    MyObj2 = Post.objects.all()[index2]
+    if request.method == 'POST' and request.is_ajax():
+        id_post = request.POST['pk']
+        text = request.POST['text']
 
+        try:
+            post = Post.objects.filter(id=id_post)[0]
+            Typo.objects.create(post=post, text=text)
+            return HttpResponse('sent')
+        except IndexError:
+            return HttpResponse('no_sent')
+
+    else:
+        return HttpResponseRedirect('/')
+
+
+"""
+        obj, created = ThreadCommentsLike.objects.get_or_create(comment = comment, user = request.user)
+
+        if created == True:
+            comment.comment_likes += 1
+            comment.save()
+            return HttpResponse('liked')
+        else:
+            return HttpResponse('no_liked')
+"""
 
 
 class PostDetail(DetailView):
@@ -123,6 +203,7 @@ class PostDetail(DetailView):
     def get_object(self):
 
         object = super(PostDetail, self).get_object()
+
         object.views_count += 1
         object.save()
 
@@ -167,3 +248,21 @@ class PostDetail(DetailView):
 
         return context
 """
+
+
+def recommendedPosts():
+    posts = Post.objects.all().order_by('-views_count')[:100]
+
+    last = Post.objects.count() - 1
+
+    def generate():
+        index1 = random.randint(0, last)
+        index2 = random.randint(0, last)
+        index3 = random.randint(0, last)
+        index4 = random.randint(0, last)
+
+
+    # if index2 == index1: index2 = last
+
+    MyObj1 = Post.objects.all()[index1]
+    MyObj2 = Post.objects.all()[index2]

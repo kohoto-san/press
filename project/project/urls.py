@@ -17,10 +17,14 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
 
-from blog.views import PostList, PostDetail, load_posts, LatestEntriesFeed
+from blog.views import PostDetail, LatestEntriesFeed, typo_send, email_create
+from blog import views
+
 
 from django.conf import settings
 from django.conf.urls.static import static
+
+from os import environ
 
 # from project.feeds import LatestEntriesFeed
 # from django.utils.feedgenerator import published_feeds
@@ -31,18 +35,30 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # url(r'^$', PostList.as_view(), name='home'),
+    # url(r'^$', load_posts, name='home'),
 
-    url(r'^$', load_posts, name='home'),
+    url(r'^$', views.load_home, name='home'),
+    url(r'^news/', views.load_news, name='news'),
+    url(r'^articles/', views.load_articles, name='articles'),
+
+    url(r'^form/', email_create, name='email_create'),
+
 
     url(r'^p/(?P<slug>[\w-]+)/*$', PostDetail.as_view(), name='post_detail'),
+
+    url(r'^typo/', typo_send, name='typo_send'),
+
 
     # url(r'^feed/$', LatestEntriesFeed()),
     # url(r'^feeds/$', 'django.contrib.syndication.views.Feed', {'feed_dict': published_feeds}, 'view_name'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 urlpatterns += patterns(
     '',
     url(r'^feed/', LatestEntriesFeed()),
     # url(r'^feed/$', LatestEntriesFeed()),
 )
+
+if environ['DEBUG_BOOL']:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

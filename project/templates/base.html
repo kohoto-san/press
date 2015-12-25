@@ -25,6 +25,8 @@
 
     <meta name="google-site-verification" content="3HhTi39ub5M-usRj3mNKFquB9YORXhiT0TiKEXTui3c" />
 
+    <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
+
 {% endblock head %}
 
 
@@ -70,7 +72,7 @@
 
 
     {% block footer %}
-    <div class="row blue-grey lighten-3" style="border-top: 1px solid #e5e5e5;">
+    <div id="footer" class="row blue-grey lighten-3" style="border-top: 1px solid #e5e5e5; position: relative;">
         <div class="col l6 offset-l3 m10 offset-m1">
             <p style="margin: 40px 0 20px;"> StartupDen — проект о русскоязычной сфере IT и людях, которые за ней стоят. Мы пишем про стартапы, приложения, интернет вещей, венчурный капитал, игры и социальные сети. </p>
 
@@ -159,6 +161,35 @@
         });
 
     </script>
+
+    <script type="text/javascript">
+    VK.Widgets.Group("vk_groups", {mode: 0, width: "280", height: "250"}, 109938079);
+</script>
+
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));</script>
 
 
     <script>

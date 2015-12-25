@@ -1,77 +1,291 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    {{block.super}}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+{% endblock head %}
+
+
+{% block navbar %}
+
+    <div id="navbar" class="row valign-wrapper" style="position: relative;">
+        
+        <div class="valign col m2 s12 navbar-title">
+            <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
+        </div>
+
+        <div class="center valign col l8 hide-on-med-and-down" style="font-size: 18px; color: #000;">
+            <a href="/news" style="margin-right: 40px;">Новости</a>
+            <a href="/articles" style="margin-right: 40px;">Статьи</a>
+        </div>
+            
+        <div class="valign share-btns col l2 m5 offset-m5 s12 right-align">
+            <a class="vk popup" href="https://vk.com/startupden" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
+            <a class="twitter popup" href="https://twitter.com/startupden_ru" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
+            <a class="facebook popup" href="https://www.facebook.com/startupden.ru" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
+        </div>
+
+    </div>
+
+{% endblock navbar %}
+
 
 
 {% block content %}
     
+<div style="background-color: #f0f1f5;">
 
-    <div class="row" style="padding: 20px; background-color: #f0f1f5;">
-    <div style="position: relative;" id="content-posts">
-        
-        {% for post in object_list %}
-            
-            <div class="col l6 offset-l3 m10 offset-m1">
-                <!--
-                <a href="card-tag" class="card-tag">World Press</a>
-                -->
+    <div class="row" style="padding: 20px;">
+    	
+    	{% block feature_posts %}
 
-                <a href="{% url 'post_detail' post.slug %}" class="item-card card medium hoverable">
-                
-                    <div class="card-image">
-                        <!--
-                        http://materializecss.com/images/sample-1.jpg
-                        -->
+    	<div style="margin-bottom: 20px;" class="row">
+    	<h4>Рекомендуем</h4>
+    	{% for post in feat_posts %}
+    		
+    			<div class="col l3 m6 s12">
+        			<a href="{% url 'post_detail' post.slug %}" class="feature-card card medium hoverable">
 
-                        <img src="{{post.image.url}}">
-                        <span class="card-title">{{post.title}}</span>
-                    </div>
-                
-                    <div class="card-content">
-                        <p>{{post.text_entry}}</p>
-                    </div>
+        				<div class="card-content" style="z-index: 100; background-color: #fff; position: absolute; right: 0; left: 0; bottom: 0;">
+            				<span class="card-title" style="color: #000;">{{post.title}}</span>
+            				
+            				<!--
+            				<HR>
+            				<div class="feature-card-text">
+                				<p>{{post.text_entry}}</p>
+                			</div>
+                			-->
 
-                </a> <!-- /.card -->
-            </div>
+            			</div>
 
-        {% endfor %}
+            			<div class="card-image">
+            				<img src="{{post.image.url}}">
+            				<!--
+            				<span class="card-title">{{post.title}}</span>
+            				-->
+            			</div>
 
-    </div>    	
+        			</a>
+    			</div>
+
+    	{% endfor %}
+    	</div>
+    	<hr>
+
+    	{% endblock feature_posts %}
+
+    	<div style="position: relative; margin-bottom: 20px; margin-top: 30px;" class="col l9 s12">
+
+    		<div class="row" id="content-posts-wrapper"></div>
+
+    		<!--
+    		<div class="preloader-wrapper active align-center" style="margin: auto;">
+    			<div class="spinner-layer spinner-red-only">
+      				<div class="circle-clipper left">
+        				<div class="circle"></div>
+      				</div><div class="gap-patch">
+        				<div class="circle"></div>
+      				</div><div class="circle-clipper right">
+        				<div class="circle"></div>
+      				</div>
+    			</div>
+  			</div>
+  			-->
+
+    	</div>
+
+    	<div id="sidebar-share" class="col s3" style="margin-top: 40px; right: 0;">
+    		<div class="row">
+    			<div class="col s12" style="padding: 0; margin-bottom: 10px;">
+    			  	<ul class="tabs">
+    			    	<li class="tab col s3"><a href="#vk" class="active">Вконтакте</a></li>
+    			    	<li class="tab col s3"><a href="#fb">Facebook</a></li>
+    			    	<li class="tab col s3"><a href="#tw">Twitter</a></li>
+    			  	</ul>
+    			</div>
+
+    		
+    			<div id="vk" class="col s12" style="height: 250px;"><div id="vk_groups"></div></div>
+    			<div id="fb" class="col s12">
+    				
+    				<div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+    					<div class="fb-xfbml-parse-ignore">
+    						<blockquote cite="https://www.facebook.com/startupden.ru/">
+    							<a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
+    						</blockquote>
+    					</div>
+    				</div>
+
+    			</div>
+    			<div id="tw" class="col s12">
+
+    				<div class="card indigo lighten-3">
+            			
+            			<div class="card-content white-text">
+              				<p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
+
+              				<a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
+								Follow @startupden_ru
+							</a>
+
+            			</div>
+            				
+          			</div>
+    				
+    				
+
+    			</div>
+    		</div>
+
+    		<div class="row" style="margin-top: 20px;">
+        			<div class="col s12">
+          				<a href="mailto:touch@startupden.ru" class="write-us card hoverable blue-grey lighten-1">
+            				<div class="card-content white-text">
+            				  	<span class="card-title center-text">Напишите нам!</span>
+              					<p>Хотите рассказать о вашем проекте или поделиться свои опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
+            				</div>
+
+            				<div class="write-us-action card-action center-align blue-grey darken-1">
+              					<span style="color: #fff;">Написать</span>
+				            </div>
+            				
+          				</a>
+        			</div>
+        	</div> <!-- /.write-us -->
+
+
+    		{% comment %}
+    		<!-- /subscribe-form -->
+    		<div class="row" style="margin-top: 20px;">
+        			<div class="col s12">
+          				<div class="card blue-grey darken-1">
+            				<div class="card-content white-text">
+            				  	<span class="card-title center-text">Подпишись!</span>
+              					<p>Наша еженедельная рассылка лучших материалов.</p>
+
+              					<form class="col s12" id="form" action="/form/" method="post">
+            					{% csrf_token %}
+              					
+              					{% for field in form %}
+                        			<div id="email-form" class="input-field">
+                            			{{ field.errors }}
+                            			{{ field }}
+                            			{{ field.label_tag }}
+                        			</div>
+                    			{% endfor %}
+
+                        		<button style="width: 100%;margin-bottom: 20px;" type="submit" value="Create" class="waves-effect waves-light btn">Submit</button>
+
+								<!--
+              						<div class="input-field col s12">
+      									<input value="" id="first_name2" type="text" class="validate">
+      									<label id="email-form" for="first_name2">Email адрес</label>
+    								</div>
+    							-->
+
+    							</form>
+
+            				</div>
+            				
+          				</div>
+        			</div>
+        	</div> <!-- /.subscribe-form -->
+    		{% endcomment %}
+
+    	</div> <!-- /.sidebar-share -->
 
 
     	<div class="col l4 offset-l4 s12 center-align" id="load_posts">
-			<a class="center-align waves-effect waves-light btn" style="margin: auto;">Загрузить еще</a>
+			<a class="center-align waves-effect waves-light btn" style="margin: auto; margin-bottom: 20px;">Загрузить еще</a>
        	</div>
 
     </div> <!-- /.row -->
 
-
+</div>
 
 
     <style type="text/css">
 
-    	.card.medium .card-image {
-    		height: auto;
-		}
+    	.write-us:hover .write-us-action{
+    		opacity: 0.8;
+    	}
 
-        .row .col {
-            /* 
-            position: absolute;
-        	*/
-        	margin-bottom: 20px;
+
+
+    	#email-form label.active {
+    		display: none;
+    	}
+
+
+    	.tabs .tab a{
+			font-size: 14px;
+    	}
+
+
+        .feature-card.medium .card-content {
+            height: auto;
+            padding-bottom: 10px;
         }
 
+        .feature-card.medium {
+            height: 200px;
+            margin-bottom: 40px;
+        }
 
+        .feature-card.medium .card-image {
+    		height: auto;
+    		position: absolute;
+    		left: 0;
+    		right: 0;
+    		top: 0;
+    		bottom: 0;
+		}
+
+    	.feature-card.medium .card-content .feature-card-text{
+    		position: relative;
+ 			height: 7em; /* 3.6em exactly three lines */
+ 			overflow: hidden;
+ 			padding-top: 0;
+    	}
+
+		.feature-card .card-content .feature-card-text:after {
+  			content: "";
+  			text-align: right;
+  			position: absolute;
+  			bottom: 0;
+  			right: 0;
+  			width: 70%;
+  			height: 1.2em;
+  			background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+		}
+
+		.feature-card .card-content .card-title {
+			line-height: 20px;
+			font-size: 20px;
+		}
 
         .card.small .card-action, .card.medium .card-action, .card.large .card-action {
             position: relative;            
         }
 
-        .card.medium .card-content {
+        .item-card{
+            display: block;
+        }
+
+        .item-card.medium .card-content {
             height: auto;
         }
 
-        .card.medium {
+        .item-card.medium {
             height: auto;
         }
+
+        .item-card.medium .card-image {
+    		height: auto;
+		}
+
+
 
         .card-image{
             background-color: #000;
@@ -111,12 +325,6 @@
             color: #000;
         }
 
-        .item-card{
-            display: block;
-        }
-
-
-
         @media (max-width: 370px){
             
             .card .card-title {
@@ -125,88 +333,204 @@
             
         }
 
+        .card-post-disabled{
+        	display: none;
+        }
+
+        #content-posts{
+        	opacity: 0;
+        }
+
     </style>
 
 
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+  		});
+
+
+
+    $( window ).load(function() {
+
+		$('#test-img11').each(function() {
+
+			var maxWidth = 100; // Max width for the image
+        	var maxHeight = 100;    // Max height for the image
+        	var ratio = 0;  // Used for aspect ratio
+        	var width = $(this).width();    // Current image width
+        	var height = $(this).height();  // Current image height
+
+        	// Check if the current width is larger than the max
+        	if(width > maxWidth){
+        	    ratio = maxWidth / width;   // get ratio for scaling image
+        	    $(this).css("width", maxWidth); // Set new width
+        	    $(this).css("height", height * ratio);  // Scale height based on ratio
+        	}
+        	else{
+        		// Check if current height is larger than max
+        		if(height > maxHeight){
+        		    ratio = maxHeight / height; // get ratio for scaling image
+        		    $(this).css("height", maxHeight);   // Set new height
+        		    $(this).css("width", width * ratio);    // Scale width based on ratio
+        		}
+        	}
+
+        	
+
+		});
+
+	});
+
+	</script>
+
+    <script src="http://malsup.github.com/jquery.form.js"></script> 
+
     <script type="text/javascript">
 
-/*
-    	data = JSON.parse("{{posts_json}}".replace(/&quot;/g,'"'));
+    	// wait for the DOM to be loaded 
+        $(document).ready(function() { 
+            
+    		{% comment %}
 
-    	alert("{{posts_json}}".replace(/&quot;/g,'"'));
-    	alert(data[0]['title']);
-*/
+            // prepare Options Object for plugin
+            var options = {
+                success: function(data) {
+                    Materialize.toast("Thank you!", 5000);
+                },
+                error:  function(resp) {
+                    //$("#form_ajax_error").show();
 
-/*
-        $('#load_posts').click(function(){
+                    // render errors in form fields
+                    var errors = JSON.parse(resp.responseText);
+                    for (error in errors) {
+                        var id = 'label[for=id_' + error + ']';
+                        
+                        $(id).attr('data-error', '');
+                        $(id).addClass('active');
+                        $(id).siblings().addClass('invalid');
+                    }
 
-    		$.get('/', {page: page}, function(data){
+                    Materialize.toast("Error", 5000);
 
-    			page += 1;
+                    /*
+                    setTimeout(function() {
+                        $("#form_ajax_error").hide();
+                    }, 5000);
+                    */
+                }
+            };
 
-        	    data = JSON.parse(data);
+            $('#form').ajaxForm(options);
 
-        	    for (var i = 0; i < data.length; i++) {
-        	    	data[i]
+    		{% endcomment %}
 
-        	    	{% comment %}
-        	    		
-        	    	//post_html = "<div class='col s6 offset-s3'><a href=" + {% url 'post_detail' post.slug %} + "class='item-card card medium hoverable'><div class='card-image'><img src=" + {{post.image.url}} + "><span class='card-title'>" + {{post.title}} + "</span></div> <div class='card-content'><p>" + {{post.text_entry}} "</p></div></a></div>";
 
-        	    	{% endcomment %}
-        	    	
-        	    	var post_url = "{% url 'post_detail' 'slug' %}".replace(/slug/, data[i]['slug'].toString());
+        });
 
-        	    	post_html = "<div class='col s6 offset-s3'><a href=" + post_url + " class='item-card card medium hoverable'><div class='card-image'><img src=" + data[i]['image'] + "><span class='card-title'>" + data[i]['title'] + "</span></div> <div class='card-content'><p>" + data[i]['text_entry'] + "</p></div></a></div>";
+		$( window ).load(function() {
+        	loadPosts();
+    	});
 
-        	    	$('#content-posts').append(post_html);
-        	    };
+    	
+    	function posCards(){
+
+    		// ??? ?? ?????? ??? ????
+        	var columns = 2;
+        	var last_height = 0;
+
+        	$('.card-post').each(function( index ) {
+
+            	// 0, 1
+            	if(index >= columns){
+                	var height = $('.card-post:eq(' + (index-2) + ')').height();
+                	var top = $('.card-post:eq(' + (index-2) + ')').css('top');
+                
+                	if(top != "auto"){
+                	    var current_height = height + parseInt(top);
+                	}
+                	else{
+                	    var current_height = height;
+                	}
+
+                	$(this).css('top', current_height);
+
+					if(current_height > last_height){
+						var body_height = current_height + $(this).height();
+					}
+					else{
+						var body_height = last_height + $(this).height();
+					}
+
+                	$('#content-posts-wrapper:parent').css('height', body_height);
+
+                	last_height = current_height; 
+            	}
+
+            	$(this).removeClass('card-post-disabled');
 
         	});
 
-        });
-*/
+        	if(page == 2){
+        		var offset = $('#footer').offset().top - $('#sidebar-share').height() - 80;
+    			$('#sidebar-share').pushpin({ top: $('#content-posts-wrapper').offset().top + 50, 'bottom': offset });
+    		}
 
-		var page = 2;
+    		$('.preloader-wrapper').css('display', 'none');
+    		$('#content-posts').css('opacity', '1');
+
+			$content_posts = $('#content-posts');
+			$content_posts.replaceWith($content_posts.html());    		
+    	}
+
+
+		var page = 1;
 
         $('#load_posts').click(function(){
-        if( $(this).find('a').hasClass("disabled") == false){
+        	loadPosts();
+        });
 
-    		$.get( '/', {page: page} )
+
+        function loadPosts(){
+        	
+        	if( $(this).find('a').hasClass("disabled") == false){
+
+    			$.get( window.location.href, {page: page} )
     			
-    			.done(function( data ) {
+    				.done(function( data ) {
 
-    				page += 1;
+    					$('.preloader-wrapper').css('display', 'block');
 
-    				//alert(data);
+    					$content_html = $("<div id='content-posts'></div>");
+    					$('#content-posts-wrapper').append($content_html);
 
-        	    	data = JSON.parse(data);
+    					$('#content-posts').append(data);
+						
+    					if( $(window).width() > 992 ){
+							setTimeout(posCards, 2000);
+    					}
+    					else{
+    						$('.preloader-wrapper').css('display', 'none');
 
-        	    	for (var i = 0; i < data.length; i++) {
-        	    		data[i]
+    						$content_posts = $('#content-posts');
+							$content_posts.replaceWith($content_posts.html());
+    					
+            				$('.card-post-disabled').removeClass('card-post-disabled');
+    					}
 
-        	    		{% comment %}
-        	    		
-        	    		//post_html = "<div class='col s6 offset-s3'><a href=" + {% url 'post_detail' post.slug %} + "class='item-card card medium hoverable'><div class='card-image'><img src=" + {{post.image.url}} + "><span class='card-title'>" + {{post.title}} + "</span></div> <div class='card-content'><p>" + {{post.text_entry}} "</p></div></a></div>";
+    					page += 1;
 
-        	    		{% endcomment %}
-        	    	
-        	    		var post_url = "{% url 'post_detail' 'slug' %}".replace(/slug/, data[i]['slug'].toString());
-
-        	    		post_html = "<div class='col l6 offset-l3 m10 offset-m1'><a href=" + post_url + " class='item-card card medium hoverable'><div class='card-image'><img src=" + data[i]['image'] + "><span class='card-title'>" + data[i]['title'] + "</span></div> <div class='card-content'><p>" + data[i]['text_entry'] + "</p></div></a></div>";
-
-        	    		$('#content-posts').append(post_html);
-        	    	}; // for
-
-  				}) // done
+  					}) // done
   				
-  				.fail(function() {
-    				$('#load_posts').prepend('<p>Упс...Кажется все посты уже загружены.</p>')
-    				$('#load_posts a').addClass('disabled');
-  				}); // fail
+  					.fail(function() {
+    					$('#load_posts').prepend('<p>Упс...Кажется все посты уже загружены.</p>')
+    					$('#load_posts a').addClass('disabled');
+  					}); // fail
 
   			}    // hasClass
-        	}); // click
+
+        } // function loadPosts
 			
 
 
