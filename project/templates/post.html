@@ -305,10 +305,7 @@
                 $('#post-content').parent().css('position', 'relative');
             }
             else{
-
-                $('#feature-wrapper').css('margin-top', $('#sidebar-share').height());
-
-                //alert($('#post-content-text').height() + '  --  ' + $('#sidebar-share').height());
+                $('#post-content-text').css('height', $('#sidebar-share').height());
             }
 
             var height = $(window).height() - 64;
