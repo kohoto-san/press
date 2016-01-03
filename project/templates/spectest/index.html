@@ -1,0 +1,106 @@
+{% extends "spectest/base.html" %}
+
+{% block content %}
+
+        <div class="row" style="background-color: #f0f1f5; padding-top: 50px;">
+            
+            <div class="container">
+                <div class="row z-depth-3" style="background-color: #fff; margin-bottom: 50px;">
+                    <h4 class="center-align" style="padding-top: 40px;">Какой из тебя стртапер?</h4>
+
+                    <div id="question-content">
+
+                        <div class="col s8 offset-s2">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla arcu libero, tincidunt sed dui vel, posuere volutpat leo. Pellentesque eu magna at leo rhoncus maximus. Aliquam odio dui, luctus vitae condimentum quis, lobortis egestas ante. Mauris sed euismod nunc. Pellentesque eleifend tempor leo a cursus. Sed eu mattis nunc. Mauris pharetra leo elit, nec ullamcorper ligula venenatis ac. Pellentesque auctor felis mattis, maximus ante quis, gravida felis. Duis tellus dolor, lobortis et faucibus elementum, fringilla sed nisl. Nullam posuere sem non sollicitudin pharetra. Integer a pellentesque risus.</p>
+
+                            <p>Ut viverra mauris sit amet ipsum dignissim volutpat a eget tortor. Fusce vulputate elit nec massa dictum, tincidunt euismod risus sagittis. Duis sit amet consequat elit, vel aliquam tellus. Ut luctus egestas facilisis. Donec bibendum efficitur nisi, id tincidunt lacus semper sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod scelerisque dolor.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col s4 offset-s4">
+                        <div id="apply" class="center-align waves-effect waves-light btn" style="display: block; cursor: pointer; margin-top: 50px; margin-bottom: 50px;">Начать тест</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    <script type="text/javascript">
+
+        $( window ).load(function() {
+            //loadQuestion();
+        });
+
+        var answers_arr = [];
+        var question = 0;
+        var count_questions = {{count_questions}};
+
+        $('#apply').click(function(){
+
+
+            if(question > 0){
+                var answer_id = $('#question-content input:checked').data("id");
+                answers_arr.push(answer_id);
+            }
+
+            if(question == count_questions){
+                getResult()
+            }
+            else{
+                loadQuestion();
+            }
+
+        });
+
+
+        function loadQuestion(){
+
+                $.get( window.location.href, {q: question} )
+                
+                    .done(function( data ) {
+
+                        if(question == 0){
+                            $('#apply').text('Подтвердить');
+                        }
+
+                        $('#question-content').html(data);
+                        question += 1;
+
+                    }) // done
+                
+                    .fail(function() {
+                        // $('#load_posts').prepend('<p>Упс...Кажется все посты уже загружены.</p>')
+                        // $('#load_posts a').addClass('disabled');
+                    }); // fail
+
+
+        } // function loadPosts
+
+        function getResult(){
+            answers_str = answers_arr.toString();
+            
+            $.get( "{% url 'result_calc' %}", {answers: answers_str} )
+                
+                .done(function( data ) {
+
+                    alert(data);
+                    //window.location.href = "{% url 'home' %}" + data;
+
+                }) // done
+                
+                .fail(function() {
+                    
+                }); // fail
+
+        }
+
+
+
+    </script>
+
+{% endblock content %}

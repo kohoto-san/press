@@ -1,0 +1,16 @@
+
+                <div class="col s8 offset-s2">
+                	<h5>{{question.text}}</h5>
+                </div>
+
+                <div class="col s8 offset-s1">
+                    <form action="#">
+                        {% for answer in answers %}
+                            <p>
+                                <input name="group1" type="radio" id="answer-{{answer.id}}" data-id="{{answer.id}}" />
+                                <label for="answer-{{answer.id}}">{{answer.text}}</label>
+                            </p>
+                        {% endfor %}
+  					</form>
+                </div>
+

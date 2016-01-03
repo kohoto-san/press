@@ -25,7 +25,7 @@
 
         .pinned {
             position: fixed !important;
-            margin-top: 100px;
+            margin-top: 75px;
             right: 15px;
         }
 
@@ -34,8 +34,12 @@
             right: 15px;
         }
 
-        .popup img:hover{
+        #navbar .popup img:hover{
             opacity: 0.4;
+        }
+
+        .quiz-share img:hover{
+            opacity: 0.6;
         }
 
         .card{
@@ -100,6 +104,11 @@
         	}
         }
 
+        #sidebar-share{
+            width: 325px;
+            width: 305px;
+        }
+
         .card-post{
     		position: absolute;
         	margin-bottom: 20px;
@@ -113,3 +122,17 @@
         		opacity: 1;
         	}
     	}
+
+        #footer{
+            border-top: 1px solid #e5e5e5;
+            /*
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            */
+        }
+
+        .post-content-meta{
+            position: relative;
+        }

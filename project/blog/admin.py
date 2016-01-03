@@ -7,6 +7,7 @@ from blog.models import Post, Author, Category, ImageSingle, Typo, SubscribeEmai
 import PIL
 from PIL import Image
 
+
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 

@@ -19,7 +19,8 @@ from django.contrib import admin
 
 from blog.views import PostDetail, LatestEntriesFeed, typo_send, email_create
 from blog import views
-
+from spectest import urls as spectest_urls
+from quiz import urls as quiz_urls
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -47,6 +48,11 @@ urlpatterns = [
     url(r'^p/(?P<slug>[\w-]+)/*$', PostDetail.as_view(), name='post_detail'),
 
     url(r'^typo/', typo_send, name='typo_send'),
+
+
+    # url(r'^special/', include(spectest_urls)),
+    # url(r'^quiz/', include(quiz_urls)),
+
 
 
     # url(r'^feed/$', LatestEntriesFeed()),

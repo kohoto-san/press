@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+	
+	<div class="row" style="background-color: #f0f1f5; padding-top: 50px;">
+            
+            <div class="container">
+                <div class="row z-depth-3" style="background-color: #fff; margin-bottom: 50px; padding-top: 30px; height: 400px;">
+
+                    <div id="quiz-content">
+
+                    	<div class="col s3 center-align">
+                    		<h5>Очки: <span id="score">0</span></h5>
+                    	</div>
+
+                    	<div class="progress" style="height: 20px; width: 480px; margin: auto; float: left;">
+      						<div id="timebar" class="determinate" style="width: 240px;"></div>
+  						</div>
+
+                    	<div class="col s3 center-align">
+                    		<h5>Уровень: <span id="level">1</span></h5>
+                    	</div>
+
+                		<div class="col s10 offset-s1" style="margin-top: 50px;">
+                			<h5 id="fact-content" class="center-align">Вопрос на засыпку, ёпта</h5>
+                		</div>
+
+                		<div class="col s10 offset-s1" style="margin-top: 100px; margin-bottom: 80px;">
+                		    
+                        	<div class="col s4">
+                        		<div id="company_left" class="company left-align waves-effect waves-light btn-large" style="cursor: pointer;">Начать тест</div>
+                        	</div>
+
+                        	<div class="col s4 center-align">
+                        		<i class="heart fa fa-heart fa-2x"></i>
+                        		<i class="heart fa fa-heart fa-2x"></i>
+                        		<i class="heart fa fa-heart fa-2x"></i>
+                        	</div>
+
+                        	<div class="col s4">
+	                        	<div id="company_right" class="company waves-effect waves-light btn-large" style="cursor: pointer; float: right;">Начать тест</div>
+	                        </div>
+
+
+                		</div> <!-- /quiz-content-footer -->
+                    
+
+                    </div> <!-- /#quiz-content -->
+
+                	<div id="lastchance" style="display: none;" class="col s10 offset-s1 center-align" style="margin-bottom: 50px;">
+	                    
+	                    <h5>Потрачено</h5>
+	                    <p style="margin-bottom: 0;">Позови друзей, чтобы получить ещё один шанс и продолжи игру с набранными очками!</p>
+
+	                    <div class="col s12" style="margin: 40px 0;">
+	                    	<div class="progress" style="height: 20px; width: 480px; margin: auto;">
+      							<div id="lastchance-timebar" class="determinate" style="width: 480px;"></div>
+  							</div>
+  						</div>
+
+	                    <div style="margin-top: 40px;" class="quiz-share">
+	                    	<a class="vk popup" href="http://vk.com/share.php?url=" target="_blank" style="margin-left: 0;"><img style="width: 64px; height: 64px;" src="{% static 'vk_logo.svg' %}"></a>
+            				<a class="twitter popup" href="http://twitter.com/share?text=post.title" target="_blank"><img style="width: 64px; height: 64px;" src="{% static 'twitter_logo.svg' %}"></a>
+            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img style="width: 64px; height: 64px;" src="{% static 'facebook_logo.svg' %}"></a>
+            			</div>
+
+	                    <div class="company waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Да не, я смирился со своей судьбой</div>
+
+
+	                </div> <!-- /#lastchance -->
+
+	                <div id="gameover" style="display: none;" class="center-align">
+                    	<h4 style="padding-top: 40px;">Game Over</h4>
+
+                    	<div class="col s4 offset-s2">
+                    		<h5>Очки: <span id="total-score">0</span></h5>
+                    	</div>
+
+
+                    	<div class="col s4">
+                    		<h5>Уровень: <span id="total-level">1</span></h5>
+                    	</div>
+
+	                </div> <!-- /#gameover -->
+
+                    <div class="col s4 offset-s4">
+                    	<!--
+                        <div id="apply" class="center-align waves-effect waves-light btn" style="display: block; cursor: pointer; margin-top: 50px; margin-bottom: 50px;">Начать тест</div>
+                        -->
+                    </div>
+
+                </div>
+            </div>
+
+    </div>
+
+    <style type="text/css">
+
+    	#lastchance a{
+    		margin-left: 20px;
+    	}
+
+    </style>
+
+    <script>
+    	$(document).ready(function() {
+
+        	$('.popup').click(function(event) {
+            	var width  = 575,
+                	height = 400,
+                	left   = ($(window).width()  - width)  / 2,
+                	top    = ($(window).height() - height) / 2,
+                	opts   = 'status=1' +
+                	         ',width='  + width  +
+                	         ',height=' + height +
+                	         ',top='    + top    +
+                	         ',left='   + left;
+
+            	if( $(this).hasClass('twitter') ){
+            	    var url = this.href;
+            	}
+            	else{
+            	    var url = this.href + window.location.href;
+            	}
+
+            	window.open(url, 'sharing', opts);
+ 
+            	return false;
+        	});
+    	});
+    </script>
+
+
+    <script type="text/javascript">
+
+        $( window ).load(function() {
+            loadFact();
+        });
+
+        //var answers_arr = [];
+        //var question = 0;
+        //var count_questions = {{count_questions}};
+
+        var lifes = 3;
+        var score = 0;
+        var level = 1;
+        var count_answers = 0;
+
+        var width = $('#timebar').parent().width() / 2;
+        var lastchance_width = $('#timebar').parent().width();
+
+        var game_over = false;
+
+        function timer(){
+
+        	if(width > 0){
+        		$('#timebar').css('width', width);
+        		setTimeout(timer, 300);
+        	}
+        	else{
+        		game_over = true;
+        		gameOver();
+        	}
+
+        	width -= 5;
+
+        }
+
+        setTimeout(timer, 1000);
+
+
+        $('.company').click(function(){
+        	factID = $('#fact-content').data('factID');
+        	answer = $(this).text();
+        	sendAnswer(answer, factID);
+        });
+
+        function sendAnswer(answer, factID){
+
+        	$.get( "{% url 'save_answer' %}",  {answer: answer, factID: factID})
+                
+                .done(function( data ) {
+
+                	data_json = jQuery.parseJSON(data)[0];
+					
+					if(data_json['correct'] == 0){
+						
+						game_over = true;
+						gameOver();
+
+						lifes -= 1;
+						$('.fa-heart:first').removeClass('fa-heart').addClass('fa-times');
+
+						if(lifes == 0){
+							game_over = true;
+							gameOver();
+						}
+					}
+					else{
+						width += 50;
+						count_answers += 1;
+						
+						if(count_answers == 5){
+							count_answers = 0;
+							level += 1;
+							$('#level').text(level);
+						}
+
+						score += 2 * level;
+						$('#score').text(score);
+					}
+
+     				enableFact(data_json);
+
+                }) // done
+                
+                .fail(function() {
+                }); // fail
+
+        }
+
+		function lastchanceTimer(){
+
+			if(lastchance_width > 0){
+        		$('#lastchance-timebar').css('width', lastchance_width);
+        		setTimeout(lastchanceTimer, 300);
+        	}
+        	else{
+        		lastchanceEnd();
+        	}
+
+        	lastchance_width -= 10;
+        }
+
+
+        function gameOver(){
+        	$('#quiz-content').hide();
+        	$('#lastchance').show();
+
+        	lastchanceTimer();
+
+        	//setTimeout(function(){ timer( $('#lastchance-timebar') ); }, 1000);
+        }
+
+        function lastchanceEnd () {
+        	$('#total-score').text(score);
+        	$('#total-level').text(level);
+
+        	$('#lastchance').hide();
+        	$('#gameover').show();
+        }
+
+
+        function loadFact(){
+
+            $.get( window.location.href )
+                
+                .done(function( data ) {
+					
+					data_json = jQuery.parseJSON(data)[0];
+     				enableFact(data_json);
+
+                }) // done
+                
+                .fail(function() {
+                }); // fail
+
+        } // function loadPosts
+
+
+        function enableFact(data){
+
+			$('#fact-content').data('factID', data['factID']);
+
+            $('#fact-content').text(data['fact']);
+            $('#company_left').text(data['answer']);
+            $('#company_right').text(data['answer_another']);
+        }
+
+
+    </script>
+
+
+{% endblock content %}
+
+
