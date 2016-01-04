@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 
 from django.views.generic import ListView, CreateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -216,7 +216,19 @@ class PostDetail(DetailView):
 
         posts = Post.objects.all().order_by('-views_count').exclude(id=self.get_object().id)[:100]
 
-        context["recommended_posts"] = random.sample(list(posts), 4)
+        current_post_id = self.get_object().id_post
+
+        next_post = Post.objects.filter(id_post=current_post_id + 1).first()
+        prev_post = Post.objects.filter(id_post=current_post_id - 1).first()
+
+        context["recommended_posts"] = random.sample(list(posts), 8)
+
+        if next_post:
+            context["next_post"] = next_post
+
+        if prev_post:
+            context["prev_post"] = prev_post
+
         return context
 
 

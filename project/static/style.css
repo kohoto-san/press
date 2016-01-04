@@ -1,5 +1,5 @@
 
-.post-cover-title{
+        .post-cover-title{
             font-weight: 600; 
             font-size: 3.5rem;
         }
@@ -11,7 +11,6 @@
             height: 100%;
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 2;
             -moz-background-size: cover;
             -o-background-size: cover;
             -webkit-background-size: cover;
@@ -42,10 +41,6 @@
             opacity: 0.6;
         }
 
-        .card{
-            display: block;
-        }
-
         #navbar{
             height: 64px;
             position: fixed;
@@ -61,6 +56,7 @@
             min-height: 500px;
             background-color: #000;
             margin-top: 64px;
+            z-index: 10;
         }
 
         @media (max-width: 992px){
@@ -104,6 +100,22 @@
         	}
         }
 
+        @media (max-width: 1250px) and (min-width: 993px){
+            #post-content{
+                width: auto;
+                width: 700px;
+            }
+
+            #post-content-text{
+                width: 700px;
+            }
+        }
+
+        #post-content{
+            max-width: 1025px;
+            margin: 0 auto;
+        }
+
         #sidebar-share{
             width: 325px;
             width: 305px;
@@ -136,3 +148,183 @@
         .post-content-meta{
             position: relative;
         }
+
+        .share a{
+            color: #fff;
+            font-weight: 500;
+            padding: 10px;
+        }
+
+        #post-content-text .post-content-share a{
+            display: inline-block;
+            width: 170px;
+            margin-top: 20px;
+        }
+
+        #post-content-text .post-content-share .post-content-share-google{
+            width: 45px;
+        }
+
+        .share a:hover{
+            opacity: 0.8;
+        }
+
+        .share-pages a{
+            display: block;
+            width: 45px;
+            text-align: center;
+        }
+
+        .post-content-share{
+            margin: 20px 0 30px;
+        }
+
+        .post-content-share a{
+            padding: 10px 15px 10px 10px;
+        }
+
+        .post-content-share i{
+            margin-right: 10px;
+            vertical-align: text-top;
+        }
+
+        .post-content-share-facebook{
+            background-color: #3b5998;
+        }
+
+        .post-content-share-vk{
+            background-color: #45668e;
+        }
+
+        .post-content-share-twitter{
+            background-color: #55acee;
+        }
+
+        .post-content-share-google{
+            background-color: #dc4e41;
+            padding: 10px !important;
+        }
+
+        .post-content-share-google i{
+            margin: 0;
+            vertical-align: text-bottom;
+        }
+
+        .post-content-share-rss{
+            background-color: #f26522;
+        }
+
+
+        .feature-card.medium .card-content {
+            height: auto;
+            padding-bottom: 10px;
+        }
+
+        .feature-card.medium {
+            height: 200px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card.medium .card-image {
+            height: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .feature-card.medium .card-content .feature-card-text{
+            position: relative;
+            height: 7em; /* 3.6em exactly three lines */
+            overflow: hidden;
+            padding-top: 0;
+        }
+
+        .feature-card .card-content .feature-card-text:after {
+            content: "";
+            text-align: right;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 70%;
+            height: 1.2em;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+        }
+
+        .feature-card .card-content .card-title {
+            line-height: 20px;
+            font-size: 20px;
+        }
+
+        .write-us{
+            display: block;
+        }
+
+        /*
+        .card{
+            display: block;
+        }
+        */
+
+        .navigation-arrow{
+            display: block;
+
+            position: fixed; 
+            height: 64px; 
+            width: 64px; 
+
+            top: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            color: rgba(0, 0, 0, 0.5);
+
+            background-color: #fff;
+            z-index: 9;
+            overflow: hidden;
+
+            -webkit-transition: all .15s cubic-bezier(.33,.66,.66,1);
+            transition: all .15s cubic-bezier(.33,.66,.66,1);
+        }
+
+        .navigation-arrow-wrapper{
+            width: 270px;
+        }
+
+        .navigation-arrow:hover{
+            width: auto;
+            width: 270px;
+        }
+
+        .navigation-arrow:hover span{
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .navigation-arrow span{
+            color: transparent;
+        }
+
+        .navigation-arrow i{
+            font-size: 64px;
+        }
+
+        .navigation-left{
+            left: 0;
+        }
+
+        .navigation-left span{
+            padding-right: 10px;
+        }
+
+        .navigation-right{
+            right: 0;
+        }
+
+        .navigation-right span{
+            padding-left: 10px;
+        }
+
+        .navigation-right .helper{
+            position: absolute;
+            right: 0;
+        }
+

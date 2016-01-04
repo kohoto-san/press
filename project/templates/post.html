@@ -76,18 +76,55 @@
             </div>
         </div>
 
-
     </div>
 
 
     
     <div class="row" style="margin-top: 30px; margin-bottom: 100px;">                    
-    <div id="post-content" class="post-content-meta" style="max-width: 1025px; margin: 0 auto;">
-                                                                                                                <!-- 750 -->
+    <div id="post-content" class="post-content-meta">
+
+                                                                                                      <!-- 750 -->
         <div id="post-content-text" class="col l9 m10 offset-m1 s12" style="font-size: 1.15rem; max-width: 700px;">
-            {{post.text_entry|safe}}
+            
+            <div class="share post-content-share">
+                <a href="#" class="post-content-share-vk" style="margin-right: 20px;">
+                    <i class="fa fa-vk fa-lg"></i> Поделиться
+                </a>
+
+                <a href="#" class="post-content-share-twitter" style="margin-right: 20px;">
+                    <i class="fa fa-twitter fa-lg"></i> Твитнуть
+                </a>
+
+                <a href="#" class="post-content-share-facebook" style="margin-right: 20px;">
+                    <i class="fa fa-facebook fa-lg"></i> Поделиться
+                </a>
+
+                <a href="#" class="post-content-share-google">
+                    <i class="fa fa-google-plus fa-lg"></i>
+                </a>
+            </div>
+
+            <p>{{post.text_entry|safe}}</p>
             {{post.text|safe}}
             
+            <div class="share post-content-share">
+                <a href="#" class="post-content-share-vk" style="margin-right: 20px;">
+                    <i class="fa fa-vk fa-lg"></i> Поделиться
+                </a>
+
+                <a href="#" class="post-content-share-twitter" style="margin-right: 20px;">
+                    <i class="fa fa-twitter fa-lg"></i> Твитнуть
+                </a>
+
+                <a href="#" class="post-content-share-facebook" style="margin-right: 20px;">
+                    <i class="fa fa-facebook fa-lg"></i> Поделиться
+                </a>
+
+                <a href="#" class="post-content-share-google">
+                    <i class="fa fa-google-plus fa-lg"></i>
+                </a>
+            </div>
+
             <p style="margin-top: 50px;"><i>Заметили опечатку? Выделите ее и нажмите Ctrl+Enter</i></p>
 
         </div> <!-- /post-content-text -->
@@ -179,24 +216,54 @@
             <h4 class="center-align" style=" width: 100%; border-bottom: 2px solid #9A9A9A; line-height: 0.1em; margin: 10px 0 50px;"><span style="background: #fff; padding: 0 10px;">Читайте также</span></h4>
 
             {% for post in recommended_posts %}
-                <div class="col l3 m6 s12">
+                
+                <div class="col l3 m6 s12" style="height: 250px;">
                     <a href="{% url 'post_detail' post.slug %}" class="card hoverable">
                         
                         <div class="card-image">
-                            <img src="/media/{{post.image}}">
+                            <img src="{{post.image.url}}" style="height: 150px;">
                         </div>
 
-                        <div class="card-content">
-                            <p>{{post.title}}</p>
+                        {% comment %}
+                            http://stackoverflow.com/questions/6572330/is-it-possible-to-use-text-overflowellipsis-on-multiline-text
+                        {% endcomment %}
+
+                        <div class="card-content" style="padding: 10px 0; color: #000;">
+                            <p style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{post.title}}</p>
                         </div>
 
                     </a>
-                </div> <!-- /.col s3 -->
+                </div> <!-- /.col s3 --> 
+
             {% endfor %}
 
         </div> <!-- /.col s10 -->
 
     </div> <!-- /.row -->
+
+    <div class="hide-on-med-and-down">
+
+        {% if prev_post %}
+        <a href="{% url 'post_detail' prev_post.slug %}" class="navigation-arrow navigation-left">
+            <div class="valign-wrapper navigation-arrow-wrapper">
+                <i class="material-icons">keyboard_arrow_left</i>
+                <span class="valign">Прошлая публикация</span>
+            </div>
+        </a>
+        {% endif %}
+
+        {% if next_post %}
+        <a href="{% url 'post_detail' next_post.slug %}" class="navigation-arrow navigation-right">
+            <div class="valign-wrapper navigation-arrow-wrapper helper">
+                <span class="valign">Следующая публикация</span>
+                <i class="material-icons" style="margin-left: 15px;">keyboard_arrow_right</i>
+            </div>
+        </a>
+        {% endif %}
+
+    </div>
+
+
 
 {% comment %}    
     <div  id="share-text" style="position: absolute;">
@@ -296,11 +363,11 @@
                 var offset_horizontal = $('#sidebar-share').offset().left - ($('#sidebar-share').width() / 2);
                 var offset_vertical = $('#feature-wrapper').offset().top - $('#sidebar-share').height();
 
-                $('#sidebar-share').pushpin({ top: $('#sidebar-share').offset().top, 'bottom': offset_vertical - 10 });
-
                 var initial_left = $('#sidebar-share').offset().left;
                 $('#sidebar-share').css('left', initial_left);
-            
+
+                $('#sidebar-share').pushpin({ top: $('#sidebar-share').offset().top, 'bottom': offset_vertical - 10 });
+
                 $('#post-content').removeClass('post-content-meta');
                 $('#post-content').parent().css('position', 'relative');
             }

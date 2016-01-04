@@ -75,17 +75,48 @@
 
 
     {% block footer %}
-    <div id="footer" class="row blue-grey lighten-3">
-        <div class="col l6 offset-l3 m10 offset-m1">
-            <p style="margin: 40px 0 20px;"> StartupDen — проект о русскоязычной сфере IT и людях, которые за ней стоят. Мы пишем про стартапы, приложения, интернет вещей, венчурный капитал, игры и социальные сети. </p>
+    <div id="footer" class="row blue-grey lighten-3" style="padding: 30px 0 20px;">
+        
+        <div class="col l6 offset-l1 m10 offset-m1">
+
+            <h5>Контакты</h5>
+
+            <p> StartupDen — проект о русскоязычной сфере IT и людях, которые за ней стоят. Мы пишем про стартапы, приложения, интернет вещей, венчурный капитал, игры и социальные сети. </p>
 
             <p>Если у вас есть новость, вы хотите, чтобы мы о вас написали или вы просто хотите с нами пообщаться, то обращайтесь по адресу <a href="mailto:touch@startupden.ru" style="color: #026697;">touch@startupden.ru</a> </p>
+        </div>
 
-            <!--
-            <p>Заметили опечатку? Выделите ее и нажмите Ctrl+Enter</p>
-            -->
+        <div class="col l3 offset-l1 m6 offset-m3 s12">
+            <div class="share post-content-share">
+                
+                <div class="col l6 m6 s12">
+                    <a href="https://vk.com/startupden" target="_blank" class="popup post-content-share-vk">
+                        <i class="fa fa-vk fa-lg"></i> ВКонтакте
+                    </a>
+                </div>
+                
+                <div class="col l6 m6 s12">
+                    <a href="https://twitter.com/startupden_ru" target="_blank" class="twitter popup post-content-share-twitter">
+                        <i class="fa fa-twitter fa-lg"></i> Твиттер
+                    </a>
+                </div>
+
+                <div class="col l6 m6 s12">
+                    <a href="https://www.facebook.com/startupden.ru/" target="_blank" class="popup post-content-share-facebook">
+                        <i class="fa fa-facebook fa-lg"></i> Фейсбук
+                    </a>
+                </div>
+
+                <div class="col l6 m6 s12">
+                    <a href="/feed" target="_blank" class="popup post-content-share-rss">
+                        <i class="fa fa-rss fa-lg"></i> RSS
+                    </a>
+                </div>
+
+            </div>
 
         </div>
+
     </div>
     {% endblock footer %}
 
@@ -93,6 +124,12 @@
 
 
     <style type="text/css">
+
+        #footer .post-content-share a{
+            display: block;
+            width: 150px;
+            margin-bottom: 20px;
+        }
 
         .row{
             margin-bottom: 0;

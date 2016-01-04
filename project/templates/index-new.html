@@ -13,19 +13,41 @@
 
     <div id="navbar" class="row valign-wrapper" style="position: relative;">
         
-        <div class="valign col m2 s12 navbar-title">
+        <div class="valign col l2 m12 s12 navbar-title">
             <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
         </div>
 
-        <div class="center valign col l8 hide-on-med-and-down" style="font-size: 18px; color: #000;">
+        <div class="center valign col l8 m12 s12 hide-on-med-and-down" style="font-size: 18px; color: #000;">
             <a href="/news" style="margin-right: 40px;">Новости</a>
             <a href="/articles" style="margin-right: 40px;">Статьи</a>
         </div>
             
-        <div class="valign share-btns col l2 m5 offset-m5 s12 right-align">
-            <a class="vk popup" href="https://vk.com/startupden" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
-            <a class="twitter popup" href="https://twitter.com/startupden_ru" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
-            <a class="facebook popup" href="https://www.facebook.com/startupden.ru" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
+        <div class="hide-on-med-and-down valign share-btns share share-pages col l2 m5 offset-m5 s12 right-align">
+
+            <div class="col l3 m6 s12">
+                <a href="https://vk.com/startupden" target="_blank" class="post-content-share-vk">
+                    <i class="fa fa-vk fa-lg"></i>
+                </a>
+            </div>
+            
+            <div class="col l3 m6 s12">
+                <a href="https://twitter.com/startupden_ru" target="_blank" class="post-content-share-twitter">
+                    <i class="fa fa-twitter fa-lg"></i>
+                </a>
+            </div>
+            
+            <div class="col l3 m6 s12">
+                <a href="https://www.facebook.com/startupden.ru/" target="_blank" class="post-content-share-facebook">
+                    <i class="fa fa-facebook fa-lg"></i>
+                </a>
+            </div>
+
+            <div class="col l3 m6 s12">
+                <a href="/feed" target="_blank" class="post-content-share-rss">
+                    <i class="fa fa-rss fa-lg"></i>
+                </a>
+            </div>
+
         </div>
 
     </div>
@@ -73,9 +95,30 @@
 
     	{% endfor %}
     	</div>
-    	<hr>
+    	
+        <hr>
+
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <div style="width: 320px; margin: 0 auto;">
+            <!-- Горизонтальный баннер -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:320px;height:50px"
+                 data-ad-client="ca-pub-8855039078705766"
+                 data-ad-slot="2937337931"></ins>
+        </div>
+
+
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
+        <hr>
 
     	{% endblock feature_posts %}
+
+
+
 
     	<div style="position: relative; margin-bottom: 20px; margin-top: 30px;" class="col l9 s12">
 
@@ -209,6 +252,10 @@
 
     <style type="text/css">
 
+        .card{
+            display: block;
+        }
+
     	.write-us:hover .write-us-action{
     		opacity: 0.8;
     	}
@@ -223,49 +270,6 @@
     	.tabs .tab a{
 			font-size: 14px;
     	}
-
-
-        .feature-card.medium .card-content {
-            height: auto;
-            padding-bottom: 10px;
-        }
-
-        .feature-card.medium {
-            height: 200px;
-            margin-bottom: 40px;
-        }
-
-        .feature-card.medium .card-image {
-    		height: auto;
-    		position: absolute;
-    		left: 0;
-    		right: 0;
-    		top: 0;
-    		bottom: 0;
-		}
-
-    	.feature-card.medium .card-content .feature-card-text{
-    		position: relative;
- 			height: 7em; /* 3.6em exactly three lines */
- 			overflow: hidden;
- 			padding-top: 0;
-    	}
-
-		.feature-card .card-content .feature-card-text:after {
-  			content: "";
-  			text-align: right;
-  			position: absolute;
-  			bottom: 0;
-  			right: 0;
-  			width: 70%;
-  			height: 1.2em;
-  			background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
-		}
-
-		.feature-card .card-content .card-title {
-			line-height: 20px;
-			font-size: 20px;
-		}
 
         .card.small .card-action, .card.medium .card-action, .card.large .card-action {
             position: relative;            
