@@ -11,6 +11,9 @@ import os
 import PIL
 from PIL import Image
 
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit
+
 
 class ImageSingle(models.Model):
 
@@ -18,7 +21,7 @@ class ImageSingle(models.Model):
         date_path = datetime.datetime.now()
         token = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(16))
 
-        return os.path.join('images', str(date_path.year), str(date_path.month), str(date_path.day), str(date_path.hour), token + filename[-6:])
+        return os.path.join('post-images', str(date_path.year), str(date_path.month), str(date_path.day), str(date_path.hour), token + filename[-6:])
 
     image = models.ImageField(upload_to=get_upload_path)
 
@@ -83,7 +86,6 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     views_count = models.IntegerField(default=0)
 
-
     def get_upload_path(instance, filename):
         date_path = datetime.datetime.now()
         token = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(16))
@@ -91,7 +93,12 @@ class Post(models.Model):
         return os.path.join('images', str(date_path.year), str(date_path.month), str(date_path.day), str(date_path.hour), token + filename[-6:])
 
     image = models.ImageField(upload_to=get_upload_path)
-    image_thumbnail = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
+    # image_thumbnail = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
+
+    image_thumbnail = ImageSpecField(source='image',
+                                     processors=[ResizeToFit(width=450)],
+                                     format='JPEG',
+                                     options={'quality': 80})
 
     class Meta:
         verbose_name = "Post"
@@ -114,6 +121,7 @@ class Post(models.Model):
         image_new = image_new.resize(size, Image.ANTIALIAS)
         image_new.save(self.image.path)
 """
+
 
 class Typo(models.Model):
 

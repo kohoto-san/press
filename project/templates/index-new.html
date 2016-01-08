@@ -2,10 +2,8 @@
 {% load staticfiles %}
 
 {% block head %}
+    <title>StartupDen</title>
     {{block.super}}
-    <!--
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    -->
 {% endblock head %}
 
 
@@ -58,9 +56,7 @@
 
 {% block content %}
     
-<div style="background-color: #f0f1f5;">
-
-    <div class="row" style="padding: 20px;">
+    <div class="row home-wrapper">
     	
     	{% block feature_posts %}
 
@@ -84,7 +80,7 @@
             			</div>
 
             			<div class="card-image">
-            				<img src="{{post.image.url}}">
+            				<img src="{{post.image_thumbnail.url}}">
             				<!--
             				<span class="card-title">{{post.title}}</span>
             				-->
@@ -118,127 +114,129 @@
     	{% endblock feature_posts %}
 
 
+    	<div id="content">
+
+            <div class="row" id="content-posts-wrapper" style="position: relative;">
+
+                <div id="content-posts-plug">
+                    
+                    <div class="card-post">
+                        <div class="item-card card medium">
+                
+                            <div class="card-image">
+                                <span class="card-title"></span>
+                            </div>
+                
+                            <div class="card-content">
+                                <p></p>
+                                <p style="margin-top: 10px;"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-post">
+                        <div class="item-card card medium">
+                
+                            <div class="card-image">
+                                <span class="card-title"></span>
+                            </div>
+                
+                            <div class="card-content">
+                                <p></p>
+                                <p style="margin-top: 10px;"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-post">
+                        <div class="item-card card medium">
+                
+                            <div class="card-image">
+                                <span class="card-title"></span>
+                            </div>
+                
+                            <div class="card-content">
+                                <p></p>
+                                <p style="margin-top: 10px;"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-post">
+                        <div class="item-card card medium">
+                
+                            <div class="card-image">
+                                <span class="card-title"></span>
+                            </div>
+                
+                            <div class="card-content">
+                                <p></p>
+                                <p style="margin-top: 10px;"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div> <!-- /content-posts-plug -->
+                
+
+            </div> <!-- /.row content-posts-wrapper -->
 
 
-    	<div style="position: relative; margin-bottom: 20px; margin-top: 30px;" class="col l9 s12">
+            <div id="home-sidebar-share" class="col s3 sidebar-share">
+                <div class="row">
+            
+                    <div class="col s12" style="height: 250px; margin-top: 0;"><div id="vk_groups"></div></div>
+                    
+                    <div class="col s12">
+                    
+                        <div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                            <div class="fb-xfbml-parse-ignore">
+                                <blockquote cite="https://www.facebook.com/startupden.ru/">
+                                    <a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
+                                </blockquote>
+                            </div>
+                        </div>
 
-    		<div class="row" id="content-posts-wrapper"></div>
+                    </div> <!-- /col s12 Facebook -->
 
-    		<!--
-    		<div class="preloader-wrapper active align-center" style="margin: auto;">
-    			<div class="spinner-layer spinner-red-only">
-      				<div class="circle-clipper left">
-        				<div class="circle"></div>
-      				</div><div class="gap-patch">
-        				<div class="circle"></div>
-      				</div><div class="circle-clipper right">
-        				<div class="circle"></div>
-      				</div>
-    			</div>
-  			</div>
-  			-->
+                    <div class="col s12">
+                        <div class="card indigo lighten-3">
+                            <div class="card-content white-text">
+                                <p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
 
-    	</div>
+                                <a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
+                                    Follow @startupden_ru
+                                </a>
 
-    	<div id="sidebar-share" class="col s3" style="margin-top: 40px; right: 0; width: 325px;">
-    		<div class="row">
-    			<div class="col s12" style="padding: 0; margin-bottom: 10px;">
-    			  	<ul class="tabs">
-    			    	<li class="tab col s3"><a href="#vk" class="active">Вконтакте</a></li>
-    			    	<li class="tab col s3"><a href="#fb">Facebook</a></li>
-    			    	<li class="tab col s3"><a href="#tw">Twitter</a></li>
-    			  	</ul>
-    			</div>
+                            </div>
+                        </div>
+                    </div> <!-- /col s12 Twitter -->
 
-    		
-    			<div id="vk" class="col s12" style="height: 250px;"><div id="vk_groups"></div></div>
-    			<div id="fb" class="col s12">
-    				
-    				<div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
-    					<div class="fb-xfbml-parse-ignore">
-    						<blockquote cite="https://www.facebook.com/startupden.ru/">
-    							<a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
-    						</blockquote>
-    					</div>
-    				</div>
+                    <div class="col s12">
+                        <a href="mailto:touch@startupden.ru" class="write-us card hoverable blue-grey lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center-text">Напишите нам!</span>
+                                <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
+                            </div>
 
-    			</div>
-    			<div id="tw" class="col s12">
+                            <div class="write-us-action card-action center-align blue-grey darken-1">
+                                <span>Написать</span>
+                            </div>
+                            
+                        </a>
+                    </div> <!-- /.col s12 Write-Us -->
+               
+                </div> <!-- /row-->
 
-    				<div class="card indigo lighten-3">
-            			
-            			<div class="card-content white-text">
-              				<p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
+                    
 
-              				<a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
-								Follow @startupden_ru
-							</a>
+            </div> <!-- /sidebar-share -->
 
-            			</div>
-            				
-          			</div>
-    				
-    				
-
-    			</div>
-    		</div>
-
-    		<div class="row" style="margin-top: 20px;">
-        			<div class="col s12">
-          				<a href="mailto:touch@startupden.ru" class="write-us card hoverable blue-grey lighten-1">
-            				<div class="card-content white-text">
-            				  	<span class="card-title center-text">Напишите нам!</span>
-              					<p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
-            				</div>
-
-            				<div class="write-us-action card-action center-align blue-grey darken-1">
-              					<span style="color: #fff;">Написать</span>
-				            </div>
-            				
-          				</a>
-        			</div>
-        	</div> <!-- /.write-us -->
-
-
-    		{% comment %}
-    		<!-- /subscribe-form -->
-    		<div class="row" style="margin-top: 20px;">
-        			<div class="col s12">
-          				<div class="card blue-grey darken-1">
-            				<div class="card-content white-text">
-            				  	<span class="card-title center-text">Подпишись!</span>
-              					<p>Наша еженедельная рассылка лучших материалов.</p>
-
-              					<form class="col s12" id="form" action="/form/" method="post">
-            					{% csrf_token %}
-              					
-              					{% for field in form %}
-                        			<div id="email-form" class="input-field">
-                            			{{ field.errors }}
-                            			{{ field }}
-                            			{{ field.label_tag }}
-                        			</div>
-                    			{% endfor %}
-
-                        		<button style="width: 100%;margin-bottom: 20px;" type="submit" value="Create" class="waves-effect waves-light btn">Submit</button>
-
-								<!--
-              						<div class="input-field col s12">
-      									<input value="" id="first_name2" type="text" class="validate">
-      									<label id="email-form" for="first_name2">Email адрес</label>
-    								</div>
-    							-->
-
-    							</form>
-
-            				</div>
-            				
-          				</div>
-        			</div>
-        	</div> <!-- /.subscribe-form -->
-    		{% endcomment %}
-
-    	</div> <!-- /.sidebar-share -->
+    	</div> <!-- /content -->
 
 
     	<div class="col l4 offset-l4 s12 center-align" id="load_posts">
@@ -247,29 +245,12 @@
 
     </div> <!-- /.row -->
 
-</div>
-
 
     <style type="text/css">
 
         .card{
             display: block;
         }
-
-    	.write-us:hover .write-us-action{
-    		opacity: 0.8;
-    	}
-
-
-
-    	#email-form label.active {
-    		display: none;
-    	}
-
-
-    	.tabs .tab a{
-			font-size: 14px;
-    	}
 
         .card.small .card-action, .card.medium .card-action, .card.large .card-action {
             position: relative;            
@@ -290,8 +271,6 @@
         .item-card.medium .card-image {
     		height: auto;
 		}
-
-
 
         .card-image{
             background-color: #000;
@@ -331,14 +310,6 @@
             color: #000;
         }
 
-        @media (max-width: 370px){
-            
-            .card .card-title {
-                font-size: 20px;
-            }
-            
-        }
-
         .card-post-disabled{
         	display: none;
         }
@@ -349,223 +320,14 @@
 
     </style>
 
+{% endblock content %}   
 
 
-	<script type="text/javascript">
-
-		$(document).ready(function(){
-  		});
-
-
-
-    $( window ).load(function() {
-
-		$('#test-img11').each(function() {
-
-			var maxWidth = 100; // Max width for the image
-        	var maxHeight = 100;    // Max height for the image
-        	var ratio = 0;  // Used for aspect ratio
-        	var width = $(this).width();    // Current image width
-        	var height = $(this).height();  // Current image height
-
-        	// Check if the current width is larger than the max
-        	if(width > maxWidth){
-        	    ratio = maxWidth / width;   // get ratio for scaling image
-        	    $(this).css("width", maxWidth); // Set new width
-        	    $(this).css("height", height * ratio);  // Scale height based on ratio
-        	}
-        	else{
-        		// Check if current height is larger than max
-        		if(height > maxHeight){
-        		    ratio = maxHeight / height; // get ratio for scaling image
-        		    $(this).css("height", maxHeight);   // Set new height
-        		    $(this).css("width", width * ratio);    // Scale width based on ratio
-        		}
-        	}
-
-        	
-
-		});
-
-	});
-
-	</script>
+{% block scripts %}
 
     <script src="http://malsup.github.com/jquery.form.js"></script> 
+    <script src="{% static 'load_posts.js' %} "></script>
 
-    <script type="text/javascript">
+    {{block.super}}
 
-    	// wait for the DOM to be loaded 
-        $(document).ready(function() { 
-            
-    		{% comment %}
-
-            // prepare Options Object for plugin
-            var options = {
-                success: function(data) {
-                    Materialize.toast("Thank you!", 5000);
-                },
-                error:  function(resp) {
-                    //$("#form_ajax_error").show();
-
-                    // render errors in form fields
-                    var errors = JSON.parse(resp.responseText);
-                    for (error in errors) {
-                        var id = 'label[for=id_' + error + ']';
-                        
-                        $(id).attr('data-error', '');
-                        $(id).addClass('active');
-                        $(id).siblings().addClass('invalid');
-                    }
-
-                    Materialize.toast("Error", 5000);
-
-                    /*
-                    setTimeout(function() {
-                        $("#form_ajax_error").hide();
-                    }, 5000);
-                    */
-                }
-            };
-
-            $('#form').ajaxForm(options);
-
-    		{% endcomment %}
-
-
-        });
-
-		$( window ).load(function() {
-        	loadPosts();
-    	});
-
-    	
-    	function posCards(){
-
-    		// ??? ?? ?????? ??? ????
-        	var columns = 2;
-        	var last_height = 0;
-
-        	$('.card-post').each(function( index ) {
-
-            	// 0, 1
-            	if(index >= columns){
-                	var height = $('.card-post:eq(' + (index-2) + ')').height();
-                	var top = $('.card-post:eq(' + (index-2) + ')').css('top');
-                
-                	if(top != "auto"){
-                	    var current_height = height + parseInt(top);
-                	}
-                	else{
-                	    var current_height = height;
-                	}
-
-                	$(this).css('top', current_height);
-
-					if(current_height > last_height){
-						var body_height = current_height + $(this).height();
-					}
-					else{
-						var body_height = last_height + $(this).height();
-					}
-
-                	$('#content-posts-wrapper:parent').css('height', body_height);
-
-                	last_height = current_height; 
-            	}
-
-            	$(this).removeClass('card-post-disabled');
-
-        	});
-
-        	if(page == 2){
-        		var offset = $('#footer').offset().top - $('#sidebar-share').height() - 80;
-    			$('#sidebar-share').pushpin({ top: $('#content-posts-wrapper').offset().top + 50, 'bottom': offset });
-    		}
-
-    		$('.preloader-wrapper').css('display', 'none');
-    		$('#content-posts').css('opacity', '1');
-
-			$content_posts = $('#content-posts');
-			$content_posts.replaceWith($content_posts.html());    		
-    	}
-
-
-		var page = 1;
-
-        $('#load_posts').click(function(){
-        	loadPosts();
-        });
-
-
-        function loadPosts(){
-        	
-        	if( $(this).find('a').hasClass("disabled") == false){
-
-    			$.get( window.location.href, {page: page} )
-    			
-    				.done(function( data ) {
-
-    					$('.preloader-wrapper').css('display', 'block');
-
-    					$content_html = $("<div id='content-posts'></div>");
-    					$('#content-posts-wrapper').append($content_html);
-
-    					$('#content-posts').append(data);
-						
-    					if( $(window).width() > 992 ){
-							setTimeout(posCards, 2000);
-    					}
-    					else{
-    						$('.preloader-wrapper').css('display', 'none');
-
-    						$content_posts = $('#content-posts');
-							$content_posts.replaceWith($content_posts.html());
-    					
-            				$('.card-post-disabled').removeClass('card-post-disabled');
-    					}
-
-    					page += 1;
-
-  					}) // done
-  				
-  					.fail(function() {
-    					$('#load_posts').prepend('<p>Упс...Кажется все посты уже загружены.</p>')
-    					$('#load_posts a').addClass('disabled');
-  					}); // fail
-
-  			}    // hasClass
-
-        } // function loadPosts
-			
-
-
-
-
-/*
-    	$.ajax( "example.php" )
-  			.done(function() {
-  			  alert( "success" );
-  			})
-  			.fail(function() {
-  			  alert( "error" );
-  			})
-  			.always(function() {
-  			  alert( "complete" );
-  		});
-
-
-  		$.ajax({
-  			url: "http://fiddle.jshell.net/favicon.png",
-		})
-  		.done(function( data ) {
-    		if ( console && console.log ) {
-    		  	console.log( "Sample of data:", data.slice( 0, 100 ) );
-    		}
-  		});
-*/
-
-
-    </script>
-
-{% endblock content %}   
+{% endblock scripts %}

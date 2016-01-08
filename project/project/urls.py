@@ -50,8 +50,8 @@ urlpatterns = [
     url(r'^typo/', typo_send, name='typo_send'),
 
 
-    # url(r'^special/', include(spectest_urls)),
-    # url(r'^quiz/', include(quiz_urls)),
+    url(r'^special/', include(spectest_urls)),
+    url(r'^quiz/', include(quiz_urls)),
 
 
 

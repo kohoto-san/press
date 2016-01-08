@@ -1,0 +1,100 @@
+        <div id="sidebar-share" class="col s3" style="margin-top: 40px; right: 0; width: 325px; position: absolute; top: 0;">
+            <div class="row">
+                <div class="col s12" style="padding: 0; margin-bottom: 10px;">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a href="#vk" class="active">Вконтакте</a></li>
+                        <li class="tab col s3"><a href="#fb">Facebook</a></li>
+                        <li class="tab col s3"><a href="#tw">Twitter</a></li>
+                    </ul>
+                </div>
+
+            
+                <div id="vk" class="col s12" style="height: 250px;"><div id="vk_groups"></div></div>
+                <div id="fb" class="col s12">
+                    
+                    <div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                        <div class="fb-xfbml-parse-ignore">
+                            <blockquote cite="https://www.facebook.com/startupden.ru/">
+                                <a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="tw" class="col s12">
+
+                    <div class="card indigo lighten-3">
+                        
+                        <div class="card-content white-text">
+                            <p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
+
+                            <a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
+                                Follow @startupden_ru
+                            </a>
+
+                        </div>
+                            
+                    </div>
+                    
+                    
+
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                    <div class="col s12">
+                        <a href="mailto:touch@startupden.ru" class="write-us card hoverable blue-grey lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center-text">Напишите нам!</span>
+                                <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
+                            </div>
+
+                            <div class="write-us-action card-action center-align blue-grey darken-1">
+                                <span style="color: #fff;">Написать</span>
+                            </div>
+                            
+                        </a>
+                    </div>
+            </div> <!-- /.write-us -->
+
+
+            {% comment %}
+            <!-- /subscribe-form -->
+            <div class="row" style="margin-top: 20px;">
+                    <div class="col s12">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center-text">Подпишись!</span>
+                                <p>Наша еженедельная рассылка лучших материалов.</p>
+
+                                <form class="col s12" id="form" action="/form/" method="post">
+                                {% csrf_token %}
+                                
+                                {% for field in form %}
+                                    <div id="email-form" class="input-field">
+                                        {{ field.errors }}
+                                        {{ field }}
+                                        {{ field.label_tag }}
+                                    </div>
+                                {% endfor %}
+
+                                <button style="width: 100%;margin-bottom: 20px;" type="submit" value="Create" class="waves-effect waves-light btn">Submit</button>
+
+                                <!--
+                                    <div class="input-field col s12">
+                                        <input value="" id="first_name2" type="text" class="validate">
+                                        <label id="email-form" for="first_name2">Email адрес</label>
+                                    </div>
+                                -->
+
+                                </form>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+            </div> <!-- /.subscribe-form -->
+            {% endcomment %}
+
+        </div> <!-- /.sidebar-share -->
+
