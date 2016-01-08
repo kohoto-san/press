@@ -139,8 +139,8 @@
                         var data_object = $('<div></div>').append(data);
                         
                         if( $(window).width() >= 992 ){
-                            //setTimeout(function(){ posCards(data_object); }, 2000);
-                            posCards(data_object);
+                            setTimeout(function(){ posCards(data_object); }, 2000);
+                            //posCards(data_object);
                         }
                         else{
 
