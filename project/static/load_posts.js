@@ -143,7 +143,7 @@
                             //posCards(data_object);
                         }
                         else{
-
+                            $('#content-posts-wrapper').append(data);
                             $('#content-posts-plug').css('display', 'none');
                             $('.card-post-disabled').removeClass('card-post-disabled');
                         }
