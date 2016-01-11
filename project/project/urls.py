@@ -17,7 +17,6 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
 
-from blog.views import PostDetail, LatestEntriesFeed, typo_send, email_create
 from blog import views
 from spectest import urls as spectest_urls
 from quiz import urls as quiz_urls
@@ -42,28 +41,28 @@ urlpatterns = [
     url(r'^news/', views.load_news, name='news'),
     url(r'^articles/', views.load_articles, name='articles'),
 
-    url(r'^form/', email_create, name='email_create'),
+    # url(r'^form/', views.email_create, name='email_create'),
 
+    url(r'^p/(?P<slug>[\w-]+)/*$', views.PostDetail.as_view(), name='post_detail'),
+    url(r'^typo/', views.typo_send, name='typo_send'),
 
-    url(r'^p/(?P<slug>[\w-]+)/*$', PostDetail.as_view(), name='post_detail'),
-
-    url(r'^typo/', typo_send, name='typo_send'),
-
+    # url(r'^contacts/', views.contactPage, name='contacts'),
+    url(r'^contact/', views.ContactCreate.as_view(), name='contact'),
 
     url(r'^special/', include(spectest_urls)),
     url(r'^quiz/', include(quiz_urls)),
 
 
 
-    # url(r'^feed/$', LatestEntriesFeed()),
+    # url(r'^feed/$', views.LatestEntriesFeed()),
     # url(r'^feeds/$', 'django.contrib.syndication.views.Feed', {'feed_dict': published_feeds}, 'view_name'),
 
 ]
 
 urlpatterns += patterns(
     '',
-    url(r'^feed/', LatestEntriesFeed()),
-    # url(r'^feed/$', LatestEntriesFeed()),
+    url(r'^feed/', views.LatestEntriesFeed()),
+    # url(r'^feed/$', views.LatestEntriesFeed()),
 )
 
 if environ['DEBUG_BOOL']:

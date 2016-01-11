@@ -9,46 +9,38 @@
 
 {% block navbar %}
 
-    <div id="navbar" class="row valign-wrapper" style="position: relative;">
-        
-        <div class="valign col l2 m12 s12 navbar-title">
-            <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
+    <div id="navbar" class="row" style="position: relative; text-align: center;">
+
+        <div class="col l2 m3 s12 navbar-logo">
+            <h4><a href="/" style="color: #000;">StartupDen</a></h4>
         </div>
 
-        <div class="center valign col l8 m12 s12 hide-on-med-and-down" style="font-size: 18px; color: #000;">
-            <a href="/news" style="margin-right: 40px;">Новости</a>
-            <a href="/articles" style="margin-right: 40px;">Статьи</a>
+        <div class="navbar-categories col l7 m5 s12">
+            <a href="/news">Новости</a>
+            <a href="/articles">Статьи</a>
         </div>
             
-        <div class="hide-on-med-and-down valign share-btns share share-pages col l2 m5 offset-m5 s12 right-align">
+        <div class="share-btns share soc-pages col l3 m4 s12" style="/* text-align: right; */ padding-top: 10px;">
 
-            <div class="col l3 m6 s12">
                 <a href="https://vk.com/startupden" target="_blank" class="post-content-share-vk">
                     <i class="fa fa-vk fa-lg"></i>
                 </a>
-            </div>
             
-            <div class="col l3 m6 s12">
                 <a href="https://twitter.com/startupden_ru" target="_blank" class="post-content-share-twitter">
                     <i class="fa fa-twitter fa-lg"></i>
                 </a>
-            </div>
             
-            <div class="col l3 m6 s12">
                 <a href="https://www.facebook.com/startupden.ru/" target="_blank" class="post-content-share-facebook">
                     <i class="fa fa-facebook fa-lg"></i>
                 </a>
-            </div>
 
-            <div class="col l3 m6 s12">
                 <a href="/feed" target="_blank" class="post-content-share-rss">
                     <i class="fa fa-rss fa-lg"></i>
                 </a>
-            </div>
 
         </div>
 
-    </div>
+    </div> <!-- /navbar -->
 
 {% endblock navbar %}
 
@@ -61,7 +53,7 @@
     	{% block feature_posts %}
 
     	<div style="margin-bottom: 20px;" class="row">
-    	<h4>Рекомендуем</h4>
+    	<h4 style="margin-top: 0;">Рекомендуем</h4>
     	{% for post in feat_posts %}
     		
     			<div class="col l3 m6 s12">
@@ -92,6 +84,7 @@
     	{% endfor %}
     	</div>
     	
+        {% comment %}
         <hr>
 
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -110,15 +103,17 @@
         </script>
 
         <hr>
+        {% endcomment %}
+    	
+        {% endblock feature_posts %}
 
-    	{% endblock feature_posts %}
 
-
-    	<div id="content">
+    	<div id="content" style="max-width: 1325px;">
 
             <div class="row" id="content-posts-wrapper" style="position: relative;">
+            </div> <!-- /.row content-posts-wrapper -->
 
-                <div id="content-posts-plug">
+            <div id="content-posts-plug">
                     
                     <div class="card-post">
                         <div class="item-card card medium">
@@ -181,12 +176,8 @@
                     </div>
 
                 </div> <!-- /content-posts-plug -->
-                
 
-            </div> <!-- /.row content-posts-wrapper -->
-
-
-            <div id="home-sidebar-share" class="col s3 sidebar-share">
+            <div class="col s3 sidebar-share home-sidebar-share">
                 <div class="row">
             
                     <div class="col s12" style="height: 250px; margin-top: 0;"><div id="vk_groups"></div></div>
@@ -217,7 +208,7 @@
                     </div> <!-- /col s12 Twitter -->
 
                     <div class="col s12">
-                        <a href="mailto:touch@startupden.ru" class="write-us card hoverable blue-grey lighten-1">
+                        <a href="{% url 'contact' %}" class="write-us card hoverable blue-grey lighten-1">
                             <div class="card-content white-text">
                                 <span class="card-title center-text">Напишите нам!</span>
                                 <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
@@ -325,7 +316,21 @@
 
 {% block scripts %}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js"></script>
+
     <script src="http://malsup.github.com/jquery.form.js"></script> 
+    
+    <script type="text/javascript">
+
+        $('#content-posts-wrapper').masonry({
+            // options
+            itemSelector: '.card-post',
+            columnWidth: $('#content-posts-plug .card-post')[0]
+        });
+
+    </script>
+
     <script src="{% static 'load_posts.js' %} "></script>
 
     {{block.super}}

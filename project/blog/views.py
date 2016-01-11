@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from blog.models import Post, Typo, SubscribeEmail
+from blog.models import Post, Typo, SubscribeEmail, Contact
 
 import json
 import random
@@ -20,6 +20,26 @@ from django.template.loader import render_to_string
 from django.http import Http404  
 
 from blog.forms import SubscribeEmailForm
+
+
+class ContactCreate(CreateView):
+    model = Contact
+    template_name = 'contacts.html'
+
+    fields = ['name', 'email', 'text']
+
+    def form_valid(self, form):
+        # form.save()
+        # return super(ContactCreate, self).form_valid(form)
+
+        return HttpResponseRedirect('?success')
+        # return render_to_response('contacts.html', {'form' 'fuck': 'fuck'})
+
+    """
+    def get_success_url(self):
+        return HttpResponse('oh shit')
+        # return reverse('holywar_detail', args=(self.object.id,))
+    """
 
 
 class CorrectMimeTypeFeed(Rss201rev2Feed):

@@ -9,7 +9,7 @@ import json
 
 def home(request):
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         if request.is_ajax():
 
             #question = get_object_or_404(Question, id_question=id_question)
@@ -20,7 +20,7 @@ def home(request):
             #   value['image'] = settings.MEDIA_URL + value['image']
             # posts_json = json.dumps(list(posts_values))
 
-            result = load_fact(request)
+            result = load_fact()
             # result.update([{'correct': 0}])
 
             result_json = json.dumps(list([result]))
@@ -32,13 +32,13 @@ def home(request):
 
             # return HttpResponse(posts_json)
 
-        else:
-            # count_questions = Question.objects.all().count()
-            # return render_to_response('spectest/index.html', {'count_questions': count_questions})
-            return render_to_response('quiz/index.html')
+    else:
+        # count_questions = Question.objects.all().count()
+        # return render_to_response('spectest/index.html', {'count_questions': count_questions})
+        return render_to_response('quiz/index.html')
 
 
-def load_fact(request):
+def load_fact():
 
     all_facts = Fact.objects.all()
     count_facts = len(all_facts)
@@ -60,12 +60,12 @@ def load_fact(request):
 
 
 def save_answer(request):
-    answer_str = request.GET.get('answer')
-    fact_id = request.GET.get('factID')
+    answer_str = request.POST.get('answer')
+    fact_id = request.POST.get('factID')
 
     fact = get_object_or_404(Fact, pk=fact_id)
 
-    result = load_fact(request)
+    result = load_fact()
 
     if fact.answer.name == answer_str:
         result.update({'correct': 1})

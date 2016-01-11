@@ -41,7 +41,7 @@
 
     <div id="navbar" class="row valign-wrapper">
         
-        <div class="col m2 s12 navbar-title">
+        <div class="col m2 s12 navbar-logo">
             <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
         </div>
 
@@ -66,7 +66,7 @@
 
     <div class="post-cover">
 
-        <div class="post-cover-image" style="background-image: url({{post.image.url}});"></div>
+        <div class="post-cover-image"></div>
 
 
         <div class="overlay valign-wrapper">
@@ -194,7 +194,7 @@
 
             <div class="row" style="margin-top: 20px;">
                     <div class="col s12">
-                        <a href="mailto:touch@startupden.ru" class="write-us card hoverable blue-grey lighten-1">
+                        <a href="{% url 'contact' %}" class="write-us card hoverable blue-grey lighten-1">
                             <div class="card-content white-text">
                                 <span class="card-title center-text">Напишите нам!</span>
                                 <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
@@ -294,6 +294,7 @@
 {% endcomment %}
 
     <script src="{% static 'js.cookie.js' %}"></script>
+    <script src="{% static 'csrftoken.js' %}"></script>
 
     <script type="text/javascript">
 
@@ -359,6 +360,13 @@
 
         $(document).ready(function() {
 
+            if($(window).width() > 500){
+                $('.post-cover-image').css('background-image', 'url({{post.image.url}})' );
+            }
+            else{
+                $('.post-cover-image').css('background-image', 'url({{post.image_thumbnail.url}})' );
+            }
+
             if( $('#post-content-text').height() > $('#sidebar-share').height() ){
 
                 var offset_horizontal = $('#sidebar-share').offset().left - ($('#sidebar-share').width() / 2);
@@ -402,43 +410,21 @@
 
         });
 
-        function send_typo(text){
+            function send_typo(text){
 
-            id_post = {{post.id}};
+                id_post = {{post.id}};
 
-            $.post( "/typo/", {pk: id_post, text: text}, function( data ) {
+                $.post( "/typo/", {pk: id_post, text: text}, function( data ) {
                 
-                if(data == 'sent'){
-                    Materialize.toast('Спасибо за то, что сообщиил нам об ошибке! Мы в ближайшее время её исправим.', 4000);
-                }
+                    if(data == 'sent'){
+                        Materialize.toast('Спасибо за то, что сообщиил нам об ошибке! Мы в ближайшее время её исправим.', 4000);
+                    }
 
-            });
-
-        }
-
+                });
+            }
             
         });
 
-        var csrftoken = Cookies.get('csrftoken');
-
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
-        });
-
-
-
-
-
-       
     </script>
 
     <script>
@@ -467,10 +453,7 @@
             return false;
         });
     });
-
-
     </script>
-
 
 
 {% endblock %}

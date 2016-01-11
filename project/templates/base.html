@@ -70,11 +70,11 @@
         
         <div class="col l6 offset-l1 m10 offset-m1">
 
-            <h5>Контакты</h5>
+            <a href="{% url 'contact' %}" class="link"> <h5>Контакты</h5> </a>
 
             <p> StartupDen — проект о русскоязычной сфере IT и людях, которые за ней стоят. Мы пишем про стартапы, приложения, интернет вещей, венчурный капитал, игры и социальные сети. </p>
 
-            <p>Если у вас есть новость, вы хотите, чтобы мы о вас написали или вы просто хотите с нами пообщаться, то обращайтесь по адресу <a href="mailto:touch@startupden.ru" style="color: #026697;">touch@startupden.ru</a> </p>
+            <p>Если у вас есть новость, вы хотите, чтобы мы о вас написали или вы просто хотите с нами пообщаться, то обращайтесь по адресу <a href="mailto:touch@startupden.ru" class="link">touch@startupden.ru</a> </p>
         </div>
 
         <div class="col l3 offset-l1 m6 offset-m3 s12">
@@ -110,9 +110,11 @@
 
     </div>
     {% endblock footer %}
-    
 
-    <script type="text/javascript">
+
+{% block scripts %}
+
+<script type="text/javascript">
 
     {% comment %}
         $('#search_btn').click(function(){
@@ -147,9 +149,8 @@
 
         });
 
-    </script>
+</script>
 
-{% block scripts %}
 
 <!--LiveInternet counter--><script type="text/javascript"><!--
 new Image().src = "//counter.yadro.ru/hit?r"+
@@ -159,7 +160,6 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 ";h"+escape(document.title.substring(0,80))+
 ";"+Math.random();//--></script><!--/LiveInternet-->
 
-    
 <script type="text/javascript">
     VK.Widgets.Group("vk_groups", {mode: 0, width: "280", height: "250"}, 109938079);
 </script>
