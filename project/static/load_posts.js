@@ -42,6 +42,7 @@ function loadPosts(){
             $container.masonryImagesReveal( newElems );
 
             /*
+            var $container = $('#content-posts-wrapper');
             if ($container.data("masonry")) {
                 $container.append( newElems ).masonry( "appended", newElems );
             }
@@ -71,9 +72,12 @@ function loadPosts(){
         this.append( $newElems );
         
         $newElems.imagesLoaded()
+
+            /*
             .progress( function( imgLoad, image ) {
                 // get item
                 // image is imagesLoaded class, not <img>, <img> is image.img
+                
                 var $item = $( image.img ).parents( itemSelector );
                 // un-hide item
                 $item.show();
@@ -86,7 +90,18 @@ function loadPosts(){
                 }
 
             })
+            */
+
             .always( function( instance ) {
+
+                $newElems.show();
+                msnry.appended( $newElems );
+
+                if( !first_load ){
+                    $('#content-posts-plug').css('display', 'none');
+                    first_load = true;
+                }
+
                 page += 1;
                 loading('on');
             });
