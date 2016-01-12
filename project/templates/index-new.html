@@ -231,7 +231,7 @@
 
 
     	<div class="col l4 offset-l4 s12 center-align" id="load_posts">
-			<a class="center-align waves-effect waves-light btn" style="margin: auto; margin-bottom: 20px;">Загрузить еще</a>
+			<a class="disabled center-align waves-effect waves-light btn" style="margin: auto; margin-bottom: 20px;">Загрузить еще</a>
        	</div>
 
     </div> <!-- /.row -->
@@ -323,11 +323,25 @@
     
     <script type="text/javascript">
 
-        $('#content-posts-wrapper').masonry({
-            // options
-            itemSelector: '.card-post',
-            columnWidth: $('#content-posts-plug .card-post')[0]
-        });
+        (function(){
+
+            $(document).ready(function(){
+                $('#content-posts-wrapper').masonry({
+                    itemSelector: '.card-post',
+                    columnWidth: $('#content-posts-plug .card-post')[0]
+                });
+            });
+            
+            // хитрый запуск masonry после события загрузки всех шрифтов
+            document.onreadystatechange = function() {
+            if (document.readyState === 'complete') 
+                $('#content-posts-wrapper').masonry({
+                    itemSelector: '.card-post',
+                    columnWidth: $('#content-posts-plug .card-post')[0]
+                });
+            };
+
+        })();
 
     </script>
 
