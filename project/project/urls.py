@@ -41,6 +41,8 @@ urlpatterns = [
     url(r'^news/', views.load_news, name='news'),
     url(r'^articles/', views.load_articles, name='articles'),
 
+    url(r'^links/', views.HeadlineList.as_view(), name='headlines'),
+
     # url(r'^form/', views.email_create, name='email_create'),
 
     url(r'^p/(?P<slug>[\w-]+)/*$', views.PostDetail.as_view(), name='post_detail'),

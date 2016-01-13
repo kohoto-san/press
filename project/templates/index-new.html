@@ -6,46 +6,6 @@
     {{block.super}}
 {% endblock head %}
 
-
-{% block navbar %}
-
-    <div id="navbar" class="row" style="position: relative; text-align: center;">
-
-        <div class="col l2 m3 s12 navbar-logo">
-            <h4><a href="/" style="color: #000;">StartupDen</a></h4>
-        </div>
-
-        <div class="navbar-categories col l7 m5 s12">
-            <a href="/news">Новости</a>
-            <a href="/articles">Статьи</a>
-        </div>
-            
-        <div class="share-btns share soc-pages col l3 m4 s12" style="/* text-align: right; */ padding-top: 10px;">
-
-                <a href="https://vk.com/startupden" target="_blank" class="post-content-share-vk">
-                    <i class="fa fa-vk fa-lg"></i>
-                </a>
-            
-                <a href="https://twitter.com/startupden_ru" target="_blank" class="post-content-share-twitter">
-                    <i class="fa fa-twitter fa-lg"></i>
-                </a>
-            
-                <a href="https://www.facebook.com/startupden.ru/" target="_blank" class="post-content-share-facebook">
-                    <i class="fa fa-facebook fa-lg"></i>
-                </a>
-
-                <a href="/feed" target="_blank" class="post-content-share-rss">
-                    <i class="fa fa-rss fa-lg"></i>
-                </a>
-
-        </div>
-
-    </div> <!-- /navbar -->
-
-{% endblock navbar %}
-
-
-
 {% block content %}
     
     <div class="row home-wrapper">
@@ -179,6 +139,16 @@
 
             <div class="col s3 sidebar-share home-sidebar-share">
                 <div class="row">
+
+                    <div class="collection">
+                        <a href="{% url 'headlines' %}" class="collection-item collection-header" style="font-size: 2.28rem; line-height: 110%; font-weight: 400; color: #a6a6a6;">Новости рунета</a>
+    
+                        {% for object in  news_list %}
+                            <a href="{{object.link}}" class="collection-item">{{object.title}} <span class="secondary-content">{{object.media.name}}</span> </a>
+                        {% endfor %}
+
+                    </div>
+
             
                     <div class="col s12" style="height: 250px; margin-top: 0;"><div id="vk_groups"></div></div>
                     

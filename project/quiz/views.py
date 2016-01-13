@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from quiz.models import Fact, Answer
 
@@ -35,7 +35,34 @@ def home(request):
     else:
         # count_questions = Question.objects.all().count()
         # return render_to_response('spectest/index.html', {'count_questions': count_questions})
+
         return render_to_response('quiz/index.html')
+
+
+def startQuiz(request):
+
+    if request.method == 'POST':
+        if request.is_ajax():
+
+            companies = Answer.objects.all()
+
+            company_list = []
+
+            for company in companies:
+                facts_list = []
+                facts_list.append(company.name)
+
+                facts = company.fact.all().values('text')
+
+                for fact in facts:
+                    facts_list.append(fact['text'])
+
+                company_list.append(facts_list)
+
+            result_json = json.dumps(company_list)
+            return HttpResponse(result_json)
+    else:
+        return HttpResponseRedirect('/quiz')
 
 
 def load_fact():

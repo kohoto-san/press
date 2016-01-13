@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from blog.models import Post, Typo, SubscribeEmail, Contact
+from blog.models import Post, Typo, SubscribeEmail, Contact, Headline
 
 import json
 import random
@@ -77,6 +77,11 @@ class LatestEntriesFeed(Feed):
 # published_feeds = {'mlist': LatestEntriesFeed}
 
 
+class HeadlineList(ListView):
+    model = Headline
+    template_name = 'headline.html'
+
+
 class PostList(ListView):
     model = Post
     template_name = 'index-new.html'
@@ -145,7 +150,8 @@ def load_posts(request, post_list, type_page):
         else:
             form = SubscribeEmailForm(label_suffix='')
             if type_page != "articles":
-                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form})
+                news = Headline.objects.all().order_by('-date')[:10]
+                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form, 'news_list': news})
             else:
                 return render_to_response('index-posts.html', {'feat_posts': feat_posts, 'form': form})
 
@@ -234,9 +240,9 @@ class PostDetail(DetailView):
 
         # posts = Post.objects.all().order_by('-id')[:4]
 
-        posts = Post.objects.all().order_by('-views_count').exclude(id=self.get_object().id)[:100]
+        posts = Post.objects.all().order_by('-views_count').exclude(id=self.object.id)[:100]
 
-        current_post_id = self.get_object().id_post
+        current_post_id = self.object.id_post
 
         next_post = Post.objects.filter(id_post=current_post_id + 1).first()
         prev_post = Post.objects.filter(id_post=current_post_id - 1).first()

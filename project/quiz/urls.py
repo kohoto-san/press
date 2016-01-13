@@ -32,6 +32,8 @@ urlpatterns = [
     url(r'^save-answer/', views.save_answer, name='save_answer'),
     # url(r'^$', views.home, name='home'),
 
+    url(r'^start/', views.startQuiz, name='start'),
+
     # url(r'^result/', views.result_calc, name='result_calc'),
     # url(r'^result/(?P<slug>[\w-]+)/*$', DetailView.as_view(model=Result))
 ]

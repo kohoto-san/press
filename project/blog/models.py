@@ -8,6 +8,8 @@ import string
 import datetime
 import os
 
+from django.utils import timezone
+
 import PIL
 from PIL import Image
 
@@ -67,6 +69,58 @@ class Category(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Media(models.Model):
+
+    name = models.CharField(max_length=100)
+    link = models.URLField()
+
+    class Meta:
+        verbose_name = "Media"
+        verbose_name_plural = "Medias"
+
+    def __str__(self):
+        return self.name
+
+
+class HeadlineCycle(models.Model):
+
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "HeadlineCycle"
+        verbose_name_plural = "HeadlineCycles"
+
+    def __str__(self):
+        return self.title
+
+
+class Headline(models.Model):
+
+    media = models.ForeignKey(Media)
+    cycle = models.ForeignKey(HeadlineCycle, blank=True, null=True)
+
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    link = models.URLField()
+
+    date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Headline"
+        verbose_name_plural = "Headlines"
+
+    def __str__(self):
+        return self.title
+"""
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.date = timezone.now()
+        return super(Headline, self).save(*args, **kwargs)
+"""
 
 
 class Post(models.Model):

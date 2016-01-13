@@ -7,6 +7,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="shortcut icon" href="/media/favicon.ico">
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -28,6 +30,42 @@
 <body>
 
     {% block navbar %}
+
+        <div id="navbar" class="row" style="position: relative; text-align: center;">
+
+            <div class="col l2 m3 s12 navbar-logo">
+                <h4><a href="/" style="color: #000;">StartupDen</a></h4>
+            </div>
+
+            <div class="navbar-categories col l7 m5 s12">
+                <a href="/news">Новости</a>
+                <a href="/articles">Статьи</a>
+            </div>
+            
+            <div class="share-btns share soc-pages col l3 m4 s12" style="/* text-align: right; */ padding-top: 10px;">
+
+                    <a href="https://vk.com/startupden" target="_blank" class="post-content-share-vk">
+                        <i class="fa fa-vk fa-lg"></i>
+                    </a>
+            
+                    <a href="https://twitter.com/startupden_ru" target="_blank" class="post-content-share-twitter">
+                        <i class="fa fa-twitter fa-lg"></i>
+                    </a>
+            
+                    <a href="https://www.facebook.com/startupden.ru/" target="_blank" class="post-content-share-facebook">
+                        <i class="fa fa-facebook fa-lg"></i>
+                    </a>
+
+                    <a href="/feed" target="_blank" class="post-content-share-rss">
+                        <i class="fa fa-rss fa-lg"></i>
+                    </a>
+
+            </div> <!-- /share-btns -->
+
+        </div> <!-- /navbar -->
+
+
+        {% comment %}
         <nav class="white black-text" style="position: relative;">
             <div class="nav-wrapper">
                 <a href="/" class="brand-logo">StartupDen</a>
@@ -56,6 +94,7 @@
 
             </div>
         </form>
+        {% endcomment %}
     {% endblock navbar %}
 
 

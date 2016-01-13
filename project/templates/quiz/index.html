@@ -2,6 +2,29 @@
 
 {% load staticfiles %}
 
+{% block head %}
+	<meta property="og:type" content="website" />
+
+	<meta property="twitter:title" content="Как хорошо ты знаешь российский IT рынок?" />
+    <meta property="og:title" content="Как хорошо ты знаешь российский IT рынок?" />
+
+    <meta property="og:description" content="У основателя какой компании был похищен сын? Кто создал «Библейский компьютерный справочник»? Кого не любят юристы Старбакса? А каким сервисом пользуется ИГИЛ? Узнай, как много ты знаешь о российский IT компаниях." />
+    <meta property="twitter:description" content="У основателя какой компании был похищен сын? Кто создал «Библейский компьютерный справочник»? Кого не любят юристы Старбакса? А каким сервисом пользуется ИГИЛ? Узнай, как много ты знаешь о российский IT компаниях." />
+
+    <meta property="og:site_name" content="StartupDen" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    
+    <meta property="og:image" content="http://startupden.ru/media/logo-quiz.png" />
+    <meta property="twitter:image" content="http://startupden.ru/media/logo-quiz.png" />
+
+    <meta property="og:url" content="http://startupden.ru/quiz/" />
+    <meta property="twitter:url" content="http://startupden.ru/quiz/" />
+
+    {{block.super}}
+
+{% endblock head %}
+
 {% block content %}
 	
 	<div class="row" style="background-color: #f0f1f5; padding-top: 50px;">
@@ -25,88 +48,94 @@
 
                     <div id="quiz-content" style="display: none;">
 
-                    	<div class="col s3 center-align">
+                    	<div class="col m3 s12 center-align">
                     		<h5>Очки: <span id="score">0</span></h5>
                     	</div>
 
-                    	<div class="progress" style="height: 20px; width: 480px; margin: auto; float: left;">
-      						<div id="timebar" class="determinate" style="width: 240px;"></div>
-  						</div>
+                    	<div class="col m6 s12 quiz-share-question center-align">
+                    		<p>Спроси у друзей</p>
 
-                    	<div class="col s3 center-align">
+                    		<div>
+	                    		<a class="share-quest vk popup" href="http://vk.com/share.php?url=" target="_blank" style="margin-left: 0;"><i class="fa fa-vk"></i></a>
+            					<a class="share-quest twitter popup" href="http://twitter.com/share?" target="_blank"><i class="fa fa-twitter"></i></a>
+            					<a class="share-quest facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><i class="fa fa-facebook"></i></a>
+            				</div>
+
+                    	</div>
+
+                    	<div class="col m3 s12 center-align">
                     		<h5>Уровень: <span id="level">1</span></h5>
                     	</div>
 
-                		<div class="col s10 offset-s1" style="margin-top: 50px;">
+	                    <div class="col s12">
+                    		<div class="progress" style="height: 20px; width: 480px; margin: auto;">
+      							<div id="timebar" class="determinate" style="width: 240px;"></div>
+  							</div>
+  						</div>
+
+                		<div class="col m10 offset-m1 s12" style="margin-top: 50px;">
                 			<h5 id="fact-content" class="center-align"></h5>
                 		</div>
 
-                		<div class="col s10 offset-s1" style="margin-top: 100px; margin-bottom: 80px;">
+                		<div class="col m10 offset-m1 s12 companies-wrapper">
                 		    
-                        	<div class="col s4">
-                        		<div id="company_left" class="company left-align waves-effect waves-light btn-large" style="cursor: pointer;"></div>
+                        	<div class="col m4 s12">
+                        		<div id="company_left" class="company waves-effect waves-light btn-large"></div>
                         	</div>
 
-                        	{% comment %}                        		
-                        	<div class="col s4 center-align">
-                        		<i class="heart fa fa-heart fa-2x"></i>
-                        		<i class="heart fa fa-heart fa-2x"></i>
-                        		<i class="heart fa fa-heart fa-2x"></i>
-                        	</div>
-                        	{% endcomment %}
-
-                        	<div class="col s4" style="float: right;">
-	                        	<div id="company_right" class="company waves-effect waves-light btn-large" style="cursor: pointer; float: right;"></div>
+                        	<div class="col m4 offset-m4 s12">
+	                        	<div id="company_right" class="company waves-effect waves-light btn-large"></div>
 	                        </div>
-
 
                 		</div> <!-- /quiz-content-footer -->
                     
 
                     </div> <!-- /#quiz-content -->
 
-                	<div id="lastchance" style="display: none;" class="col s10 offset-s1 center-align" style="margin-bottom: 50px;">
+                	<div id="lastchance" class="col m10 offset-m1 s12 center-align" style="margin-bottom: 50px;">
 	                    
 	                    <h5>Потрачено</h5>
-	                    <p style="margin-bottom: 0;">Позови друзей, чтобы получить ещё один шанс и продолжи игру с набранными очками!</p>
 
-	                    <div class="col s12" style="margin: 40px 0;">
+	                    <div class="col s12" style="margin: 15px 0 30px;">
 	                    	<div class="progress" style="height: 20px; width: 480px; margin: auto;">
       							<div id="lastchance-timebar" class="determinate" style="width: 480px;"></div>
   							</div>
   						</div>
 
-	                    <div style="margin-top: 40px;" class="quiz-share">
-	                    	<a class="vk popup" href="http://vk.com/share.php?url=" target="_blank" style="margin-left: 0;"><img style="width: 64px; height: 64px;" src="{% static 'vk_logo.svg' %}"></a>
-            				<a class="twitter popup" href="http://twitter.com/share?text=post.title" target="_blank"><img style="width: 64px; height: 64px;" src="{% static 'twitter_logo.svg' %}"></a>
-            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img style="width: 64px; height: 64px;" src="{% static 'facebook_logo.svg' %}"></a>
+	                    <p style="font-size: 18px;">Позови друзей, чтобы получить ещё один шанс и продолжи игру с набранными очками!</p>
+
+	                    <div style="margin-top: 25px;" class="quiz-share">
+	                    	<a class="vk popup" href="http://vk.com/share.php?title=Друзья, дайте ещё один шанс!&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
+            				<a class="twitter popup" href="http://twitter.com/share?text=Друзья, дайте ещё один шанс!&via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
+            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
             			</div>
 
-	                    <div class="waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Да не, я смирился со своей судьбой</div>
+	                    <div class="show-gameover waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Проиграть</div>
 
 
 	                </div> <!-- /#lastchance -->
 
-	                <div id="gameover" class="center-align">
-                    	<h4>Game Over</h4>
+	                <div id="gameover" style="display: none;" class="center-align">
+                    	<h3 style="margin: 0; font-weight: 300; color: #a8a8b3;"><span style="font-weight: 800; color: #000;">Game</span> Over</h3>
 
                     	<div class="col s4 offset-s2">
-                    		<h5>Очки: <span id="total-score">0</span></h5>
+                    		<p style="font-size: 17px;">Очки: <span id="total-score">0</span></p>
                     	</div>
 
                     	<div class="col s4">
-                    		<h5>Уровень: <span id="total-level">1</span></h5>
+                    		<p style="font-size: 17px;">Уровень: <span id="total-level">1</span></p>
                     	</div>
 
-                    	<div class="col s12 center-align" style="margin-top: 30px;">
+                    	<div class="col s12 center-align" style="margin-bottom: 10px;">
                     		<h5>Поделись с друзьями своим результатом!</h5>
                     	</div>
 
-                    	<div style="margin-top: 10px;" class="col s12 quiz-share quiz-share-score">
-	                    	<a class="vk popup" href="http://vk.com/share.php?url=" target="_blank" style="margin-left: 0;"><img style="width: 64px; height: 64px;" src="{% static 'vk_logo.svg' %}"></a>
-            				<a class="twitter popup" href="http://twitter.com/share?text=Я набрал {score}! Сможешь обойти меня? — &via=startupden_ru" target="_blank"><img style="width: 64px; height: 64px;" src="{% static 'twitter_logo.svg' %}"></a>
-            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img style="width: 64px; height: 64px;" src="{% static 'facebook_logo.svg' %}"></a>
+                    	<div style="margin-top: 10px;" class="quiz-share quiz-share-score">
+	                    	<a class="vk popup" href="http://vk.com/share.php?title=Я набрал {score}! А сколько сможешь ты?&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
+            				<a class="twitter popup" href="http://twitter.com/share?text=Я набрал {score}! А сколько сможешь ты? — &via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
+            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
             			</div>
+
 
 	                    <div id="play-again" class="waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Сыграть ещё раз</div>
 
@@ -125,8 +154,52 @@
 
     <style type="text/css">
 
-    	#lastchance a{
+    	.companies-wrapper{
+    		margin-top: 100px;
+    		margin-bottom: 80px;
+    	}
+
+    	.quiz-share a{
     		margin-left: 20px;
+    	}
+
+    	.quiz-share img{
+    		width: 64px;
+    		height: 64px;
+    	}
+
+    	.quiz-share-question div{
+    		display: inline-block;
+    		margin-top: 10px;
+    	}
+
+    	.quiz-share-question p{
+    		display: inline-block;
+    		font-size: 18px;
+    	}
+
+    	.quiz-share-question i{
+    		color: #7F7F7F;
+    		font-size: 24px;
+    		margin-left: 10px;
+    	}
+
+    	.quiz-share-question a:hover i{
+    		color: #000;
+    	}
+
+    	.company{
+    		cursor: pointer;
+    	}
+
+        @media (max-width: 600px){
+        	.company{
+        		display: block;
+        		margin-top: 30px;
+        	}
+    		.companies-wrapper{
+	    		margin-top: 20px;
+    		}
     	}
 
     </style>
@@ -145,6 +218,7 @@
                 	         ',top='    + top    +
                 	         ',left='   + left;
 
+
             	if( $(this).hasClass('twitter') ){
             	    var url = this.href;
             	}
@@ -156,6 +230,19 @@
                 	url = url.replace('{score}', score.toString());	
                 }
 
+                if( $(this).parent().parent().hasClass('quiz-share-question') ){
+
+                	var share_text = $('#fact-content').text() + ' — ' + $('#company_left').text() + ' или ' + $('#company_right').text() + '?';
+
+            		if( $(this).hasClass('twitter') ){
+            			url += 'text=' + share_text;
+            		}
+
+            		if( $(this).hasClass('vk') ){
+            			url += '&title=А ты знаешь к какой компании относится этот факт?&description=' + share_text;
+            		}
+
+                }
 
             	window.open(url, 'sharing', opts);
  
@@ -169,9 +256,9 @@
 
     <script type="text/javascript">
 
-        //var answers_arr = [];
-        //var question = 0;
-        //var count_questions = {{count_questions}};
+    	if( $(window).width() < 640){
+    		$('.progress').css('width', '100%');
+    	}
 
         var score = 0;
         var level = 1;
@@ -187,12 +274,49 @@
         var width;
         var lastchance_width;
 
+        var width_percent = $('#timebar').parent().width() / 100;
+
+        var company_list;
+
+        var nums = [];
+        var correct_answer;
+
+        var total_width = $('#timebar').parent().width();
+
+        var data_json;
+
+        function randomInt( min, max ) {
+  			return Math.floor( Math.random() * max + min );
+		}
+
         $('#start-quiz').click(function(){
         	$('#start_page').hide();
-        	startQuiz();
+        	loadQuiz();
         });
 
+        function loadQuiz(){
+
+        	if( !data_json){
+        		$.post( "{% url 'start' %}")
+                	.success(function( data ) {
+
+                		data_json = data;
+                		company_list = jQuery.parseJSON(data_json);
+
+        				for (i=0; i < company_list.length; ++i) nums[i]=i;
+
+                		startQuiz();
+
+                	}); // done || success
+            }
+            else{
+            	company_list = jQuery.parseJSON(data_json);
+            	startQuiz();
+            }
+        }
+
         function startQuiz(){
+
         	width = $('#timebar').parent().width() / 2;
         	lastchance_width = $('#timebar').parent().width();
 
@@ -202,12 +326,14 @@
         	timerInterval = setInterval(timer, 300);
         }
 
+
         function timer(){
 
         	if(first_answer){
         		if(!game_over && width > 0){
-        			$('#timebar').css('width', width);
-        			width -= 5;
+        			if(width < total_width) $('#timebar').css('width', width);
+        			
+        			width -= width_percent * 1.5;
         			//setTimeout(timer, 300);
         		}
         		else{
@@ -219,54 +345,36 @@
         }
 
         $('.company').click(function(){
-        	factID = $('#fact-content').data('factID');
         	answer = $(this).text();
-        	sendAnswer(answer, factID);
+        	sendAnswer(answer);
         });
 
-        function sendAnswer(answer, factID){
+        function sendAnswer(answer){
 
-        	$.post( "{% url 'save_answer' %}",  {answer: answer, factID: factID})
-                
-                .done(function( data ) {
+        	if( answer == correct_answer ){
+        		if( !first_answer) first_answer = true;
 
-                	data_json = jQuery.parseJSON(data)[0];
-					
-					if(data_json['correct'] == 0){
-
-						game_over = true;
-
-						if( !lastchance){
-							lastChance();
-						}
-						else{
-							gameOver();
-						}
-					}
-					else{
-
-						if( !first_answer) first_answer = true
-
-						width += 50;
-						count_answers += 1;
+				width += width_percent * 10;
+				count_answers += 1;
 						
-						if(count_answers == 5){
-							count_answers = 0;
-							level += 1;
-							$('#level').text(level);
-						}
+				if(count_answers == 5){
+					count_answers = 0;
+					level += 1;
+					$('#level').text(level);
+				}
 
-						score += 2 * level;
-						$('#score').text(score);
+				score += 2 * level;
+				$('#score').text(score);
 
-     					enableFact(data_json);
-					}
+				loadFact();
+        	}
+        	else{
+        		game_over = true;
 
-
-                }) // done
-                
-                .fail(function() {
-                }); // fail
+				if( !lastchance) lastChance();
+				else gameOver();
+        	}
+        	
         }
 
         function lastChance(){
@@ -290,9 +398,14 @@
         		//lastchance_width = $('#timebar').parent().width();
 	        	
 	        	$('#lastchance').hide();
-        		startQuiz();
+        		loadQuiz();
         	});
         }
+
+        $('.show-gameover').click(function(){
+        	clearInterval(lastchanceInterval);
+        	gameOver();
+        });
 
 		function lastchanceTimer(){
 
@@ -305,7 +418,7 @@
         		gameOver();
         	}
 
-        	lastchance_width -= 10;
+        	lastchance_width -= width_percent;
         }
 
         // Запускается, когда заканчивается lastchance
@@ -321,28 +434,40 @@
 
         function loadFact(){
 
-            $.post( window.location.href )
-                
-                .done(function( data ) {
-					
-					data_json = jQuery.parseJSON(data)[0];
-     				enableFact(data_json);
+        	nums.sort(function(){ return Math.random()-0.5 });
+             
+            var company = company_list[ nums[0] ];
+            var i = 1;
 
-                }) // done
-                
-                .fail(function() {
-                }); // fail
+            while(company.length <= 1){
+             	company = company_list[ nums[i] ];
+             	i++;
+            }
+
+            if(company.length > 1){
+
+        		num_fact = randomInt(1, company.length - 1);
+            	var fact = company[num_fact];
+
+            	company.splice(num_fact, 1);
+
+            	company = company[0];
+            	var another_company = company_list[ nums[1] ][0];
+
+            	correct_answer = company;
+
+            	if(randomInt(0, 2) == 0) enableFact(fact, company, another_company);
+            	else 					 enableFact(fact, another_company, company);
+            }
 
         } // function loadPosts
 
 
-        function enableFact(data){
+        function enableFact(fact, company, another_company){
 
-			$('#fact-content').data('factID', data['factID']);
-
-            $('#fact-content').text(data['fact']);
-            $('#company_left').text(data['answer']);
-            $('#company_right').text(data['answer_another']);
+            $('#fact-content').text(fact);
+            $('#company_left').text(company);
+            $('#company_right').text(another_company);
         }
 
         $('#play-again').click(function(){
@@ -350,10 +475,11 @@
         	score = 0;
         	level = 1;
         	count_answers = 0;
+        	game_over = false;
 
         	$('#gameover').hide();
 
-        	startQuiz();
+        	loadQuiz();
         });
 
 

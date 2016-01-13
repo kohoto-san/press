@@ -14,10 +14,11 @@ class Answer(models.Model):
         return self.name
 
 
+# Question
 class Fact(models.Model):
 
     text = models.TextField()
-    answer = models.ForeignKey(Answer)
+    answer = models.ForeignKey(Answer, related_name='fact')
 
     class Meta:
         verbose_name = "Fact"

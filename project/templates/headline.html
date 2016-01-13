@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="row home-wrapper">
+	
+
+	<div class="col m8 offset-m2">
+			
+		{% for object in object_list %}
+
+			<div>
+				<a href="{{object.link}}" style="color: #000;"><h5>{{object.title}}</h5></a>
+				<a href="{{object.link}}">{{object.media.name}}</a>
+			</div>
+			<hr>
+
+		{% endfor %}
+
+	</div>
+
+	</div>
+
+{% endblock content %}

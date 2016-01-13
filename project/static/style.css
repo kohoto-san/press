@@ -1,4 +1,9 @@
 
+        .secondary-content{
+            color: #000;
+            opacity: 0.5;
+        }    
+    
         #footer .link{
             color: #026697;
         }
