@@ -16,7 +16,7 @@ from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 
-
+"""
 class ImageSingle(models.Model):
 
     def get_upload_path(instance, filename):
@@ -33,6 +33,7 @@ class ImageSingle(models.Model):
 
     def __str__(self):
         return self.image.url
+"""
 
 
 class SubscribeEmail(models.Model):
