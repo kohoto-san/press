@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from blog.models import Post, Typo, SubscribeEmail, Contact, Headline
+from blog.models import Post, Typo, SubscribeEmail, Contact, Headline, ExternalLink
 
 import json
 import random
@@ -17,7 +17,7 @@ from django.core.urlresolvers import reverse
 from django.utils.feedgenerator import Rss201rev2Feed
 from django.template.loader import render_to_string
 
-from django.http import Http404  
+from django.http import Http404
 
 from blog.forms import SubscribeEmailForm
 
@@ -82,8 +82,13 @@ class HeadlineList(ListView):
     template_name = 'headline.html'
 
 
-#def headline(request):
-#    return render_to_response('headline.html')
+def link(request, slug):
+
+    try:
+        link = ExternalLink.objects.get(internal=slug)
+        return HttpResponseRedirect(link.external)
+    except ExternalLink.DoesNotExist:
+        raise Http404()
 
 
 class PostList(ListView):
@@ -154,9 +159,8 @@ def load_posts(request, post_list, type_page):
         else:
             form = SubscribeEmailForm(label_suffix='')
             if type_page != "articles":
-                # news = Headline.objects.all().order_by('-date')[:10]
-                # return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form, 'news_list': news})
-                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form})
+                news = Headline.objects.all().order_by('-date')[:10]
+                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form, 'news_list': news})
             else:
                 return render_to_response('index-posts.html', {'feat_posts': feat_posts, 'form': form})
 

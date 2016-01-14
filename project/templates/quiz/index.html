@@ -8,8 +8,8 @@
 	<meta property="twitter:title" content="Как хорошо ты знаешь российский IT рынок?" />
     <meta property="og:title" content="Как хорошо ты знаешь российский IT рынок?" />
 
-    <meta property="og:description" content="У основателя какой компании был похищен сын? Кто создал «Библейский компьютерный справочник»? Кого не любят юристы Старбакса? А каким сервисом пользуется ИГИЛ? Узнай, как много ты знаешь о российский IT компаниях." />
-    <meta property="twitter:description" content="У основателя какой компании был похищен сын? Кто создал «Библейский компьютерный справочник»? Кого не любят юристы Старбакса? А каким сервисом пользуется ИГИЛ? Узнай, как много ты знаешь о российский IT компаниях." />
+    <meta property="og:description" content="У основателя какой компании был похищен сын? Кто создал «Библейский компьютерный справочник»? А кого не любят юристы Старбакса? Узнай, как много ты знаешь о российских IT компаниях." />
+    <meta property="twitter:description" content="У основателя какой компании был похищен сын? Кто создал «Библейский компьютерный справочник»? А кого не любят юристы Старбакса? Узнай, как много ты знаешь о российских IT компаниях." />
 
     <meta property="og:site_name" content="StartupDen" />
 
@@ -32,16 +32,19 @@
             <div class="container">
                 <div class="row z-depth-3" style="background-color: #fff; margin-bottom: 50px; padding-top: 30px; min-height: 400px;">
 
-                	<div id="start_page" style="display: none;">
+                	<div id="start_page">
                 		
-                		<div class="col s8 offset-s2">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla arcu libero, tincidunt sed dui vel, posuere volutpat leo. Pellentesque eu magna at leo rhoncus maximus. Aliquam odio dui, luctus vitae condimentum quis, lobortis egestas ante. Mauris sed euismod nunc. Pellentesque eleifend tempor leo a cursus. Sed eu mattis nunc. Mauris pharetra leo elit, nec ullamcorper ligula venenatis ac. Pellentesque auctor felis mattis, maximus ante quis, gravida felis. Duis tellus dolor, lobortis et faucibus elementum, fringilla sed nisl. Nullam posuere sem non sollicitudin pharetra. Integer a pellentesque risus.</p>
+                		<div class="col s8 offset-s2 center-align">
 
-                            <p>Ut viverra mauris sit amet ipsum dignissim volutpat a eget tortor. Fusce vulputate elit nec massa dictum, tincidunt euismod risus sagittis. Duis sit amet consequat elit, vel aliquam tellus. Ut luctus egestas facilisis. Donec bibendum efficitur nisi, id tincidunt lacus semper sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod scelerisque dolor.</p>
+                			<h5>Как хорошо ты знаешь российский IT рынок?</h5>
+                			<p style="font-size: 18px; margin-bottom: 40px;">Сопоставь факт и компанию, к которой он относится.</p>
+
+                			<p class="left-align">У основателя какой компании был похищен сын? Кто создал «Библейский компьютерный справочник»? А кого не любят юристы Старбакса? Узнай, как много ты знаешь о российских IT компаниях.</p>
+
                         </div>
 
                         <div class="col s4 offset-s4">
-                        	<div id="start-quiz" class="center-align waves-effect waves-light btn" style="display: block; cursor: pointer; margin-top: 50px; margin-bottom: 50px;">Начать тест</div>
+                        	<div id="start-quiz" class="center-align waves-effect waves-light btn-large" style="display: block; cursor: pointer; margin-top: 50px; margin-bottom: 50px;">Начать тест</div>
                     	</div>
 
                 	</div>
@@ -83,7 +86,7 @@
                         		<div id="company_left" class="company waves-effect waves-light btn-large"></div>
                         	</div>
 
-                        	<div class="col m4 offset-m4 s12">
+                        	<div class="col m4 offset-m4 s12 right-align">
 	                        	<div id="company_right" class="company waves-effect waves-light btn-large"></div>
 	                        </div>
 
@@ -92,7 +95,7 @@
 
                     </div> <!-- /#quiz-content -->
 
-                	<div id="lastchance" class="col m10 offset-m1 s12 center-align" style="margin-bottom: 50px;">
+                	<div id="lastchance" style="display: none;" class="col m10 offset-m1 s12 center-align" style="margin-bottom: 50px;">
 	                    
 	                    <h5>Потрачено</h5>
 
@@ -137,7 +140,25 @@
             			</div>
 
 
-	                    <div id="play-again" class="waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Сыграть ещё раз</div>
+	                    <div class="play-again waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Сыграть ещё раз</div>
+
+	                </div> <!-- /#gameover -->
+
+	                <div id="win" style="display: none;" class="center-align">
+                    	<h3 style="margin: 0; font-weight: 300; color: #a8a8b3;">Поздравляем!</h3>
+
+                    	<div class="col m8 offset-m2 s12 center-align" style="margin-bottom: 10px;">
+                    		<p style="font-size: 18px;">Кажется, вы смогли сопоставить все факты с компаниями. А ещё вы набрали <span id="score-win">0</span> очков. Уверены, ваши друзья будут поражены таким результатом!</p>
+                    	</div>
+
+                    	<div style="margin-top: 10px;" class="col s12 quiz-share quiz-share-score">
+	                    	<a class="vk popup" href="http://vk.com/share.php?title=Я сопоставил все факты с компаниями и набрал {score}! А сколько сможешь ты?&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
+            				<a class="twitter popup" href="http://twitter.com/share?text=Я сопоставил все факты с компаниями и набрал {score}! А сколько сможешь ты? — &via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
+            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
+            			</div>
+
+
+	                    <div class="play-again waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Победить ещё раз</div>
 
 	                </div> <!-- /#gameover -->
 
@@ -432,6 +453,16 @@
         	$('#gameover').show();
         }
 
+
+        function win(){
+        	clearInterval(timerInterval);
+
+        	$('#score-win').text(score);
+        	$('#quiz-content').hide();
+        	$('#win').show();
+        }
+
+
         function loadFact(){
 
         	nums.sort(function(){ return Math.random()-0.5 });
@@ -439,9 +470,15 @@
             var company = company_list[ nums[0] ];
             var i = 1;
 
+
             while(company.length <= 1){
              	company = company_list[ nums[i] ];
              	i++;
+             	
+             	if(i == company_list.length){
+             		win();
+             		break;
+             	}
             }
 
             if(company.length > 1){
@@ -452,7 +489,12 @@
             	company.splice(num_fact, 1);
 
             	company = company[0];
-            	var another_company = company_list[ nums[1] ][0];
+            	if(i == 1){
+            		var another_company = company_list[ nums[1] ][0];
+            	}
+            	else{
+            		var another_company = company_list[ nums[i-2] ][0];
+            	}
 
             	correct_answer = company;
 
@@ -470,7 +512,7 @@
             $('#company_right').text(another_company);
         }
 
-        $('#play-again').click(function(){
+        $('.play-again').click(function(){
 
         	score = 0;
         	level = 1;
@@ -478,6 +520,7 @@
         	game_over = false;
 
         	$('#gameover').hide();
+        	$('#win').hide();
 
         	loadQuiz();
         });

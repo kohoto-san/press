@@ -72,17 +72,32 @@ class Category(models.Model):
         return self.text
 
 
+def id_generator(size=8, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):
+    slug = ''.join(random.choice(chars) for i in range(size))
+
+    while(ExternalLink.objects.filter(internal=slug)):
+        slug = ''.join(random.choice(chars) for i in range(size))
+
+    return slug
+
+
 class ExternalLink(models.Model):
 
     external = models.URLField()
-    internal = models.URLField()
+    internal = models.CharField(max_length=50, unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.internal = id_generator()
+
+        return super(ExternalLink, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "ExternalLink"
         verbose_name_plural = "ExternalLinks"
 
     def __str__(self):
-        pass
+        return self.external
 
 
 class Media(models.Model):
@@ -118,17 +133,17 @@ class Headline(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
+
     link = models.URLField()
+    smart_link = models.ForeignKey(ExternalLink, blank=True, null=True)
 
     date = models.DateTimeField(default=timezone.now)
 
-    """
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         if not self.id:
-            self.date = timezone.now()
+            self.smart_link = ExternalLink.objects.create(external=self.link)
         return super(Headline, self).save(*args, **kwargs)
-    """
 
     class Meta:
         verbose_name = "Headline"

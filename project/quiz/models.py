@@ -26,3 +26,15 @@ class Fact(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class TextContent(models.Model):
+
+    content = models.FileField(upload_to='files', null=True)
+
+    class Meta:
+        verbose_name = "TextContent"
+        verbose_name_plural = "TextContents"
+
+    def __str__(self):
+        return self.content

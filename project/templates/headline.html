@@ -10,8 +10,8 @@
 		{% for object in object_list %}
 
 			<div>
-				<a href="{{object.link}}" style="color: #000;"><h5>{{object.title}}</h5></a>
-				<a href="{{object.link}}">{{object.media.name}}</a>
+				<a href="{% url 'link' object.smart_link.internal %}" target="_blank" style="color: #000;"><h5>{{object.title}}</h5></a>
+				<a href="{% url 'link' object.smart_link.internal %}" target="_blank">{{object.media.name}}</a>
 			</div>
 			<hr>
 

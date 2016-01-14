@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^articles/', views.load_articles, name='articles'),
 
     url(r'^links/', views.HeadlineList.as_view(), name='headlines'),
-    # url(r'^links/', views.headline, name='headlines'),
+    url(r'^l/(?P<slug>[\w-]+)/*$', views.link, name='link'),
 
     # url(r'^form/', views.email_create, name='email_create'),
 
