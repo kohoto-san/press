@@ -156,8 +156,9 @@ def load_posts(request, post_list, type_page):
         else:
             form = SubscribeEmailForm(label_suffix='')
             if type_page != "articles":
-                news = Headline.objects.all().order_by('-date')[:10]
-                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form, 'news_list': news})
+                # news = Headline.objects.all().order_by('-date')[:10]
+                # return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form, 'news_list': news})
+                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form})
             else:
                 return render_to_response('index-posts.html', {'feat_posts': feat_posts, 'form': form})
 
