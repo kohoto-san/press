@@ -213,16 +213,14 @@
             
         </div> <!-- /.sidebar-share -->
 
-    </div> <!-- /post-content -->
-
-        <div id="feature-wrapper" class="col l10 offset-l1 s12" style="font-size: 1.15rem; margin-top: 20px;">
+        <div id="feature-wrapper" class="col s12" style="font-size: 1.15rem; margin-top: 20px;">
 
             <h4 class="center-align" style=" width: 100%; border-bottom: 2px solid #9A9A9A; line-height: 0.1em; margin: 10px 0 50px;"><span style="background: #fff; padding: 0 10px;">Читайте также</span></h4>
 
             {% for post in recommended_posts %}
                 
-                <div class="col l3 m6 s12" style="height: 250px;">
-                    <a href="{% url 'post_detail' post.slug %}" class="card hoverable">
+                <div class="col l3 m6 s12" style="height: 250px; max-width: 250px;">
+                    <a href="{% url 'post_detail' post.slug %}" class="card">
                         
                         <div class="card-image">
                             <img src="{{post.image.url}}" style="height: 150px;">
@@ -241,7 +239,10 @@
 
             {% endfor %}
 
-        </div> <!-- /.col s10 -->
+        </div> <!-- /.col s10 feature-wrapper -->
+
+
+    </div> <!-- /post-content -->
 
     </div> <!-- /.row -->
 

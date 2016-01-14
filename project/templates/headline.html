@@ -5,19 +5,66 @@
     <div class="row home-wrapper">
 	
 
-	<div class="col m8 offset-m2">
+		<div class="col l8 offset-l1 m10 offset-m1 s12">
 				
-		{% for object in object_list %}
+			<div class="collection">
+			{% for object in object_list %}
+        	    <a href="{% url 'link' object.smart_link.internal %}" target="_blank" class="collection-item">
+        	    	<h5>{{object.title}}</h5>
+        	    	<p style="color: #000; margin: 0;">{{object.media.name}}</p>
+        	    </a>
+			{% endfor %}
+			</div> <!-- /collection -->
 
-			<div>
-				<a href="{% url 'link' object.smart_link.internal %}" target="_blank" style="color: #000;"><h5>{{object.title}}</h5></a>
-				<a href="{% url 'link' object.smart_link.internal %}" target="_blank">{{object.media.name}}</a>
-			</div>
-			<hr>
+		</div>
 
-		{% endfor %}
+		<div class="col s3 sidebar-share home-sidebar-share" style="top: 100px;">
+                <div class="row">
+            
+                    <div class="col s12" style="height: 250px; margin-top: 0;"><div id="vk_groups"></div></div>
+                    
+                    <div class="col s12">
+                    
+                        <div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                            <div class="fb-xfbml-parse-ignore">
+                                <blockquote cite="https://www.facebook.com/startupden.ru/">
+                                    <a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
+                                </blockquote>
+                            </div>
+                        </div>
 
-	</div>
+                    </div> <!-- /col s12 Facebook -->
+
+                    <div class="col s12">
+                        <div class="card indigo lighten-3">
+                            <div class="card-content white-text">
+                                <p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
+
+                                <a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
+                                    Follow @startupden_ru
+                                </a>
+
+                            </div>
+                        </div>
+                    </div> <!-- /col s12 Twitter -->
+
+                    <div class="col s12">
+                        <a href="{% url 'contact' %}" class="write-us card hoverable blue-grey lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center-text">Напишите нам!</span>
+                                <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
+                            </div>
+
+                            <div class="write-us-action card-action center-align blue-grey darken-1">
+                                <span>Написать</span>
+                            </div>
+                            
+                        </a>
+                    </div> <!-- /.col s12 Write-Us -->
+               
+                </div> <!-- /row-->
+
+        </div> <!-- /sidebar-share -->
 
 	</div>
 
