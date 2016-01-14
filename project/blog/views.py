@@ -3,7 +3,8 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from blog.models import Post, Typo, SubscribeEmail, Contact, Headline
+from blog.models import Post, Typo, SubscribeEmail, Contact
+#, Headline
 
 import json
 import random
@@ -76,10 +77,15 @@ class LatestEntriesFeed(Feed):
 
 # published_feeds = {'mlist': LatestEntriesFeed}
 
-
+"""
 class HeadlineList(ListView):
     model = Headline
     template_name = 'headline.html'
+"""
+
+
+def headline(request):
+    return render_to_response('headline.html')
 
 
 class PostList(ListView):

@@ -71,7 +71,7 @@ class Category(models.Model):
     def __str__(self):
         return self.text
 
-
+"""
 class Media(models.Model):
 
     name = models.CharField(max_length=100)
@@ -101,7 +101,7 @@ class HeadlineCycle(models.Model):
 class Headline(models.Model):
 
     media = models.ForeignKey(Media)
-    cycle = models.ForeignKey(HeadlineCycle, blank=True, null=True)
+    # cycle = models.ForeignKey(HeadlineCycle, blank=True, null=True)
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
@@ -115,6 +115,8 @@ class Headline(models.Model):
 
     def __str__(self):
         return self.title
+"""
+
 """
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
