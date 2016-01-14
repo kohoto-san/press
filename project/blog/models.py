@@ -71,7 +71,7 @@ class Category(models.Model):
     def __str__(self):
         return self.text
 
-"""
+
 class Media(models.Model):
 
     name = models.CharField(max_length=100)
@@ -115,7 +115,6 @@ class Headline(models.Model):
 
     def __str__(self):
         return self.title
-"""
 
 """
     def save(self, *args, **kwargs):
