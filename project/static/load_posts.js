@@ -94,13 +94,17 @@ function loadPosts(){
 
             .always( function( instance ) {
 
-                $newElems.show();
-                msnry.appended( $newElems );
-
                 if( !first_load ){
+                    runet_news = $('#runet-news').show();
+                    msnry.appended( runet_news );
+
                     $('#content-posts-plug').css('display', 'none');
                     first_load = true;
                 }
+
+                $newElems.show();
+                msnry.appended( $newElems );
+
 
                 page += 1;
                 loading('on');
