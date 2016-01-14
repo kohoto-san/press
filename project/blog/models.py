@@ -72,6 +72,19 @@ class Category(models.Model):
         return self.text
 
 
+class ExternalLink(models.Model):
+
+    external = models.URLField()
+    internal = models.URLField()
+
+    class Meta:
+        verbose_name = "ExternalLink"
+        verbose_name_plural = "ExternalLinks"
+
+    def __str__(self):
+        pass
+
+
 class Media(models.Model):
 
     name = models.CharField(max_length=100)
@@ -108,6 +121,14 @@ class Headline(models.Model):
     link = models.URLField()
 
     date = models.DateTimeField(default=timezone.now)
+
+    """
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.date = timezone.now()
+        return super(Headline, self).save(*args, **kwargs)
+    """
 
     class Meta:
         verbose_name = "Headline"
