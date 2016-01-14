@@ -81,6 +81,10 @@ class HeadlineList(ListView):
     model = Headline
     template_name = 'headline.html'
 
+    def get_queryset(self):
+        qs = super(HeadlineList, self).get_queryset()
+        return qs.order_by('-date')
+
 
 def link(request, slug):
 
