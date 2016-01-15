@@ -1,6 +1,5 @@
 from django.contrib import admin
-from quiz.models import Fact, Answer
-#, TextContent
+from quiz.models import Fact, Answer, TextContent
 
 
 class FactInline(admin.TabularInline):
@@ -14,4 +13,4 @@ class AnswerAdmin(admin.ModelAdmin):
 
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Fact)
-# admin.site.register(TextContent)
+admin.site.register(TextContent)
