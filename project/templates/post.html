@@ -297,8 +297,6 @@
     </style>
 {% endcomment %}
 
-    <script src="{% static 'js.cookie.js' %}"></script>
-    <script src="{% static 'csrftoken.js' %}"></script>
 
     <script type="text/javascript">
 
@@ -360,6 +358,9 @@
         } // getOffsetRect()
 {% endcomment %}
 
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
 
 
         $(document).ready(function() {
@@ -421,7 +422,7 @@
                 $.post( "/typo/", {pk: id_post, text: text}, function( data ) {
                 
                     if(data == 'sent'){
-                        Materialize.toast('Спасибо за то, что сообщиил нам об ошибке! Мы в ближайшее время её исправим.', 4000);
+                        Materialize.toast('Спасибо за сообщиение нам об ошибке! Мы в ближайшее время её исправим.', 4000);
                     }
 
                 });

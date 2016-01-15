@@ -272,10 +272,11 @@
     	});
     </script>
 
-    <script src="{% static 'js.cookie.js' %}"></script>
-    <script src="{% static 'csrftoken.js' %}"></script>
-
     <script type="text/javascript">
+		
+    	$.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
 
     	if( $(window).width() < 640){
     		$('.progress').css('width', '100%');

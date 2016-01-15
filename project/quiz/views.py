@@ -9,58 +9,56 @@ import json
 
 def home(request):
 
+    return render(request, 'quiz/index.html')
+
+    """
     if request.method == 'POST':
         if request.is_ajax():
 
-            #question = get_object_or_404(Question, id_question=id_question)
-            #answers = Answer.objects.filter(question_id=question.id)
+            question = get_object_or_404(Question, id_question=id_question)
+            answers = Answer.objects.filter(question_id=question.id)
 
-            # posts_values = posts_paginator.object_list.values('slug', 'category', 'title', 'text_entry', 'image')
-            # for value in posts_values:
-            #   value['image'] = settings.MEDIA_URL + value['image']
-            # posts_json = json.dumps(list(posts_values))
+            posts_values = posts_paginator.object_list.values('slug', 'category', 'title', 'text_entry', 'image')
+            for value in posts_values:
+                value['image'] = settings.MEDIA_URL + value['image']
+            posts_json = json.dumps(list(posts_values))
 
             result = load_fact()
-            # result.update([{'correct': 0}])
+            result.update([{'correct': 0}])
 
             result_json = json.dumps(list([result]))
             return HttpResponse(result_json)
 
-            # context = {'question': question, 'answers': answers}
-            # html = render_to_string('spectest/question.html', context)
-            # return HttpResponse(html)
+            context = {'question': question, 'answers': answers}
+            html = render_to_string('spectest/question.html', context)
+            return HttpResponse(html)
 
-            # return HttpResponse(posts_json)
-
-    else:
-        # count_questions = Question.objects.all().count()
-        # return render_to_response('spectest/index.html', {'count_questions': count_questions})
-
-        return render_to_response('quiz/index.html')
+            return HttpResponse(posts_json)
+    """
 
 
 def startQuiz(request):
 
-    if request.method == 'POST':
-        if request.is_ajax():
+    if request.method == 'POST' and request.is_ajax():
+        # if request.is_ajax():
 
-            companies = Answer.objects.all()
+        companies = Answer.objects.all()
 
-            company_list = []
+        company_list = []
 
-            for company in companies:
-                facts_list = []
-                facts_list.append(company.name)
+        for company in companies:
+            facts_list = []
+            facts_list.append(company.name)
 
-                facts = company.fact.all().values('text')
+            facts = company.fact.all().values('text')
 
-                for fact in facts:
-                    facts_list.append(fact['text'])
+            for fact in facts:
+                facts_list.append(fact['text'])
 
-                company_list.append(facts_list)
+            company_list.append(facts_list)
 
-            result_json = json.dumps(company_list)
-            return HttpResponse(result_json)
+        result_json = json.dumps(company_list)
+        return HttpResponse(result_json)
     else:
         return HttpResponseRedirect('/quiz')
 

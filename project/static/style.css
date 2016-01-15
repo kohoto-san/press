@@ -179,6 +179,8 @@
         .card-post{
     		position: absolute;
             max-width: 500px;
+            
+            max-width: 450px;
 
             padding: 0 0.75rem;
             margin: 0 auto 20px auto;
