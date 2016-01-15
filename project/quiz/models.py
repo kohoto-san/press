@@ -29,6 +29,7 @@ class Fact(models.Model):
         return self.text
 
 
+"""
 class TextContent(models.Model):
 
     content = models.FileField(upload_to='files', null=True)
@@ -52,3 +53,4 @@ class TextContent(models.Model):
 
     def __str__(self):
         return self.content.url
+"""
