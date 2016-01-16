@@ -94,13 +94,7 @@
                 	<div id="lastchance" style="display: none;" class="col m10 offset-m1 s12 center-align" style="margin-bottom: 50px;">
 	                    
 	                    <h5>Потрачено</h5>
-
-	                    <div class="col s12" style="margin: 15px 0 30px;">
-	                    	<div class="progress" style="height: 20px; width: 480px; margin: auto;">
-      							<div id="lastchance-timebar" class="determinate" style="width: 480px;"></div>
-  							</div>
-  						</div>
-
+	                    
 	                    <p style="font-size: 18px;">Позови друзей, чтобы получить ещё один шанс и продолжи игру с набранными очками!</p>
 
 	                    <div style="margin-top: 25px;" class="quiz-share">
@@ -274,21 +268,13 @@
             data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
         });
 
-    	if( $(window).width() < 640){
-    		$('.progress').css('width', '100%');
-    	}
-
         var score = 0;
         var level = 1;
         var count_answers = 0;
 
-        var lastchanceInterval;
-
         var game_over = false;
         var first_answer = false;
         var lastchance = false;
-
-        var lastchance_width = 100;
 
         var company_list;
 
@@ -309,11 +295,6 @@
         function loadQuiz(){
 
             first_answer = false;
-
-            //lastchance_width = $('#timebar').parent().width();
-            lastchance_width = 100;
-            $('#lastchance-timebar').css('width', lastchance_width + '%');
-
 
             $('#level').text(level);
             $('#score').text(score);
@@ -378,13 +359,7 @@
         	$('#quiz-content').hide();
         	$('#lastchance').show();
 
-        	lastchanceInterval = setInterval(lastchanceTimer, 300);
-
-        	//setTimeout(function(){ timer( $('#lastchance-timebar') ); }, 1000);
-
-
         	$('#lastchance a').click(function(){
-        		clearInterval(lastchanceInterval);
         		lastchance = true;
 
         		game_over = false;
@@ -398,23 +373,8 @@
         	gameOver();
         });
 
-		function lastchanceTimer(){
-
-			if(lastchance_width > 0){
-        		$('#lastchance-timebar').css('width', lastchance_width + '%');
-        	}
-        	else{
-        		gameOver();
-        	}
-
-            //lastchance_width -= width_percent;
-        	lastchance_width -= 1;
-        }
-
         // Запускается, когда заканчивается lastchance
         function gameOver () {
-            clearInterval(lastchanceInterval);
-
         	$('#total-score').text(score);
         	$('#total-level').text(level);
 
