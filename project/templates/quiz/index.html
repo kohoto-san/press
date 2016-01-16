@@ -72,12 +72,6 @@
                     		<h5>Уровень: <span id="level">1</span></h5>
                     	</div>
 
-	                    <div class="col s12">
-                    		<div class="progress" style="height: 20px; width: 480px; margin: auto;">
-      							<div id="timebar" class="determinate" style="width: 240px;"></div>
-  							</div>
-  						</div>
-
                 		<div class="col m10 offset-m1 s12" style="margin-top: 50px;">
                 			<h5 id="fact-content" class="center-align"></h5>
                 		</div>
@@ -288,24 +282,18 @@
         var level = 1;
         var count_answers = 0;
 
-        var timerInterval;
         var lastchanceInterval;
 
         var game_over = false;
         var first_answer = false;
         var lastchance = false;
 
-        var width;
-        var lastchance_width;
-
-        var width_percent = $('#timebar').parent().width() / 100;
+        var lastchance_width = 100;
 
         var company_list;
 
         var nums = [];
         var correct_answer;
-
-        var total_width = $('#timebar').parent().width();
 
         var data_json;
 
@@ -322,10 +310,10 @@
 
             first_answer = false;
 
-            width = $('#timebar').parent().width() / 2;
-            lastchance_width = $('#timebar').parent().width();
+            //lastchance_width = $('#timebar').parent().width();
+            lastchance_width = 100;
+            $('#lastchance-timebar').css('width', lastchance_width + '%');
 
-            $('#timebar').css('width', width);
 
             $('#level').text(level);
             $('#score').text(score);
@@ -350,33 +338,8 @@
         }
 
         function startQuiz(){
-
         	$('#quiz-content').show();
-
             loadFact();
-        	timerInterval = setInterval(timer, 450); //300
-        }
-
-
-        function timer(){
-
-        	if(first_answer){
-        		if(!game_over && width > 0){
-                    
-        			if(width >= total_width) width = total_width;
-                    
-                    width -= width_percent * 1.5;  //1.5
-
-                    $('#timebar').css('width', width);
-
-                    //setTimeout(timer, 300);
-        		}
-        		else{
-        			clearInterval(timerInterval);
-        			game_over = true;
-        			lastChance();
-        		}
-        	}
         }
 
         $('.company').click(function(){
@@ -389,7 +352,6 @@
         	if( answer == correct_answer ){
         		if( !first_answer) first_answer = true;
 
-				width += width_percent * 15; // 10
 				count_answers += 1;
 						
 				if(count_answers == 5){
@@ -416,7 +378,6 @@
         	$('#quiz-content').hide();
         	$('#lastchance').show();
 
-        	//lastchanceTimer();
         	lastchanceInterval = setInterval(lastchanceTimer, 300);
 
         	//setTimeout(function(){ timer( $('#lastchance-timebar') ); }, 1000);
@@ -426,37 +387,34 @@
         		clearInterval(lastchanceInterval);
         		lastchance = true;
 
-        		//width = $('#timebar').parent().width() / 2;
         		game_over = false;
 
-        		//lastchance_width = $('#timebar').parent().width();
-	        	
 	        	$('#lastchance').hide();
         		loadQuiz();
         	});
         }
 
         $('.show-gameover').click(function(){
-        	clearInterval(lastchanceInterval);
         	gameOver();
         });
 
 		function lastchanceTimer(){
 
 			if(lastchance_width > 0){
-        		$('#lastchance-timebar').css('width', lastchance_width);
-        		//setTimeout(lastchanceTimer, 300);
+        		$('#lastchance-timebar').css('width', lastchance_width + '%');
         	}
         	else{
-        		clearInterval(lastchanceInterval);
         		gameOver();
         	}
 
-        	lastchance_width -= width_percent;
+            //lastchance_width -= width_percent;
+        	lastchance_width -= 1;
         }
 
         // Запускается, когда заканчивается lastchance
         function gameOver () {
+            clearInterval(lastchanceInterval);
+
         	$('#total-score').text(score);
         	$('#total-level').text(level);
 
@@ -468,8 +426,6 @@
 
 
         function win(){
-        	clearInterval(timerInterval);
-
         	$('#score-win').text(score);
         	$('#quiz-content').hide();
         	$('#win').show();
