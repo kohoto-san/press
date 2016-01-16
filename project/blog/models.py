@@ -229,15 +229,15 @@ class Typo(models.Model):
         return self.post.title + " ——— " + self.text
 
 
-class Contact(models.Model):
+class NewContact(models.Model):
 
     name = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     text = models.TextField()
 
     class Meta:
-        verbose_name = "Contact"
-        verbose_name_plural = "Contacts"
+        verbose_name = "NewContact"
+        verbose_name_plural = "NewContacts"
 
     def __str__(self):
         return self.text

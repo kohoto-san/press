@@ -34,7 +34,7 @@
 
                 	<div id="start_page">
                 		
-                		<div class="col m8 offset-m2 s12 center-align">
+                		<div class="col s8 offset-s2 center-align">
 
                 			<h5>Как хорошо ты знаешь российский IT рынок?</h5>
                 			<p style="font-size: 18px; margin-bottom: 40px;">Сопоставь факт и компанию, к которой он относится.</p>
@@ -43,7 +43,7 @@
 
                         </div>
 
-                        <div class="col m4 offset-m4 s12">
+                        <div class="col s4 offset-s4">
                         	<div id="start-quiz" class="center-align waves-effect waves-light btn-large" style="display: block; cursor: pointer; margin-top: 50px; margin-bottom: 50px;">Начать тест</div>
                     	</div>
 
@@ -318,16 +318,6 @@
 
         function loadQuiz(){
 
-            first_answer = false;
-
-            width = $('#timebar').parent().width() / 2;
-            lastchance_width = $('#timebar').parent().width();
-
-            $('#timebar').css('width', width);
-
-            $('#level').text(level);
-            $('#score').text(score);
-
         	if( !data_json){
         		$.post( "{% url 'start' %}")
                 	.success(function( data ) {
@@ -349,10 +339,13 @@
 
         function startQuiz(){
 
+        	width = $('#timebar').parent().width() / 2;
+        	lastchance_width = $('#timebar').parent().width();
+
         	$('#quiz-content').show();
 
             loadFact();
-        	timerInterval = setInterval(timer, 450); //300
+        	timerInterval = setInterval(timer, 300);
         }
 
 
@@ -360,14 +353,10 @@
 
         	if(first_answer){
         		if(!game_over && width > 0){
-                    
-        			if(width >= total_width) width = total_width;
-                    
-                    width -= width_percent * 1.5;  //1.5
-
-                    $('#timebar').css('width', width);
-
-                    //setTimeout(timer, 300);
+        			if(width < total_width) $('#timebar').css('width', width);
+        			
+        			width -= width_percent;
+        			//setTimeout(timer, 300);
         		}
         		else{
         			clearInterval(timerInterval);
@@ -387,7 +376,7 @@
         	if( answer == correct_answer ){
         		if( !first_answer) first_answer = true;
 
-				width += width_percent * 15; // 10
+				width += width_percent * 10;
 				count_answers += 1;
 						
 				if(count_answers == 5){
@@ -423,6 +412,7 @@
         	$('#lastchance a').click(function(){
         		clearInterval(lastchanceInterval);
         		lastchance = true;
+        		first_answer = false;
 
         		//width = $('#timebar').parent().width() / 2;
         		game_over = false;
@@ -517,6 +507,8 @@
 
 
         function enableFact(fact, company, another_company){
+
+        	width = width_percent * 100;
 
             $('#fact-content').text(fact);
             $('#company_left').text(company);

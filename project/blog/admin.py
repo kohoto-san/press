@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 from django.forms.formsets import formset_factory
 
-from blog.models import Post, Author, Category, Typo, SubscribeEmail, Media, Headline, ExternalLink, Contact
+from blog.models import Post, Author, Category, Typo, SubscribeEmail, Media, Headline, ExternalLink, NewContact
 
 import PIL
 from PIL import Image
@@ -36,7 +36,7 @@ admin.site.register(Media)
 admin.site.register(Headline)
 admin.site.register(ExternalLink)
 
-admin.site.register(Contact)
+admin.site.register(NewContact)
 
 
 """"

@@ -50,7 +50,7 @@ urlpatterns = [
     url(r'^typo/', views.typo_send, name='typo_send'),
 
     # url(r'^contacts/', views.contactPage, name='contacts'),
-    url(r'^contact/', views.ContactCreate.as_view(), name='contact'),
+    url(r'^contact/', views.NewContactCreate.as_view(), name='contact'),
 
     url(r'^special/', include(spectest_urls)),
     url(r'^quiz/', include(quiz_urls)),

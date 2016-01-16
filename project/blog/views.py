@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from blog.models import Post, Typo, SubscribeEmail, Contact, Headline, ExternalLink
+from blog.models import Post, Typo, SubscribeEmail, NewContact, Headline, ExternalLink
 
 import json
 import random
@@ -22,8 +22,8 @@ from django.http import Http404
 from blog.forms import SubscribeEmailForm
 
 
-class ContactCreate(CreateView):
-    model = Contact
+class NewContactCreate(CreateView):
+    model = NewContact
     template_name = 'contacts.html'
 
     fields = ['name', 'email', 'text']
