@@ -111,8 +111,10 @@
             <p>{{post.text_entry|safe}}</p>
             {% endcomment %}
 
-            {{post.text|safe}}
-            
+            <div class="post-text">
+                {{post.text|safe}}
+            </div>
+
             <div class="share post-content-share">
                 <a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk" style="margin-right: 20px;">
                     <i class="fa fa-vk fa-lg"></i> Поделиться
@@ -459,6 +461,35 @@
         });
     });
     </script>
+
+    <script type="text/javascript">
+    (function (a, b, c, d, e, f, g, h) {
+         g = b.createElement(c);
+         g.src = d;
+         g.type = "application/javascript";
+         g.async = !0;
+         h = b.getElementsByTagName(c)[0];
+         h.parentNode.insertBefore(g, h);
+         a[f] = [];
+         a[e] = function () {
+             a[f].push(Array.prototype.slice.apply(arguments));
+        }
+    }) (window, document, "script", (document.location.protocol === "https:"
+? "https:" : "http:") + "//seedr.com/js/seedr-player.min.js", "SeedrPlayer",
+"seedrInit");
+</script>
+
+<script>
+    SeedrPlayer(
+        document.getElementsByClassName('post-text')[0],
+        30,
+        {
+            gid: "568766e764225df3428b4574",
+            onError: function (e) { console.log(e); }
+        }
+    );
+</script>
+
 
 
 {% endblock %}
