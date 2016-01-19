@@ -462,6 +462,13 @@
     });
     </script>
 
+{% endblock %}
+
+
+{% block scripts %}
+
+    {{block.super}}
+
     <script type="text/javascript">
     (function (a, b, c, d, e, f, g, h) {
          g = b.createElement(c);
@@ -477,7 +484,7 @@
     }) (window, document, "script", (document.location.protocol === "https:"
 ? "https:" : "http:") + "//seedr.com/js/seedr-player.min.js", "SeedrPlayer",
 "seedrInit");
-</script>
+    </script>
 
 <script>
     SeedrPlayer(
@@ -490,6 +497,5 @@
     );
 </script>
 
+{% endblock scripts %}
 
-
-{% endblock %}
