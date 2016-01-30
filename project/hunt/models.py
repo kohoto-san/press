@@ -38,10 +38,10 @@ class Profile(models.Model):
             form = None
 
         try:
-            profile = Profile.objects.all().order_by('-id_profile').first()
+            profile = Profile.objects.all().order_by('-id_profile').first().id_profile
         except AttributeError:
             profile = 0
-        self.id_profile = profile.id_profile + 1
+        self.id_profile = profile + 1
 
         super(Profile, self).save(*args, **kwargs)
 
