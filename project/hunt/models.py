@@ -37,8 +37,9 @@ class Profile(models.Model):
         else:
             form = None
 
-        profile = Profile.objects.all().order_by('-id_profile').first()
-        if profile is None:
+        try:
+            profile = Profile.objects.all().order_by('-id_profile').first()
+        except AttributeError:
             profile = 0
         self.id_profile = profile.id_profile + 1
 
