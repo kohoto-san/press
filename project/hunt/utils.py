@@ -30,14 +30,20 @@ def createProfile(social_account, user):
 
     # profile.avatar = extra_data['photo_big']
 
+    try:
+        id_profile = Profile.objects.all().order_by('-id_profile').first().id_profile
+    except AttributeError:
+        id_profile = 0
+    profile.id_profile = id_profile + 1
+
     img_format = avatar_url[-4:]
 
     img_temp = NamedTemporaryFile(delete=True)
     img_temp.write(urllib.request.urlopen(avatar_url).read())
     img_temp.flush()
 
-    profile.avatar.save(str(profile.pk) + str(img_format), File(img_temp))
-
     profile.save()
+
+    profile.avatar.save(str(profile.id_profile) + str(img_format), File(img_temp))
 
     return profile

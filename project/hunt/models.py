@@ -23,13 +23,14 @@ def user_logged_in_(request, user, **kwargs):
 class Profile(models.Model):
 
     user = models.OneToOneField(User, primary_key=True)
-    id_profile = models.IntegerField(blank=True, null=True)
+    id_profile = models.IntegerField(blank=True)
 
     def get_upload_path(instance, filename):
         return os.path.join('avatars', str(instance.user.id) + filename[-4:])
 
-    avatar = models.ImageField(upload_to=get_upload_path)
+    avatar = models.ImageField(upload_to=get_upload_path, default="default.png")
 
+    """
     def save(self, *args, **kwargs):
 
         if 'form' in kwargs:
@@ -37,13 +38,15 @@ class Profile(models.Model):
         else:
             form = None
 
-        try:
-            profile = Profile.objects.all().order_by('-id_profile').first().id_profile
-        except AttributeError:
-            profile = 0
-        self.id_profile = profile + 1
+        if self.pk is None:
+            try:
+                profile = Profile.objects.all().order_by('-id_profile').first().id_profile
+            except AttributeError:
+                profile = 0
+            self.id_profile = profile + 1
 
         super(Profile, self).save(*args, **kwargs)
+    """
 
     class Meta:
         verbose_name = "Profile"
