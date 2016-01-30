@@ -139,10 +139,16 @@ def vote(request, post_id):
     else:
         raise Http404
 
-
+"""
 class ProfileDetails(DetailView):
     model = Profile
     template_name = 'hunt/profile.html'
+"""
+
+
+def profile_details(request, id_profile):
+    profile = get_object_or_404(Profile, pk=id_profile)
+    return render(request, 'hunt/profile.html', {'profile': profile})
 
 
 def redirect(request):

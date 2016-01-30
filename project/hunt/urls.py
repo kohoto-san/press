@@ -26,6 +26,9 @@ urlpatterns = [
     # url(r'^new/', views.PostCreate.as_view(), name='post_create'),
 
     url(r'^(?P<slug>[\w-]+)/$', views.PostDetail.as_view(), name='post_detail'),
-    url(r'^profile/(?P<pk>\d+)/$', views.ProfileDetails.as_view(), name='profile_details'),
+
+    # url(r'^profile/(?P<pk>\d+)/$', views.ProfileDetails.as_view(), name='profile_details'),
+    url(r'^profile/(?P<id_profile>\d+)/$', views.profile_details, name='profile_details'),
+
     url(r'^vote/(?P<post_id>\d+)/$', views.vote, name='vote'),
 ]

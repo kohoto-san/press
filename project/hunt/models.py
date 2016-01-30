@@ -23,11 +23,27 @@ def user_logged_in_(request, user, **kwargs):
 class Profile(models.Model):
 
     user = models.OneToOneField(User, primary_key=True)
+    id_profile = models.IntegerField(blank=True)
 
     def get_upload_path(instance, filename):
         return os.path.join('avatars', str(instance.user.id) + filename[-4:])
 
     avatar = models.ImageField(upload_to=get_upload_path)
+
+    def save(self, *args, **kwargs):
+
+        if 'form' in kwargs:
+            form = kwargs['form']
+        else:
+            form = None
+
+        if self.pk is None and form is not None and 'id_profile' in form.changed_data:
+            profile = Profile.objects.all().order_by('-id_profile').first()
+            if profile is None:
+                profile = 0
+            self.id_profile = profile.id_profile + 1
+
+        super(Profile, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Profile"
