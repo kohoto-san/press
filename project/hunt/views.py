@@ -147,7 +147,7 @@ class ProfileDetails(DetailView):
 
 
 def profile_details(request, id_profile):
-    profile = get_object_or_404(Profile, pk=id_profile)
+    profile = get_object_or_404(Profile, id_profile=id_profile)
     return render(request, 'hunt/profile.html', {'profile': profile})
 
 
