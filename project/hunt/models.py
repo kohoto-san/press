@@ -23,7 +23,7 @@ def user_logged_in_(request, user, **kwargs):
 class Profile(models.Model):
 
     user = models.OneToOneField(User, primary_key=True)
-    id_profile = models.IntegerField(blank=True)
+    id_profile = models.IntegerField(blank=True, null=True)
 
     def get_upload_path(instance, filename):
         return os.path.join('avatars', str(instance.user.id) + filename[-4:])
