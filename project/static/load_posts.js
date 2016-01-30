@@ -98,6 +98,9 @@ function loadPosts(){
                     runet_news = $('#runet-news').show();
                     msnry.appended( runet_news );
 
+                    startups = $('#startups').show();
+                    msnry.appended( startups );
+
                     $('#content-posts-plug').css('display', 'none');
                     first_load = true;
                 }

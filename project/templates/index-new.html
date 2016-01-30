@@ -69,20 +69,31 @@
     	
         {% endblock feature_posts %}
 
-
+        <!--
         <a href="/quiz"><h5>Как хорошо ты знаешь российский IT рынок? Узнай с помощью нашего спец. проекта!</h5></a>
+        -->
 
     	<div id="content" style="max-width: 1325px;">
 
             <div class="row" id="content-posts-wrapper" style="position: relative;">
-                <div id="runet-news" class="card-post collection" style="display: none; padding: 0;">
+                <div id="runet-news" class="card-post collection" style="display: none; padding: 0; margin-left: 10px; width: 430px;">
                         <a href="{% url 'headlines' %}" class="collection-item collection-header" style="font-size: 2.28rem; line-height: 110%; font-weight: 400; color: #a6a6a6;">Новости рунета</a>
     
                         {% for object in  news_list %}
                             <a href="{% url 'link' object.smart_link.internal %}" target="_blank" class="collection-item">{{object.title}} </a>
                         {% endfor %}
 
-                        <a href="{% url 'headlines' %}" class="collection-item collection-header" style="font-size: 2.28rem; line-height: 110%; font-weight: 400; color: #a6a6a6;">Все новости</a>
+                        <a href="{% url 'headlines' %}" class="collection-item collection-header collection-footer">Все новости</a>
+                </div>
+
+                <div id="startups" class="card-post collection" style="display: none; padding: 0; margin-left: 10px; width: 430px;">
+                        <a href="{% url 'hunt:post_list' %}" class="collection-item collection-header" style="font-size: 2.28rem; line-height: 110%; font-weight: 400; color: #a6a6a6;">Стартапы</a>
+    
+                        {% for object in  startups_list %}
+                            <a href="{% url 'hunt:post_detail' object.slug %}" target="_blank" class="collection-item">{{object.title}} </a>
+                        {% endfor %}
+
+                        <a href="{% url 'hunt:post_list' %}" class="collection-item collection-header collection-footer">Все стартапы</a>
                 </div>
 
             </div> <!-- /.row content-posts-wrapper -->
@@ -196,8 +207,6 @@
                     </div> <!-- /.col s12 Write-Us -->
                
                 </div> <!-- /row-->
-
-                    
 
             </div> <!-- /sidebar-share -->
 

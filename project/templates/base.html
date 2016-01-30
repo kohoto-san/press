@@ -21,7 +21,7 @@
 
     <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-
+    <link rel="stylesheet" type="text/css" href="{% static 'style/startups.css' %}" />
 
 {% endblock head %}
 
@@ -36,14 +36,18 @@
             <div class="col l2 m3 s12 navbar-logo">
                 <h4><a href="/" style="color: #000;">StartupDen</a></h4>
             </div>
-
-            <div class="navbar-categories col l7 m5 s12">
+                                            
+                                         <!-- l7 m7 s12 -->
+            <div class="navbar-categories col l7 m7 s12">
                 <a href="/news">Новости</a>
                 <a href="/articles">Статьи</a>
+                <a href="/startups">Стартапы</a>
             </div>
             
-            <div class="share-btns share soc-pages col l3 m4 s12" style="/* text-align: right; */ padding-top: 10px;">
+                                                  <!-- l3 m4 s12 -->
+            <div class="share-btns share col l1 offset-l2 m2 s4 offset-s4" style="margin-top: 0;">
 
+                    {% comment %}
                     <a href="https://vk.com/startupden" target="_blank" class="post-content-share-vk">
                         <i class="fa fa-vk fa-lg"></i>
                     </a>
@@ -59,6 +63,16 @@
                     <a href="/feed" target="_blank" class="post-content-share-rss">
                         <i class="fa fa-rss fa-lg"></i>
                     </a>
+                    {% endcomment %}
+
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'hunt:profile_details' user.profile.pk %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
+                    {% else %}
+                        <a href="#" id="login" class="profile-link" style="width: 73px;">
+                            <i class="fa fa-sign-in fa-2x"></i> 
+                            <span style="vertical-align: super;">Войти</span>
+                        </a>
+                    {% endif %}
 
             </div> <!-- /share-btns -->
 
@@ -95,8 +109,41 @@
             </div>
         </form>
         {% endcomment %}
+
     {% endblock navbar %}
 
+    {% block login %}
+        <div class="login-popup-wrapper row valign-wrapper share share-startup" style="display: none;">
+            <div class="login-popup valign">
+
+                <a href="#" class="close" style="position: absolute; top: 0px; right: 0px; color: #000; width: auto;">
+                    <i class="material-icons">close</i>
+                </a>
+
+                <h5 class="center-align">StartupDen.ru</h5>
+
+                <p class="center-align">Войдите с помощью любой из соц. сетей</p>
+
+                <div class="soc-buttons">
+                    <a href="/accounts/vk/login/?process=login" class="post-content-share-vk">
+                        <i class="fa fa-vk fa-lg"></i> 
+                        <span> ВКонтакте </span>
+                    </a>
+
+                    <a href="/accounts/twitter/login/?process=login" class="post-content-share-twitter">
+                        <i class="fa fa-twitter fa-lg"></i> 
+                        <span> Twitter </span>
+                    </a>
+
+                    <a href="/accounts/facebook/login/?process=login" class="post-content-share-facebook">
+                        <i class="fa fa-facebook fa-lg"></i> 
+                        <span> Facebook </span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    {% endblock login %}
 
 
     {% block content %}
@@ -178,6 +225,14 @@
         });
     {% endcomment %}
 
+        $('#login').click(function(){
+            $('.login-popup-wrapper').show();
+        });
+
+        $('.login-popup .close').click(function(){
+            $('.login-popup-wrapper').hide();
+        });
+
 
         $(document).ready(function() {
 
@@ -188,6 +243,34 @@
 
         });
 
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.popup').click(function(event) {
+            var width  = 575,
+                height = 400,
+                left   = ($(window).width()  - width)  / 2,
+                top    = ($(window).height() - height) / 2,
+                opts   = 'status=1' +
+                         ',width='  + width  +
+                         ',height=' + height +
+                         ',top='    + top    +
+                         ',left='   + left;
+
+            if( $(this).hasClass('twitter') ){
+                var url = this.href;
+            }
+            else{
+                var url = this.href + window.location.href;
+            }
+
+            window.open(url, 'sharing', opts);
+ 
+            return false;
+        });
+    });
 </script>
 
 

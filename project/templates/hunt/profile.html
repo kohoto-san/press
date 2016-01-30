@@ -1,0 +1,46 @@
+
+{% extends "hunt/base.html" %}
+
+{% block content %}
+
+    <div class="row" style="margin-top: 30px;">
+		<div class="container" style="min-height: 500px;">
+
+			<div class="user-profile">
+				<div class="profile-link">
+					<img src="{{object.avatar.url}}">
+				</div>
+			</div>
+
+			<h5 class="center-align">{{object.user.first_name}} {{object.user.last_name}}</h5>
+			<a href="/accounts/logout/" style="float: right;">Выход</a>
+			
+
+			<div class="row">
+    			<div class="col s3">
+      				<ul class="tabs">
+        				<li class="tab col s12"><a href="#upvotes">Проголосовал</a></li>
+      				</ul>
+    			</div>
+    			{% comment %}
+    			<div id="upvotes" class="col s12">Test 1</div>
+    			{% endcomment %}
+  			</div>
+
+  			<div style="margin: 30px 0;" class="startups-wrapper">
+  				{% comment %}
+	  				{% for product in profile.post_upvotes.all %}
+						{% include "hunt/post-list.html" %}
+  					{% endfor %}
+  				{% endcomment %}
+  			</div>
+
+		</div>
+	</div>
+
+{% endblock content %}
+
+{% block scripts %}
+	{{block.super}}
+    {% include "hunt/load-startups.js" %}
+{% endblock scripts %}

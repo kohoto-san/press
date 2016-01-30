@@ -1,0 +1,116 @@
+		.product-post-right{
+			float: right;
+			font-size: 17px;
+			line-height: 70px;
+		}
+
+		.product-post-right .comments{
+			display: inline-block;
+			vertical-align: super;
+			margin-right: 10px;
+			color: #999999;
+		}
+
+		.product-post-right img{
+			border-radius: 50%;
+			width: 26px;
+		}
+
+		.upvote-triangle{
+			position: relative;
+    		bottom: 5px;
+    		display: inline-block;
+    		width: 0px;
+    		height: 0px;
+    		border-bottom: 12px solid #534540;
+    		border-left: 8px solid transparent;
+    		border-right: 8px solid transparent;
+    		border-top: 12px solid transparent;
+
+    		-webkit-transition: border-color, 0.1s, ease-in;
+    		-moz-transition: border-color, 0.1s, ease-in;
+    		transition: border-color, 0.1s, ease-in;
+		}
+
+		.upvote{
+			width: 30px;
+			margin-right: 20px;
+			vertical-align: super;
+			text-align: center;
+			display: inline-block;
+			color: #000;
+		}
+
+		.upvote:hover, .upvote:hover .upvote-triangle{
+			color: blue;
+			border-bottom-color: blue;
+		}
+
+		.product-post{
+			line-height: 0;
+		}
+
+		.product-post>div{
+			display: inline-block;
+		}
+
+		.product-post-body{
+			width: 80%;
+		}
+
+		.product-post-body p, .post-description{
+			color: #999999;
+			font-size: 17px;
+		}
+
+
+		.profile-link{
+			width: 50px;
+			height: 50px;
+		}
+
+		.profile-link img{
+			width: 50px;
+			border-radius: 50%;
+		}
+
+		.product-details .author{
+			display: block;
+			margin-bottom: 20px;
+		}
+
+		.product-details .author span{
+			vertical-align: text-bottom;
+			margin-left: 5px;
+		}
+
+		.product-details .author a{
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+		}
+
+		.product-details .author img{
+			width: 100%;
+			border-radius: 50%;
+		}
+
+		.share-startup{
+			display: inline-block;
+			padding-top: 15px;
+			padding-bottom: 20px;
+			margin-left: 50px;
+			text-align: center;
+		}
+
+		.comments-blocking{
+			margin: 30px 0;
+			padding: 20px;
+    		text-align: center;
+    		background: hsla(0,0%,95%,.5);
+    		border-radius: 6px;
+    		border: 1px solid #f2f2f2;
+    		color: #999;
+		}
+
+

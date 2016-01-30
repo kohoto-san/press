@@ -18,8 +18,10 @@ from django.conf.urls import url, include, patterns
 from django.contrib import admin
 
 from blog import views
+from hunt.views import redirect
 from spectest import urls as spectest_urls
 from quiz import urls as quiz_urls
+from hunt import urls as hunt_urls
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -32,6 +34,11 @@ from os import environ
 
 
 urlpatterns = [
+
+    url(r'^redirect/', redirect, name='redirect'),
+
+
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
 
     # url(r'^$', PostList.as_view(), name='home'),
@@ -54,8 +61,7 @@ urlpatterns = [
 
     url(r'^special/', include(spectest_urls)),
     url(r'^quiz/', include(quiz_urls)),
-
-
+    url(r'^startups/', include(hunt_urls, namespace='hunt', app_name='hunt')),
 
     # url(r'^feed/$', views.LatestEntriesFeed()),
     # url(r'^feeds/$', 'django.contrib.syndication.views.Feed', {'feed_dict': published_feeds}, 'view_name'),

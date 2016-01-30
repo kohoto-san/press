@@ -61,9 +61,9 @@
                     		<p>Спроси у друзей</p>
 
                     		<div>
-	                    		<a class="share-quest vk popup" href="http://vk.com/share.php?url=" target="_blank" style="margin-left: 0;"><i class="fa fa-vk"></i></a>
-            					<a class="share-quest twitter popup" href="http://twitter.com/share?" target="_blank"><i class="fa fa-twitter"></i></a>
-            					<a class="share-quest facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><i class="fa fa-facebook"></i></a>
+	                    		<a class="share-quest vk popup-quiz" href="http://vk.com/share.php?url=" target="_blank" style="margin-left: 0;"><i class="fa fa-vk"></i></a>
+            					<a class="share-quest twitter popup-quiz" href="http://twitter.com/share?" target="_blank"><i class="fa fa-twitter"></i></a>
+            					<a class="share-quest facebook popup-quiz" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><i class="fa fa-facebook"></i></a>
             				</div>
 
                     	</div>
@@ -98,9 +98,9 @@
 	                    <p style="font-size: 18px;">Позови друзей, чтобы получить ещё один шанс и продолжи игру с набранными очками!</p>
 
 	                    <div style="margin-top: 25px;" class="quiz-share">
-	                    	<a class="vk popup" href="http://vk.com/share.php?title=Друзья, дайте ещё один шанс!&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
-            				<a class="twitter popup" href="http://twitter.com/share?text=Друзья, дайте ещё один шанс!&via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
-            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
+	                    	<a class="vk popup-quiz" href="http://vk.com/share.php?title=Друзья, дайте ещё один шанс!&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
+            				<a class="twitter popup-quiz" href="http://twitter.com/share?text=Друзья, дайте ещё один шанс!&via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
+            				<a class="facebook popup-quiz" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
             			</div>
 
 	                    <div class="show-gameover waves-effect waves-light btn" style="cursor: pointer; margin-top: 50px;">Проиграть</div>
@@ -124,9 +124,9 @@
                     	</div>
 
                     	<div style="margin-top: 10px;" class="quiz-share quiz-share-score">
-	                    	<a class="vk popup" href="http://vk.com/share.php?title=Я набрал {score}! А сколько сможешь ты?&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
-            				<a class="twitter popup" href="http://twitter.com/share?text=Я набрал {score}! А сколько сможешь ты? — &via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
-            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
+	                    	<a class="vk popup-quiz" href="http://vk.com/share.php?title=Я набрал {score}! А сколько сможешь ты?&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
+            				<a class="twitter popup-quiz" href="http://twitter.com/share?text=Я набрал {score}! А сколько сможешь ты? — &via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
+            				<a class="facebook popup-quiz" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
             			</div>
 
 
@@ -142,9 +142,9 @@
                     	</div>
 
                     	<div style="margin-top: 10px;" class="col s12 quiz-share quiz-share-score">
-	                    	<a class="vk popup" href="http://vk.com/share.php?title=Я сопоставил все факты с компаниями и набрал {score}! А сколько сможешь ты?&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
-            				<a class="twitter popup" href="http://twitter.com/share?text=Я сопоставил все факты с компаниями и набрал {score}! А сколько сможешь ты? — &via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
-            				<a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
+	                    	<a class="vk popup-quiz" href="http://vk.com/share.php?title=Я сопоставил все факты с компаниями и набрал {score}! А сколько сможешь ты?&url=" target="_blank" style="margin-left: 0;"><img src="{% static 'vk_logo.svg' %}"></a>
+            				<a class="twitter popup-quiz" href="http://twitter.com/share?text=Я сопоставил все факты с компаниями и набрал {score}! А сколько сможешь ты? — &via=startupden_ru" target="_blank"><img src="{% static 'twitter_logo.svg' %}"></a>
+            				<a class="facebook popup-quiz" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.svg' %}"></a>
             			</div>
 
 
@@ -218,7 +218,7 @@
     <script>
     	$(document).ready(function() {
 
-        	$('.popup').click(function(event) {
+        	$('.popup-quiz').click(function(event) {
             	var width  = 575,
                 	height = 400,
                 	left   = ($(window).width()  - width)  / 2,

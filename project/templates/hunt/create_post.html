@@ -1,0 +1,27 @@
+
+{% extends "hunt/base.html" %}
+
+{% block content %}
+
+	<div class="row">
+		<form class="col l4 offset-l4 s12 m10 offset-m1" id="form" action="" method="post">
+        	{% csrf_token %}
+
+            <h4 class="center-align">Добавить продукт</h4>
+                                 
+            {% for field in form %}
+                <div class="person-form-field input-field col l12">
+                    {{ field.errors }}
+                    {{ field }}
+                    {{ field.label_tag }}
+                </div>
+            {% endfor %}
+
+            <div class="col s12" style="margin: 30px 0 50px;">
+                <button type="submit" value="Create" class="waves-effect waves-light btn-large">Добавить</button>
+            </div>
+
+    	</form>
+	</div>
+
+{% endblock content %}

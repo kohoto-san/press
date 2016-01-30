@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+	{{block.super}}
+
+	<script type="text/javascript">
+
+		$.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+
+		$('.container').on('click', '.upvote', function() {
+
+    		var votes = parseInt($(this).find('p').text());
+    		var post_id = $(this).siblings('.product-post-body').data('id');
+
+    		if( $(this).hasClass('upvote-active') ){
+    			$(this).find('p').text(votes - 1);
+    			$(this).removeClass('upvote-active');
+    			var method = 'DELETE';
+    		}
+    		else{
+    			$(this).find('p').text(votes + 1);
+    			$(this).addClass('upvote-active');
+    			var method = 'CREATE';
+    		}
+
+    		var upvote_url = "{% url 'hunt:vote' '666' %}";
+			upvote_url = upvote_url.replace('666', post_id)
+
+    		$.ajax({
+    			url: upvote_url,
+    			type: 'POST',
+    			data: {'method': method}
+			});
+			
+		});
+
+	</script>
+{% endblock scripts %}

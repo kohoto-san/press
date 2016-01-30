@@ -45,14 +45,39 @@
             <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
         </div>
 
-        <div class="col l8 hide-on-med-and-down" style="font-size: 18px;">
+        <div class="col l7 hide-on-med-and-down" style="font-size: 18px;">
             {{post.title}}
         </div>
             
-        <div class="share-btns col l2 m5 offset-m5 s12 right-align">
+        <div class="share-btns share col l3 m5 offset-m5 s12 right-align">
+            {% comment %}
             <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
             <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
             <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"><img src="{% static 'facebook_logo.png' %}"></a>
+            {% endcomment %}
+
+            <div style="display: inline-block; vertical-align: super;">
+                <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank">
+                    <i class="fa fa-vk fa-2x"></i>
+                </a>
+            
+                <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank">
+                    <i class="fa fa-twitter fa-2x"></i>
+                </a>
+            
+                <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank">
+                    <i class="fa fa-facebook fa-2x"></i>
+                </a>
+            </div>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'hunt:profile_details' user.profile.pk %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
+            {% else %}
+                <a href="#" id="login" class="profile-link" style="width: auto; vertical-align: super;">
+                    <i class="fa fa-sign-in fa-2x"></i> 
+                    <span style="vertical-align: super;">Войти</span>
+                </a>
+            {% endif %}
         </div>
 
     </div>
@@ -90,15 +115,15 @@
         <div id="post-content-text" class="col l9 m10 offset-m1 s12">
             
             <div class="share post-content-share">
-                <a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk" style="margin-right: 20px;">
+                <a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk">
                     <i class="fa fa-vk fa-lg"></i> Поделиться
                 </a>
 
-                <a href="http://twitter.com/share?text={{post.title}}" target="_blank" class="twitter popup post-content-share-twitter" style="margin-right: 20px;">
+                <a href="http://twitter.com/share?text={{post.title}}" target="_blank" class="twitter popup post-content-share-twitter">
                     <i class="fa fa-twitter fa-lg"></i> Твитнуть
                 </a>
 
-                <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="popup post-content-share-facebook" style="margin-right: 20px;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="popup post-content-share-facebook">
                     <i class="fa fa-facebook fa-lg"></i> Поделиться
                 </a>
 
@@ -116,15 +141,15 @@
             </div>
 
             <div class="share post-content-share">
-                <a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk" style="margin-right: 20px;">
+                <a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk">
                     <i class="fa fa-vk fa-lg"></i> Поделиться
                 </a>
 
-                <a href="http://twitter.com/share?text={{post.title}}" target="_blank" class="twitter popup post-content-share-twitter" style="margin-right: 20px;">
+                <a href="http://twitter.com/share?text={{post.title}}" target="_blank" class="twitter popup post-content-share-twitter">
                     <i class="fa fa-twitter fa-lg"></i> Твитнуть
                 </a>
 
-                <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="popup post-content-share-facebook" style="margin-right: 20px;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="popup post-content-share-facebook">
                     <i class="fa fa-facebook fa-lg"></i> Поделиться
                 </a>
 
@@ -432,34 +457,6 @@
             
         });
 
-    </script>
-
-    <script>
-    $(document).ready(function() {
-
-        $('.popup').click(function(event) {
-            var width  = 575,
-                height = 400,
-                left   = ($(window).width()  - width)  / 2,
-                top    = ($(window).height() - height) / 2,
-                opts   = 'status=1' +
-                         ',width='  + width  +
-                         ',height=' + height +
-                         ',top='    + top    +
-                         ',left='   + left;
-
-            if( $(this).hasClass('twitter') ){
-                var url = this.href;
-            }
-            else{
-                var url = this.href + window.location.href;
-            }
-
-            window.open(url, 'sharing', opts);
- 
-            return false;
-        });
-    });
     </script>
 
 {% endblock %}

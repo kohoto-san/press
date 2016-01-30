@@ -21,6 +21,8 @@ from django.http import Http404
 
 from blog.forms import SubscribeEmailForm
 
+from hunt.models import Post as hunt_startups
+
 
 class NewContactCreate(CreateView):
     model = NewContact
@@ -163,10 +165,13 @@ def load_posts(request, post_list, type_page):
         else:
             form = SubscribeEmailForm(label_suffix='')
             news = Headline.objects.all().order_by('-date')[:10]
+            startups = hunt_startups.objects.all().order_by('-time_create')[:10]
+            context = {'feat_posts': feat_posts, 'form': form, 'news_list': news, 'startups_list': startups}
+
             if type_page != "articles":
-                return render_to_response('index-new.html', {'feat_posts': feat_posts, 'form': form, 'news_list': news})
+                return render(request, 'index-new.html', context)
             else:
-                return render_to_response('index-posts.html', {'feat_posts': feat_posts, 'form': form, 'news_list': news})
+                return render(request, 'index-posts.html', context)
 
             # return render_to_response('index-new.html', {"object_list": paginator.page(1).object_list})
 

@@ -68,11 +68,6 @@
             z-index: 10;
         }
 
-        .soc-pages a{
-            display: inline-block;
-            width: 45px;
-        }
-
         .navbar-categories{
             font-size: 18px;
             line-height: 64px;
@@ -85,10 +80,6 @@
 
         @media (max-width: 650px){
             
-            .soc-pages a{
-                width: 40px;
-            }
-
             .navbar-categories a{
                 margin-right: 10px;
             }
@@ -110,11 +101,6 @@
 
             .navbar-categories a{
                 margin-right: 20px;
-            }
-
-            .soc-pages a{
-                width: 45px;
-                margin-right: 10px;
             }
         }
 
@@ -178,8 +164,8 @@
 
         .card-post{
     		position: absolute;
-            max-width: 500px;
             
+            max-width: 420px;
             max-width: 450px;
 
             padding: 0 0.75rem;
@@ -250,7 +236,18 @@
         .share a{
             color: #fff;
             font-weight: 500;
-            padding: 10px;
+            /*padding: 10px;*/
+            margin: 10px;
+        }
+
+       .share-btns a{
+            color: #000;
+            display: inline-block;
+            /*width: 45px;*/
+        }
+
+        .share-btns .profile-link img{
+            width: 45px;
         }
 
         #post-content-text{
@@ -514,6 +511,17 @@ nav .brand-logo {
     margin: 30px auto 20px auto;
 }
 
+.collection .collection-footer{
+    font-size: 2.28rem;
+    line-height: 110%;
+    font-weight: 400;
+    color: #a6a6a6;
+    background-color: #eee;
+}
+
+.collection .collection-footer:hover{
+    background-color: rgba(204,204,204,0.49);
+}
 
 
 
