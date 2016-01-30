@@ -25,6 +25,9 @@ def createProfile(social_account, user):
     if social_account.provider == "vk":
         avatar_url = extra_data['photo_big']
 
+    if social_account.provider == "facebook":
+        avatar_url = "http://graph.facebook.com/%s/picture?type=large" % extra_data['id']
+
     # profile.avatar = extra_data['photo_big']
 
     img_format = avatar_url[-4:]
