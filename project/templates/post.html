@@ -71,7 +71,7 @@
             </div>
 
             {% if user.is_authenticated %}
-                <a href="{% url 'hunt:profile_details' user.profile.pk %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
+                <a href="{% url 'hunt:profile_details' user.profile.id_profile %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
             {% else %}
                 <a href="#" id="login" class="profile-link" style="width: auto; vertical-align: super;">
                     <i class="fa fa-sign-in fa-2x"></i> 

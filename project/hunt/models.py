@@ -37,11 +37,10 @@ class Profile(models.Model):
         else:
             form = None
 
-        if self.pk is None and form is not None and 'id_profile' in form.changed_data:
-            profile = Profile.objects.all().order_by('-id_profile').first()
-            if profile is None:
-                profile = 0
-            self.id_profile = profile.id_profile + 1
+        profile = Profile.objects.all().order_by('-id_profile').first()
+        if profile is None:
+            profile = 0
+        self.id_profile = profile.id_profile + 1
 
         super(Profile, self).save(*args, **kwargs)
 
