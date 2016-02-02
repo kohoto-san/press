@@ -232,16 +232,31 @@
                     </div>
             </div> <!-- /.write-us -->
 
-            <div class="startups-wrapper card" style="padding: 0 20px; margin-top: 30px;">
-                {% for product in startups %}
-                    {% include "item-startup.html" %}
-                {% endfor %}
+            <div class="startups-wrapper card" style="margin-top: 30px;">
+                <div style="padding: 0 20px;">
+                    {% for product in startups %}
+                        {% include "item-startup.html" %}
+                    {% endfor %}
+                </div>
 
-                <a href="{% url 'hunt:post_list' %}" class="startups-footer product-post product-post-item" style="width: 100%;">
+                <a href="{% url 'hunt:post_list' %}" class="startups-footer product-post product-post-item" style="width: 100%; background-color: #eee;">
                     <h5 style="margin: 0; color: #000;" class="center-align">Все стартапы <i class="material-icons" style="vertical-align: middle; font-size: 34px;">keyboard_arrow_right</i></h5>
                 </a> <!-- /.product-post -->
 
             </div> <!-- /.startups-wrapper -->
+
+            <div id="runet-news" class="collection" style="padding: 0;">
+                    <a href="{% url 'headlines' %}" class="collection-item collection-header" style="font-size: 2.28rem; line-height: 110%; font-weight: 400; color: #a6a6a6;">Новости</a>
+    
+                    {% for object in  news_list %}
+                        <a href="{% url 'link' object.smart_link.internal %}" target="_blank" class="collection-item">
+                            {{object.title}}
+                            <span style="display: block; color: #999;">{{object.media.name}}</span>
+                        </a>
+                    {% endfor %}
+
+                    <a href="{% url 'headlines' %}" class="collection-item collection-header collection-footer">Все новости</a>
+            </div>
             
         </div> <!-- /.sidebar-share -->
 
@@ -280,7 +295,7 @@
 
     </div> <!-- /.row -->
 
-    <div class="hide-on-med-and-down">
+    <div class="post-arrows-wrapper">
 
         {% if prev_post %}
         <a href="{% url 'post_detail' prev_post.slug %}" class="navigation-arrow navigation-left">
