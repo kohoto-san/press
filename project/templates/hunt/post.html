@@ -61,9 +61,9 @@
 			<div class="product-post">
 
 				{% if user.profile in object.upvotes.all %}
-					<div class="upvote upvote-active">
+					<div class="upvote upvote-startup upvote-active">
 				{% else %}
-					<div class="upvote">
+					<div class="upvote upvote-startup">
 				{% endif %}
 					<div class="upvote-triangle"></div>
 					<p> {{object.upvotes.count}} </p>

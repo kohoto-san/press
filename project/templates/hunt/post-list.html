@@ -5,51 +5,7 @@
 <h5 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">{{product|date:"d M"}}</h5>
 
 {% else %}
-<div class="product-post product-post-item">
-
-	{% if user.profile in product.upvotes.all %}
-		<div class="upvote upvote-active">
-	{% else %}
-		<div class="upvote">
-	{% endif %}
-		
-		<div class="upvote-triangle"></div>
-		<p>{{product.upvotes.count}}</p>
-		
-	</div>
-
-	<div class="product-post-body" data-slug="{{product.slug}}" data-id="{{product.pk}}">
-		<div>
-			<a href="{% url 'hunt:post_detail' product.slug %}"> 
-				<h5 style="display: inline-block; margin: 0;">{{product.title}}</h5>
-			</a>
-			{% comment %}
-			<a href="#"><i class="fa fa-twitter"></i></a>
-			<a href="#"><i class="fa fa-facebook"></i></a>
-			<a href="#"><i class="fa fa-vk"></i></a>
-			{% endcomment %}
-		</div>
-
-		<p style="line-height: 20px; margin: 10px 0 0;">{{product.description}}</p>
-	</div> <!-- /.product-post-body -->
-
-	<div class="product-post-right">
-					
-		<a href="{% url 'hunt:profile_details' product.author.pk %}" class="profile-link">
-            <img src="{{product.author.avatar.url}}">
-        </a>
-		
-		<!--
-			<div class="comments">
-				<i class="fa fa-comment"></i>
-				<span>123</span>
-			</div>
-
-			<a href="#"><img src="https://ph-avatars.imgix.net/5121/original?auto=format&fit=crop&crop=faces&w=220&h=220"></a>
-		-->
-	</div> <!-- /.product-post-right -->
-
-</div> <!-- /.product-post -->
+	{% include "item-startup.html" %}
 {% endif %}
 
 

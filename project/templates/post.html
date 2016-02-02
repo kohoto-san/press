@@ -325,7 +325,14 @@
 {% endcomment %}
 
 
-    <script type="text/javascript">
+{% endblock %}
+
+
+{% block scripts %}
+
+    {{block.super}}
+
+       <script type="text/javascript">
 
 {% comment %}
         document.onmouseup = function() {
@@ -384,11 +391,6 @@
             return { top: Math.round(top), left: Math.round(left) }
         } // getOffsetRect()
 {% endcomment %}
-
-        $.ajaxSetup({
-            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-        });
-
 
         $(document).ready(function() {
 
@@ -459,40 +461,6 @@
 
     </script>
 
-{% endblock %}
-
-
-{% block scripts %}
-
-    {{block.super}}
-
-    <script type="text/javascript">
-    (function (a, b, c, d, e, f, g, h) {
-         g = b.createElement(c);
-         g.src = d;
-         g.type = "application/javascript";
-         g.async = !0;
-         h = b.getElementsByTagName(c)[0];
-         h.parentNode.insertBefore(g, h);
-         a[f] = [];
-         a[e] = function () {
-             a[f].push(Array.prototype.slice.apply(arguments));
-        }
-    }) (window, document, "script", (document.location.protocol === "https:"
-? "https:" : "http:") + "//seedr.com/js/seedr-player.min.js", "SeedrPlayer",
-"seedrInit");
-    </script>
-
-<script>
-    SeedrPlayer(
-        document.getElementsByClassName('post-text')[0],
-        30,
-        {
-            gid: "568766e764225df3428b4574",
-            onError: function (e) { console.log(e); }
-        }
-    );
-</script>
 
 {% endblock scripts %}
 

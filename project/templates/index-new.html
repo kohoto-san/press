@@ -73,20 +73,77 @@
         <a href="/quiz"><h5>Как хорошо ты знаешь российский IT рынок? Узнай с помощью нашего спец. проекта!</h5></a>
         -->
 
-    	<div id="content" style="max-width: 1325px;">
+    	<div id="content">
 
             <div class="row" id="content-posts-wrapper" style="position: relative;">
-                <div id="runet-news" class="card-post collection" style="display: none; padding: 0; margin-left: 10px; width: 430px;">
+                <div id="runet-news" class="card-post stamp">
+                    <div class="collection">
                         <a href="{% url 'headlines' %}" class="collection-item collection-header" style="font-size: 2.28rem; line-height: 110%; font-weight: 400; color: #a6a6a6;">Новости рунета</a>
     
                         {% for object in  news_list %}
-                            <a href="{% url 'link' object.smart_link.internal %}" target="_blank" class="collection-item">{{object.title}} </a>
+                            <a href="{% url 'link' object.smart_link.internal %}" target="_blank" class="collection-item">
+                                {{object.title}}
+                                <span style="display: block; color: #999;">{{object.media.name}}</span>
+                            </a>
                         {% endfor %}
 
                         <a href="{% url 'headlines' %}" class="collection-item collection-header collection-footer">Все новости</a>
+                    </div>
                 </div>
 
-                <div id="startups" class="card-post collection" style="display: none; padding: 0; margin-left: 10px; width: 430px;">
+            {% comment %}                
+            <div class="col s3 sidebar-share home-sidebar-share stamp" style="left: 0;">
+                <div class="row">
+            
+                    <div class="col s12" style="height: 250px; margin-top: 0;"><div id="vk_groups"></div></div>
+                    
+                    <div class="col s12">
+                    
+                        <div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                            <div class="fb-xfbml-parse-ignore">
+                                <blockquote cite="https://www.facebook.com/startupden.ru/">
+                                    <a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                    </div> <!-- /col s12 Facebook -->
+
+                    <div class="col s12">
+                        <div class="card indigo lighten-3">
+                            <div class="card-content white-text">
+                                <p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
+
+                                <a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
+                                    Follow @startupden_ru
+                                </a>
+
+                            </div>
+                        </div>
+                    </div> <!-- /col s12 Twitter -->
+
+                    <div class="col s12">
+                        <a href="{% url 'contact' %}" class="write-us card hoverable blue-grey lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center-text">Напишите нам!</span>
+                                <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
+                            </div>
+
+                            <div class="write-us-action card-action center-align blue-grey darken-1">
+                                <span>Написать</span>
+                            </div>
+                            
+                        </a>
+                    </div> <!-- /.col s12 Write-Us -->
+               
+                </div> <!-- /row-->
+
+            </div> <!-- /sidebar-share -->
+            {% endcomment %}
+
+                <div id="startups" class="row card-post stamp" style="max-width: 840px;">
+                    {% comment %}
+                    <div class="collection">
                         <a href="{% url 'hunt:post_list' %}" class="collection-item collection-header" style="font-size: 2.28rem; line-height: 110%; font-weight: 400; color: #a6a6a6;">Стартапы</a>
     
                         {% for object in  startups_list %}
@@ -94,7 +151,24 @@
                         {% endfor %}
 
                         <a href="{% url 'hunt:post_list' %}" class="collection-item collection-header collection-footer">Все стартапы</a>
-                </div>
+                    </div>
+                    {% endcomment %}
+                    <div class="startups-wrapper card" style="padding: 0 20px;">
+                        {% for product in startups %}
+                            {% include "item-startup.html" %}
+                        {% endfor %}
+
+                        <a href="{% url 'hunt:post_list' %}" class="startups-footer product-post product-post-item">
+                            <h5 style="margin: 0; color: #000;" class="center-align">Все стартапы <i class="material-icons" style="vertical-align: middle; font-size: 34px;">keyboard_arrow_right</i></h5>
+                        </a> <!-- /.product-post -->
+
+                    </div> <!-- /.startups-wrapper -->
+                </div> <!-- /#startups -->
+
+                {% comment %}
+                {% include "hunt/load-startups.js" %}
+                {% endcomment %}
+
 
             </div> <!-- /.row content-posts-wrapper -->
 
@@ -161,54 +235,6 @@
                     </div>
 
                 </div> <!-- /content-posts-plug -->
-
-            <div class="col s3 sidebar-share home-sidebar-share">
-                <div class="row">
-            
-                    <div class="col s12" style="height: 250px; margin-top: 0;"><div id="vk_groups"></div></div>
-                    
-                    <div class="col s12">
-                    
-                        <div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
-                            <div class="fb-xfbml-parse-ignore">
-                                <blockquote cite="https://www.facebook.com/startupden.ru/">
-                                    <a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
-                                </blockquote>
-                            </div>
-                        </div>
-
-                    </div> <!-- /col s12 Facebook -->
-
-                    <div class="col s12">
-                        <div class="card indigo lighten-3">
-                            <div class="card-content white-text">
-                                <p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
-
-                                <a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
-                                    Follow @startupden_ru
-                                </a>
-
-                            </div>
-                        </div>
-                    </div> <!-- /col s12 Twitter -->
-
-                    <div class="col s12">
-                        <a href="{% url 'contact' %}" class="write-us card hoverable blue-grey lighten-1">
-                            <div class="card-content white-text">
-                                <span class="card-title center-text">Напишите нам!</span>
-                                <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
-                            </div>
-
-                            <div class="write-us-action card-action center-align blue-grey darken-1">
-                                <span>Написать</span>
-                            </div>
-                            
-                        </a>
-                    </div> <!-- /.col s12 Write-Us -->
-               
-                </div> <!-- /row-->
-
-            </div> <!-- /sidebar-share -->
 
     	</div> <!-- /content -->
 
@@ -310,19 +336,29 @@
 
             $(document).ready(function(){
                 $('#content-posts-wrapper').masonry({
-                    itemSelector: '.card-post',
+                    itemSelector: '.card-post-article',
+                    stamp: '.stamp',
                     columnWidth: $('#content-posts-plug .card-post')[0]
                 });
+
+                $('.home-sidebar-share').css('top', $('#runet-news').height());
             });
             
             // хитрый запуск masonry после события загрузки всех шрифтов
             document.onreadystatechange = function() {
             if (document.readyState === 'complete') 
                 $('#content-posts-wrapper').masonry({
-                    itemSelector: '.card-post',
+                    itemSelector: '.card-post-article',
+                    stamp: '.stamp',
                     columnWidth: $('#content-posts-plug .card-post')[0]
                 });
             };
+
+            $('.startups-wrapper').on('click', '.product-post-body', function() {
+                var url = "{% url 'hunt:post_detail' 'slug' %}";
+                url = url.replace('slug', $(this).data('slug'))
+                location.href = url;
+            });
 
         })();
 

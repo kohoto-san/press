@@ -39,7 +39,7 @@
                                             
                                          <!-- l7 m7 s12 -->
             <div class="navbar-categories col l7 m7 s12">
-                <a href="/news">Новости</a>
+                <a href="/links">Новости</a>
                 <a href="/articles">Статьи</a>
                 <a href="/startups">Стартапы</a>
             </div>
@@ -322,6 +322,47 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
   ga('send', 'pageview');
 </script>
 
+
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+
+        $('.row').on('click', '.upvote-startup', function() {
+
+        {% if user.is_authenticated %}
+
+            var votes = parseInt($(this).find('p').text());
+            var post_id = $(this).siblings('.product-post-body').data('id');
+
+            if( $(this).hasClass('upvote-active') ){
+                $(this).find('p').text(votes - 1);
+                $(this).removeClass('upvote-active');
+                var method = 'DELETE';
+            }
+            else{
+                $(this).find('p').text(votes + 1);
+                $(this).addClass('upvote-active');
+                var method = 'CREATE';
+            }
+
+            var upvote_url = "{% url 'hunt:vote' '666' %}";
+            upvote_url = upvote_url.replace('666', post_id)
+
+            $.ajax({
+                url: upvote_url,
+                type: 'POST',
+                data: {'method': method}
+            });
+
+        {% else %}
+            $('.login-popup-wrapper').show();
+        {% endif %}
+            
+        });
+
+    </script>
 
 {% endblock scripts %}
 

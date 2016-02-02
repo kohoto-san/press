@@ -111,11 +111,12 @@ def load_home(request):
     # print('load_home')
     return load_posts(request, post_list_home, 'home')
 
-
+"""
 def load_news(request):
     post_list_news = Post.objects.filter(category__text="News").order_by('-id_post')
     # print('load_news')
     return load_posts(request, post_list_news, 'news')
+"""
 
 
 def load_articles(request):
@@ -131,7 +132,7 @@ def load_posts(request, post_list, type_page):
 
     feat_posts = Post.objects.filter(pk__in=[pk_post for pk_post in feat_posts_id])
 
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, 7)
 
     if request.method == 'GET':
         if request.is_ajax():
@@ -166,7 +167,11 @@ def load_posts(request, post_list, type_page):
             form = SubscribeEmailForm(label_suffix='')
             news = Headline.objects.all().order_by('-date')[:10]
             startups = hunt_startups.objects.all().order_by('-time_create')[:10]
-            context = {'feat_posts': feat_posts, 'form': form, 'news_list': news, 'startups_list': startups}
+
+            context_st = {'object_list': startups, 'user': request.user}
+            # startups_html = render_to_string('hunt/post-list.html', context_st)
+
+            context = {'feat_posts': feat_posts, 'form': form, 'news_list': news, 'startups_list': startups, 'startups': startups, 'user': request.user}
 
             if type_page != "articles":
                 return render(request, 'index-new.html', context)

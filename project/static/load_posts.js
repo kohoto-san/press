@@ -1,6 +1,7 @@
 var page = 1;
 var first_load = false;
 var is_loading = false;
+var num_load = 0;
 
 $( window ).load(function() {
     loading('off');
@@ -39,6 +40,7 @@ function loadPosts(){
             var newElems = $( data );
             var $container = $('#content-posts-wrapper');
 
+            //alert(newElems[0].outerHTML);
             $container.masonryImagesReveal( newElems );
 
             /*
@@ -67,10 +69,15 @@ function loadPosts(){
         var msnry = this.data('masonry');
         var itemSelector = msnry.options.itemSelector;
         // hide by default
+
+        //$newElems.append("<p>Test</p>");
+
         $newElems.hide();
         // append to container
         this.append( $newElems );
-        
+        //alert(this.html());
+        var $container = this;
+
         $newElems.imagesLoaded()
 
             /*
@@ -93,21 +100,37 @@ function loadPosts(){
             */
 
             .always( function( instance ) {
+                //alert($newElems.html());
 
                 if( !first_load ){
-                    runet_news = $('#runet-news').show();
-                    msnry.appended( runet_news );
-
-                    startups = $('#startups').show();
-                    msnry.appended( startups );
+                    //runet_news = $('#runet-news').show();
+                    //msnry.appended( runet_news );
+                    
+                    //startups = $('#startups').show();
+                    //msnry.appended( startups );
 
                     $('#content-posts-plug').css('display', 'none');
                     first_load = true;
-                }
 
+                    //startups = $('#startups').show().detach();
+                    //$container.find('.card-post-article:eq(0)').after( startups );
+                }
+                
+                //startups = $('#startups').show().detach();
+                //$newElems.after( startups );
                 $newElems.show();
                 msnry.appended( $newElems );
 
+                //startups = $('#startups').show();
+                //startups.insertAfter('.card-post-article:eq(0)');
+                
+                //msnry.appended( startups );
+                //msnry.reloadItems();
+
+
+
+                // $('.card-post-article:eq(0)').after( startups.show() );
+                //msnry.appended( startups );
 
                 page += 1;
                 loading('on');
@@ -123,4 +146,9 @@ $(function(){
     $('img').error(function(){
         $(this).attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
     });
+});
+
+$(window).resize(function(){
+    var msnry = $('#content-posts-wrapper').data('masonry');
+    msnry.layout();
 });

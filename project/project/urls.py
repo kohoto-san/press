@@ -37,7 +37,6 @@ urlpatterns = [
 
     url(r'^redirect/', redirect, name='redirect'),
 
-
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
 
@@ -45,7 +44,7 @@ urlpatterns = [
     # url(r'^$', load_posts, name='home'),
 
     url(r'^$', views.load_home, name='home'),
-    url(r'^news/', views.load_news, name='news'),
+    # url(r'^news/', views.load_news, name='news'),
     url(r'^articles/', views.load_articles, name='articles'),
 
     url(r'^links/', views.HeadlineList.as_view(), name='headlines'),
