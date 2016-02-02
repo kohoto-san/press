@@ -31,7 +31,7 @@
 
     {% block navbar %}
 
-        <div id="navbar" class="row" style="position: relative; text-align: center;">
+        <div class="navbar row" style="position: relative; text-align: center;">
 
             <div class="col l2 m3 s12 navbar-logo">
                 <h4><a href="/" style="color: #000;">StartupDen</a></h4>
@@ -237,8 +237,8 @@
         $(document).ready(function() {
 
             if( $(window).width() <= 370){
-                $('#navbar').removeClass('valign-wrapper');
-                $('#navbar').find('.valign').removeClass('valign');
+                $('.navbar').removeClass('valign-wrapper');
+                $('.navbar').find('.valign').removeClass('valign');
             }
 
         });

@@ -36,10 +36,22 @@
 
 
 
-
 {% block navbar %}
 
-    <div id="navbar" class="row valign-wrapper">
+    <div class="navbar row" style="position: relative; text-align: center; box-shadow: none;">
+
+                                            
+                                         <!-- l7 m7 s12 -->
+            <div class="navbar-categories col l7 offset-l2 m7 offset-m3 s12">
+                <a href="/links">Новости</a>
+                <a href="/articles">Статьи</a>
+                <a href="/startups">Стартапы</a>
+            </div>
+
+        </div> <!-- /navbar -->
+
+
+    <div class="navbar navbar-post row valign-wrapper" style="position: relative; margin-top: 0px; right: 0;">
         
         <div class="col m2 s12 navbar-logo">
             <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
@@ -89,7 +101,7 @@
 {% block content %}
     
 
-    <div class="post-cover">
+    <div class="post-cover" style="margin-top: 0;">
 
         <div class="post-cover-image"></div>
 
@@ -245,12 +257,12 @@
             <h4 class="center-align" style=" width: 100%; border-bottom: 2px solid #9A9A9A; line-height: 0.1em; margin: 10px 0 50px;"><span style="background: #fff; padding: 0 10px;">Читайте также</span></h4>
 
             {% for post in recommended_posts %}
-                
+                                                                       <!-- 200 -->
                 <div class="col l3 m6 s12" style="height: 250px; max-width: 250px;">
                     <a href="{% url 'post_detail' post.slug %}" class="card">
                         
                         <div class="card-image">
-                            <img src="{{post.image.url}}" style="height: 150px;">
+                            <img src="{{post.image.url}}" style="height: 150px;"> <!-- 140 -->
                         </div>
 
                         {% comment %}
@@ -400,6 +412,11 @@
             else{
                 $('.post-cover-image').css('background-image', 'url({{post.image_thumbnail.url}})' );
             }
+
+            if($(window).width() > 992){
+                $('.navbar-post').pushpin({ top: $('.navbar-post').offset().top });
+            }
+
 
             if( $('#post-content-text').height() > $('#sidebar-share').height() ){
 

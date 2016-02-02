@@ -42,7 +42,7 @@
             right: 15px;
         }
 
-        #navbar .popup img:hover{
+        .navbar .popup img:hover{
             opacity: 0.4;
         }
 
@@ -50,7 +50,7 @@
             opacity: 0.6;
         }
 
-        #navbar{
+        .navbar{
             height: 64px;
             position: fixed;
             width: 100%;
@@ -91,7 +91,7 @@
                 margin-top: 0px;
             }
 
-            #navbar {
+            .navbar {
                 height: 160px;
             }
 
@@ -105,7 +105,7 @@
         }
 
         @media (max-width: 992px){
-            #navbar{
+            .navbar{
                 position: relative;
             }
 
