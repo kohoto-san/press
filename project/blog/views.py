@@ -171,7 +171,7 @@ def load_posts(request, post_list, type_page):
             context_st = {'object_list': startups, 'user': request.user}
             # startups_html = render_to_string('hunt/post-list.html', context_st)
 
-            context = {'feat_posts': feat_posts, 'form': form, 'news_list': news, 'startups_list': startups, 'startups': startups, 'user': request.user}
+            context = {'feat_posts': feat_posts, 'form': form, 'news_list': news, 'startups': startups, 'user': request.user}
 
             if type_page != "articles":
                 return render(request, 'index-new.html', context)
@@ -270,13 +270,18 @@ class PostDetail(DetailView):
         next_post = Post.objects.filter(id_post=current_post_id + 1).first()
         prev_post = Post.objects.filter(id_post=current_post_id - 1).first()
 
-        context["recommended_posts"] = random.sample(list(posts), 8)
+        context["recommended_posts"] = random.sample(list(posts), 9)
 
         if next_post:
             context["next_post"] = next_post
 
         if prev_post:
             context["prev_post"] = prev_post
+
+        startups = hunt_startups.objects.all().order_by('-time_create')[:5]
+
+        context['user'] = self.request.user
+        context['startups'] = startups
 
         return context
 

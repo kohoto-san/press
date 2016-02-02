@@ -177,24 +177,6 @@
         <div id="sidebar-share" class="sidebar-share">
             <div class="row">
 
-                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-                    <div class="col s12">
-                        
-                        <!-- Прямоугольник (300х250) -->
-                        <ins class="adsbygoogle"
-                            style="display:inline-block;width:300px;height:250px"
-                            data-ad-client="ca-pub-8855039078705766"
-                            data-ad-slot="1028455936"></ins>
-
-                    </div>
-
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-
-
-
                 <div class="col s12" style="padding: 0; margin-bottom: 10px;">
                     <ul class="tabs" style="background-color: transparent;">
                         <li class="tab col s3"><a href="#vk" class="active">Вконтакте</a></li>
@@ -249,20 +231,31 @@
                         </a>
                     </div>
             </div> <!-- /.write-us -->
+
+            <div class="startups-wrapper card" style="padding: 0 20px; margin-top: 30px;">
+                {% for product in startups %}
+                    {% include "item-startup.html" %}
+                {% endfor %}
+
+                <a href="{% url 'hunt:post_list' %}" class="startups-footer product-post product-post-item" style="width: 100%;">
+                    <h5 style="margin: 0; color: #000;" class="center-align">Все стартапы <i class="material-icons" style="vertical-align: middle; font-size: 34px;">keyboard_arrow_right</i></h5>
+                </a> <!-- /.product-post -->
+
+            </div> <!-- /.startups-wrapper -->
             
         </div> <!-- /.sidebar-share -->
 
-        <div id="feature-wrapper" class="col s12" style="font-size: 1.15rem; margin-top: 20px;">
+        <div id="feature-wrapper" class="col s12 l10" style="font-size: 1.15rem; margin-top: 20px; max-width: 780px;">
 
             <h4 class="center-align" style=" width: 100%; border-bottom: 2px solid #9A9A9A; line-height: 0.1em; margin: 10px 0 50px;"><span style="background: #fff; padding: 0 10px;">Читайте также</span></h4>
 
             {% for post in recommended_posts %}
-                                                                       <!-- 200 -->
-                <div class="col l3 m6 s12" style="height: 250px; max-width: 250px;">
+                                                                       <!-- max-width: 250 -->
+                <div class="col l6 m6 s12" style="height: 270px; width: 250px;">
                     <a href="{% url 'post_detail' post.slug %}" class="card">
                         
                         <div class="card-image">
-                            <img src="{{post.image.url}}" style="height: 150px;"> <!-- 140 -->
+                            <img src="{{post.image.url}}" style="height: 170px;"> <!-- 150 -->
                         </div>
 
                         {% comment %}
@@ -282,6 +275,8 @@
 
 
     </div> <!-- /post-content -->
+
+
 
     </div> <!-- /.row -->
 
@@ -306,6 +301,14 @@
         {% endif %}
 
     </div>
+
+    <style type="text/css">
+
+        .sidebar-share .product-post-right{
+            display: none;
+        }
+
+    </style>
 
 
 
@@ -418,6 +421,7 @@
             }
 
 
+        {% comment %}
             if( $('#post-content-text').height() > $('#sidebar-share').height() ){
 
                 var offset_horizontal = $('#sidebar-share').offset().left - ($('#sidebar-share').width() / 2);
@@ -434,6 +438,7 @@
             else{
                 $('#post-content-text').css('height', $('#sidebar-share').height());
             }
+        {% endcomment %}
 
             var height = $(window).height() - 64;
             $('.post-cover').css('height', height);
