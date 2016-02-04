@@ -1,6 +1,32 @@
 
 {% extends "hunt/base.html" %}
 
+{% block head %}
+
+    <title>{{post.title}}</title>
+
+    {{block.super}}
+    
+    <meta property="og:site_name" content="StartupDen" />
+    
+    <meta property="og:type" content="product" />
+    <meta property="twitter:card" content="summary" />
+
+    <meta property="og:title" content="Здесь стартапы, которые лайкнул {{profile.user.first_name}} {{profile.user.last_name}}" />
+    <meta property="twitter:title" content="Здесь стартапы, которые лайкнул {{profile.user.first_name}} {{profile.user.last_name}}" />
+
+    <meta property="twitter:description" content="Узнай какие проекты любит {{profile.user.first_name}} {{profile.user.last_name}}" />
+    <meta property="og:description" content="Узнай какие проекты любит {{profile.user.first_name}} {{profile.user.last_name}}" />
+
+    <meta property="og:url" content="http://startupden.ru{{ request.path }}" />
+    <meta property="twitter:url" content="http://startupden.ru{{ request.path }}" />
+
+    <meta property="og:image" content="http://startupden.ru/media/share-logo.png" />
+    <meta property="twitter:image" content="http://startupden.ru/media/share-logo.png" />
+
+{% endblock head %}
+
+
 {% block content %}
 
     <div class="row" style="margin-top: 30px;">
@@ -13,8 +39,26 @@
 			</div>
 
 			<h5 class="center-align">{{profile.user.first_name}} {{profile.user.last_name}}</h5>
-			<a href="/accounts/logout/" style="float: right;">Выход</a>
-			
+        
+            <div class="profile-share share post-content-share">
+                <a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk">
+                    <i class="fa fa-vk fa-lg"></i> Поделиться
+                </a>
+
+                <a href="http://twitter.com/share?text=Здесь стартапы, которые лайкнул {{profile.user.first_name}} {{profile.user.last_name}} на @startupden_ru" target="_blank" class="twitter popup post-content-share-twitter">
+                    <i class="fa fa-twitter fa-lg"></i> Твитнуть
+                </a>
+
+                <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="popup post-content-share-facebook">
+                    <i class="fa fa-facebook fa-lg"></i> Поделиться
+                </a>
+
+                <a href="https://plus.google.com/share?url=" target="_blank" class="popup post-content-share-google" style="width: 45px;">
+                    <i class="fa fa-google-plus fa-lg"></i>
+                </a>
+                
+                    <a href="/accounts/logout/" class="profile-logout valign">Выход</a>
+            </div>
 
 			<div class="row">
     			<div class="col s3">

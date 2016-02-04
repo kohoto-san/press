@@ -12,11 +12,11 @@
     <meta property="og:type" content="product" />
     <meta property="twitter:card" content="summary" />
 
-    <meta property="og:title" content="{{post.title}}" />
+    <meta property="og:title" content="{{object.title}}" />
     <meta property="twitter:title" content="{{object.title}}" />
 
     <meta property="twitter:description" content="{{object.description}}" />
-    <meta property="og:description" content="{{post.text_entry}}" />
+    <meta property="og:description" content="{{object.description}}" />
 
     <meta property="og:url" content="http://startupden.ru{{ request.path }}" />
     <meta property="twitter:url" content="http://startupden.ru{{ request.path }}" />
@@ -33,13 +33,13 @@
 		<div class="container product-details">
 
 			<div class="product-details-header">
-				<div class="share-btns share share-startup">
+				<div class="share-btns share product-share-startup share-startup">
 
                 	<a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk">
                 	    <i class="fa fa-vk fa-lg"></i>
                 	</a>
             
-                	<a href="http://twitter.com/share?text={{post.title}}" target="_blank" class="twitter popup post-content-share-twitter">
+                	<a href="http://twitter.com/share?via=startupden_ru&text={{object.title}}" target="_blank" class="twitter popup post-content-share-twitter">
                 	    <i class="fa fa-twitter fa-lg"></i>
                 	</a>
             

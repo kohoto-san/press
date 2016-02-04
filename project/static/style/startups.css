@@ -226,3 +226,26 @@
 			width: 22px;
 			margin-right: 20px;
 		}
+
+		.profile-share{
+    		margin: 40px 0;
+		}
+
+		.profile-share a{
+			display: inline-block;
+    		width: 170px;
+    		margin-top: 20px;
+    		margin: 20px 10px 0;
+		}
+
+		.profile-share .profile-logout{
+			float: right;
+			color: #000;
+			width: auto !important;
+		}
+
+		@media (max-width: 1250px){
+			.profile-share .profile-logout{
+				float: none;
+			}
+		}
