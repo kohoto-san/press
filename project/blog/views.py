@@ -166,7 +166,7 @@ def load_posts(request, post_list, type_page):
         else:
             form = SubscribeEmailForm(label_suffix='')
             news = Headline.objects.all().order_by('-date')[:10]
-            startups = hunt_startups.objects.all().order_by('-time_create')[:10]
+            startups = hunt_startups.objects.all().order_by('-time_create')[:30]
 
             context_st = {'object_list': startups, 'user': request.user}
             # startups_html = render_to_string('hunt/post-list.html', context_st)
@@ -278,7 +278,7 @@ class PostDetail(DetailView):
         if prev_post:
             context["prev_post"] = prev_post
 
-        startups = hunt_startups.objects.all().order_by('-time_create')[:30]
+        startups = hunt_startups.objects.all().order_by('-time_create')[:10]
 
         context['user'] = self.request.user
         context['startups'] = startups
