@@ -278,7 +278,7 @@ class PostDetail(DetailView):
         if prev_post:
             context["prev_post"] = prev_post
 
-        startups = hunt_startups.objects.all().order_by('-time_create')[:10]
+        startups = hunt_startups.objects.all().order_by('-time_create')[:30]
 
         context['user'] = self.request.user
         context['startups'] = startups
