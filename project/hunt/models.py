@@ -75,7 +75,12 @@ class Post(models.Model):
     date_create = models.DateField(default=timezone.now)
 
     def save(self, *args, **kwargs):
-        self.upvotes_count = self.upvotes.count()
+
+        try:
+            self.upvotes_count = self.upvotes.count()
+        except ValueError:
+            self.upvotes_count = 1
+
         return super(Post, self).save(*args, **kwargs)
 
     class Meta:
