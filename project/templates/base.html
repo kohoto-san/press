@@ -36,45 +36,51 @@
             <div class="col l2 m3 s12 navbar-logo">
                 <h4><a href="/" style="color: #000;">StartupDen</a></h4>
             </div>
+
+                                                              <!-- l3 m4 s12 -->
+            <div class="navbar-profile-wrapper share-btns share col l1 m2 s4 offset-s4">
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'hunt:profile_details' user.profile.id_profile %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
+                {% else %}
+                    <a href="#" id="login" class="profile-link" style="width: 73px;">
+                        <i class="fa fa-sign-in fa-2x"></i> 
+                        <span style="vertical-align: super;">Войти</span>
+                    </a>
+                {% endif %}
+
+            </div> <!-- /share-btns -->
+
+
                                             
                                          <!-- l7 m7 s12 -->
-            <div class="navbar-categories col l7 m7 s12">
+            <div class="navbar-categories col l9 m7 s12">
                 <a href="/links">Новости</a>
                 <a href="/articles">Статьи</a>
                 <a href="/startups">Стартапы</a>
-            </div>
-            
-                                                  <!-- l3 m4 s12 -->
-            <div class="share-btns share col l1 offset-l2 m2 s4 offset-s4" style="margin-top: 0;">
 
-                    {% comment %}
-                    <a href="https://vk.com/startupden" target="_blank" class="post-content-share-vk">
+                {% comment %}                    
+                <div class="navbar-soc">
+                    <a href="https://vk.com/startupden" target="_blank">
                         <i class="fa fa-vk fa-lg"></i>
                     </a>
             
-                    <a href="https://twitter.com/startupden_ru" target="_blank" class="post-content-share-twitter">
+                    <a href="https://twitter.com/startupden_ru" target="_blank">
                         <i class="fa fa-twitter fa-lg"></i>
                     </a>
             
-                    <a href="https://www.facebook.com/startupden.ru/" target="_blank" class="post-content-share-facebook">
+                    <a href="https://www.facebook.com/startupden.ru/" target="_blank">
                         <i class="fa fa-facebook fa-lg"></i>
                     </a>
 
-                    <a href="/feed" target="_blank" class="post-content-share-rss">
+                    <a href="/feed" target="_blank">
                         <i class="fa fa-rss fa-lg"></i>
                     </a>
-                    {% endcomment %}
+                </div>
+                {% endcomment %}
 
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'hunt:profile_details' user.profile.id_profile %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
-                    {% else %}
-                        <a href="#" id="login" class="profile-link" style="width: 73px;">
-                            <i class="fa fa-sign-in fa-2x"></i> 
-                            <span style="vertical-align: super;">Войти</span>
-                        </a>
-                    {% endif %}
 
-            </div> <!-- /share-btns -->
+            </div>
 
         </div> <!-- /navbar -->
 

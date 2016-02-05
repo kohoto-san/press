@@ -84,6 +84,10 @@
 			cursor: pointer;
 		}
 
+		.product-post-details .product-post-body{
+			cursor: default;
+		}
+
 		.product-post-body p, .post-description{
 			color: #999999;
 			font-size: 17px;
@@ -249,3 +253,7 @@
 				float: none;
 			}
 		}
+
+.product-post-body .title-item h5:hover{
+	text-decoration: underline;
+}

@@ -26,7 +26,8 @@
         			else{
             			var newElems = $( data );
         			}
-            		
+
+                    $('.preloader-wrapper').hide();
             		$container.append(newElems);
 
         		}) // success || done

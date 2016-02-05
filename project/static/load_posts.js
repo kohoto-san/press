@@ -1,11 +1,11 @@
-var page = 1;
+var page = 2;
 var first_load = false;
 var is_loading = false;
 var num_load = 0;
 
 $( window ).load(function() {
-    loading('off');
-    loadPosts();
+    //loading('off');
+    //loadPosts();
 });
 
 $('#load_posts').click(function(){

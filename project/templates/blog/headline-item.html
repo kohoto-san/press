@@ -1,0 +1,6 @@
+{% for object in object_list %}
+    <a href="{% url 'link' object.smart_link.internal %}" target="_blank" class="collection-item">
+    	<h5>{{object.title}}</h5>
+    	<p>{{object.media.name}}</p>
+    </a>
+{% endfor %}

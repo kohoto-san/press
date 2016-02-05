@@ -46,6 +46,11 @@ def load_posts(request):
             res = []
             for date, posts in post_list:
                 date_post_list = list(posts)
+
+                date_post_list.sort(key=lambda item: item.upvotes_count, reverse=True)
+
+                # print( sorted(date_post_list, key=lambda item: item.upvotes.count(), reverse=True) )
+
                 # newlist = sorted(date_post_list, key=lambda x: x.upvotes.count, reverse=True)
                 date_post_list.insert(0, date)
                 res.append(date_post_list)
@@ -132,9 +137,13 @@ def vote(request, post_id):
         method = request.POST.get('method')
         if method == 'CREATE':
             post.upvotes.add(user)
+            # post.upvotes_count += 1
+            post.save()
             return HttpResponse('OK')
         if method == 'DELETE':
             post.upvotes.remove(user)
+            # post.upvotes_count -= 1
+            post.save()
             return HttpResponse('OK')
     else:
         raise Http404

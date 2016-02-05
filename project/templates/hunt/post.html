@@ -58,7 +58,7 @@
 				<span>Опубликовал(-а) {{object.author.user.first_name}} {{object.author.user.last_name}}</span>
 			</a>
 
-			<div class="product-post">
+			<div class="product-post product-post-details">
 
 				{% if user.profile in object.upvotes.all %}
 					<div class="upvote upvote-startup upvote-active">
@@ -76,7 +76,7 @@
 				</div>
 			</div> <!-- /.product-post -->
 
-			<a href="{% url 'redirect' %}?url={{object.link}}" target="_blank" class="btn-large waves-effect" style="margin-bottom: 0px; height: 45px; line-height: 47px;">Перейти на сайт</a>
+			<a href="{% url 'redirect' %}?url={{object.link}}" target="_blank" class="btn-large waves-effect" style="margin-bottom: 10px; height: 45px; line-height: 47px; margin-top: 20px;">Перейти на сайт</a>
 
 			<p class="post-description">{{object.upvotes.count}} голос(-ов)</p>
 

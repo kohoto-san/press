@@ -57,7 +57,9 @@
                     <i class="fa fa-google-plus fa-lg"></i>
                 </a>
                 
+                {% if profile == request.user.profile %}
                     <a href="/accounts/logout/" class="profile-logout valign">Выход</a>
+                {% endif %}
             </div>
 
 			<div class="row">

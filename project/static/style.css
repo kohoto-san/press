@@ -78,7 +78,7 @@
             color: #000;
         }
 
-        @media (max-width: 650px){
+        @media (max-width: 865px){
             
             .navbar-categories a{
                 margin-right: 10px;
@@ -198,14 +198,22 @@
             }
         }
 
-        @media (max-width: 991px){
+        @media (max-width: 960px){
         	.card-post{
                 max-width: 380px;
-    			/*position: relative;*/
+    			position: relative;
     		}
     		#content-posts{
         		opacity: 1;
         	}
+            #startups{
+                float: none !important;
+                width: 100% !important;
+            }
+            #runet-news .item-wrapper{
+                max-height: 200px;
+                overflow: hidden;
+            }
 
     	}
 
@@ -521,16 +529,33 @@ nav .brand-logo {
 
 @media (max-width: 1300px){
     #content{
-        max-width: 840px;
+        /*max-width: 840px;*/
     }
     #runet-news{
-        position: relative;
+        /*position: relative;*/
+    }
+    #startups{
+        width: 700px;
+    }
+
+    .content-articles-page{
+        max-width: 840px !important;
     }
 }
 
-@media (max-width: 991px){
+@media (max-width: 1160px){
+    #startups{
+        width: 500px;
+    }
+
+    #startups .product-post-right{
+        display: none;
+    }
+}
+
+@media (max-width: 920px){
     #content{
-        max-width: 760px;
+        /*max-width: 760px;*/
     }
 }
 
@@ -541,9 +566,26 @@ nav .brand-logo {
 }
 
 
-@media (max-width: 800px){
+@media (max-width: 960px){
     #content{
-        max-width: 420px;
+        /*max-width: 420px;*/
+    }
+
+    #runet-news{
+        max-width: 700px;
+    }
+
+    .card-post-article{
+        display: inline-block;
+    }
+
+    .articles-wrapper{
+        max-width: 770px;
+        margin: auto;
+    }
+
+    .articles-wrapper .more-articles{
+        display: block;
     }
 
     .stamp{
@@ -552,8 +594,20 @@ nav .brand-logo {
     }
     
     #startups{
-        position: relative;
         float: none;
+        margin: auto;
+    }
+
+}
+
+@media (max-width: 805px){
+    .card-post-article {
+        display: block;
+        max-width: 420px;
+    }
+
+    .content-articles-page{
+        max-width: 420px !important;
     }
 }
 
@@ -599,5 +653,24 @@ nav .brand-logo {
 
     .sidebar-share > div{
         width: 100%;
+    }
+}
+
+.navbar-soc{
+    display: inline-block;
+}
+
+.navbar-soc a{
+    margin-right: 10px;
+}
+
+.navbar .navbar-profile-wrapper{
+    margin-top: 0;
+    float: right;
+}
+
+@media (max-width: 600px){
+    .navbar .navbar-profile-wrapper{
+        float: none;
     }
 }

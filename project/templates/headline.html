@@ -2,19 +2,17 @@
 
 
 {% block content %}
-    <div class="row home-wrapper">
+    <div class="row home-wrapper" style="min-height: 650px;">
 	
 
 		<div class="col l8 offset-l1 m10 offset-m1 s12">
-				
-			<div class="collection">
-			{% for object in object_list %}
-        	    <a href="{% url 'link' object.smart_link.internal %}" target="_blank" class="collection-item">
-        	    	<h5>{{object.title}}</h5>
-        	    	<p style="color: #000; margin: 0;">{{object.media.name}}</p>
-        	    </a>
-			{% endfor %}
-			</div> <!-- /collection -->
+			<div class="collection news-wrapper">
+                {{html}}
+            </div> <!-- /collection -->
+
+            <div class="col  s12 center-align" id="load_posts">
+                <a class="center-align waves-effect waves-light btn" style="margin: auto; margin-bottom: 20px;">Загрузить еще</a>
+            </div>
 
 		</div>
 
@@ -47,20 +45,6 @@
                             </div>
                         </div>
                     </div> <!-- /col s12 Twitter -->
-
-                    <div class="col s12">
-                        <a href="{% url 'contact' %}" class="write-us card hoverable blue-grey lighten-1">
-                            <div class="card-content white-text">
-                                <span class="card-title center-text">Напишите нам!</span>
-                                <p>Хотите рассказать о вашем проекте или поделиться своим опытом? Напишите нам и мы с радостью опубликуем вашу колонку.</p>
-                            </div>
-
-                            <div class="write-us-action card-action center-align blue-grey darken-1">
-                                <span>Написать</span>
-                            </div>
-                            
-                        </a>
-                    </div> <!-- /.col s12 Write-Us -->
                
                 </div> <!-- /row-->
 
@@ -68,4 +52,67 @@
 
 	</div>
 
+    <style type="text/css">
+
+        .news-wrapper p{
+            color: #000;
+            margin: 0;
+        }
+
+    </style>
+
 {% endblock content %}
+
+{% block scripts %}
+    {{block.super}}
+
+    <script type="text/javascript">
+
+        var page = 2;
+        var is_loading = false;
+
+        $('#load_posts').click(function(){
+            if( !is_loading ){
+                loading('off');
+                loadPosts();
+            }
+        });
+
+
+        function loading(turn){
+            // Когда посты загружены включить возможность загрузить ещё
+            if(turn == 'on'){
+                $('#load_posts a').removeClass('disabled');
+                is_loading = false;
+            }
+            // Когда посты начали грузиться выключить возможность загрузить ещё
+            else{
+                $('#load_posts a').addClass('disabled');
+                is_loading = true;
+            }
+
+        }
+
+
+        function loadPosts(){
+
+            $.get( window.location.href, {page: page} )
+                        
+                .success(function( data ) {
+
+                    $('.news-wrapper').append(data);
+                    page += 1;
+                    loading('on');
+
+                }) // success || done
+                        
+                .fail(function() {
+                    $('#load_posts').prepend('<p>Упс...Кажется все новости уже загружены.</p>')
+                    $('#load_posts a').addClass('disabled');
+                }); // fail
+            
+
+        } // function loadPosts
+
+    </script>
+{% endblock scripts %}

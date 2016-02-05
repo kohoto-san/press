@@ -1,10 +1,112 @@
 
 {% extends "hunt/base.html" %}
 
+{% block head %}
+	
+	<title>Стартапы — StartupDen</title>
+	{{block.super}}
+
+{% endblock head %}
+
 {% block content %}
     
-	<div class="row" style="min-height: 400px; margin-top: 30px; margin-bottom: 20px;">
-		<div class="container startups-wrapper"></div>
+	<div class="row" style="min-height: 650px; margin-top: 30px; margin-bottom: 20px;">
+		<div class="col l8 offset-l1 m10 offset-m1 s12 container startups-wrapper">
+			
+			<div class="preloader-wrapper big active" style="margin: auto; display: block;">
+		      	<div class="spinner-layer spinner-blue">
+			        <div class="circle-clipper left">
+			          	<div class="circle"></div>
+			        </div>
+			        
+			        <div class="gap-patch">
+			        	<div class="circle"></div>
+			        </div>
+			        
+			        <div class="circle-clipper right">
+			        	<div class="circle"></div>
+			    	</div>
+		     	</div>
+
+			    <div class="spinner-layer spinner-red">
+			        <div class="circle-clipper left">
+			          	<div class="circle"></div>
+			        </div>
+
+			        <div class="gap-patch">
+			          	<div class="circle"></div>
+			        </div>
+
+			        <div class="circle-clipper right">
+			          	<div class="circle"></div>
+			        </div>
+			    </div>
+
+		      	<div class="spinner-layer spinner-yellow">
+		        	<div class="circle-clipper left">
+		          		<div class="circle"></div>
+		        	</div>
+
+			        <div class="gap-patch">
+			          	<div class="circle"></div>
+			        </div>
+
+			        <div class="circle-clipper right">
+			          	<div class="circle"></div>
+			        </div>
+		      	</div>
+
+			    <div class="spinner-layer spinner-green">
+			        <div class="circle-clipper left">
+			        	<div class="circle"></div>
+			        </div>
+
+			        <div class="gap-patch">
+			          	<div class="circle"></div>
+			        </div>
+
+			        <div class="circle-clipper right">
+			          	<div class="circle"></div>
+			        </div>
+			    </div>
+    		</div> <!-- /.preloader -->
+
+		</div>
+		
+		<div class="col s3 sidebar-share home-sidebar-share" style="top: 120px;">
+            <div class="row">
+        
+                <div class="col s12" style="height: 250px; margin-top: 0;"><div id="vk_groups"></div></div>
+                
+                <div class="col s12">
+                
+                    <div class="fb-page" data-width="270" data-height="250" data-href="https://www.facebook.com/startupden.ru/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                        <div class="fb-xfbml-parse-ignore">
+                            <blockquote cite="https://www.facebook.com/startupden.ru/">
+                                <a href="https://www.facebook.com/startupden.ru/">StartupDen</a>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                </div> <!-- /col s12 Facebook -->
+
+                <div class="col s12">
+                    <div class="card indigo lighten-3">
+                        <div class="card-content white-text">
+                            <p style="margin-bottom: 20px;">Подпишись на наш Twitter, чтобы первым узнавать о самых последних новостях.</p>
+
+                            <a class="twitter-follow-button" href="https://twitter.com/startupden_ru" data-size="large" data-show-count="false">
+                                Follow @startupden_ru
+                            </a>
+
+                        </div>
+                    </div>
+                </div> <!-- /col s12 Twitter -->
+           
+            </div> <!-- /row-->
+
+        </div> <!-- /sidebar-share -->
+
 	</div>
 
     {% include "hunt/load-startups.js" %}

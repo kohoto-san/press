@@ -69,8 +69,14 @@ class Post(models.Model):
     upvotes = models.ManyToManyField(Profile, related_name='post_upvotes', blank=True)
     makers = models.ManyToManyField(Profile, related_name='post_makers', blank=True)
 
+    upvotes_count = models.IntegerField(default=1)
+
     time_create = models.DateTimeField(default=timezone.now)
     date_create = models.DateField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        self.upvotes_count = self.upvotes.count()
+        return super(Post, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Post"

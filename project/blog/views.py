@@ -79,13 +79,41 @@ class LatestEntriesFeed(Feed):
 # published_feeds = {'mlist': LatestEntriesFeed}
 
 
-class HeadlineList(ListView):
+    """
     model = Headline
     template_name = 'headline.html'
 
     def get_queryset(self):
         qs = super(HeadlineList, self).get_queryset()
         return qs.order_by('-date')
+    """
+
+
+def headline_list(request):
+
+    post_list = Headline.objects.all().order_by('-date')
+    paginator = Paginator(post_list, 10)
+
+    if request.method == 'GET':
+        if request.is_ajax():
+
+            page = request.GET.get('page')
+
+            try:
+                posts_paginator = paginator.page(page)
+            except PageNotAnInteger:
+                return HttpResponseBadRequest()
+            except EmptyPage:
+                return HttpResponseBadRequest()
+
+            context = {'object_list': posts_paginator.object_list}
+            html = render_to_string('blog/headline-item.html', context)
+            return HttpResponse(html)
+
+        else:
+            context = {'object_list': paginator.page(1).object_list}
+            html = render_to_string('blog/headline-item.html', context)
+            return render(request, 'headline.html', {'html': html})
 
 
 def link(request, slug):
@@ -107,9 +135,15 @@ class PostList(ListView):
 
 
 def load_home(request):
-    post_list_home = Post.objects.all().order_by('-id_post')
-    # print('load_home')
-    return load_posts(request, post_list_home, 'home')
+    post_list = Post.objects.all().order_by('-id_post')[:2]
+    # return load_posts(request, post_list_home, 'home')
+
+    news = Headline.objects.all().order_by('-date')[:10]
+    startups = hunt_startups.objects.all().order_by('-time_create')[:30]
+
+    context = {'news_list': news, 'post_list': post_list, 'startups': startups, 'user': request.user}
+    return render(request, 'home-page.html', context)
+
 
 """
 def load_news(request):
@@ -121,18 +155,19 @@ def load_news(request):
 
 def load_articles(request):
     post_list_art = Post.objects.exclude(category__text="News").order_by('-id_post')
+    post_list = Post.objects.all().order_by('-id_post')
     # print('load_articles')
-    return load_posts(request, post_list_art, 'articles')
+    return load_posts(request, post_list)
 
 
-def load_posts(request, post_list, type_page):
+def load_posts(request, post_list):
 
     feat_posts_count = Post.objects.exclude(category__text="News").values_list('pk', flat=True)
     feat_posts_id = random.sample(list(feat_posts_count), 4)
 
     feat_posts = Post.objects.filter(pk__in=[pk_post for pk_post in feat_posts_id])
 
-    paginator = Paginator(post_list, 7)
+    paginator = Paginator(post_list, 8)
 
     if request.method == 'GET':
         if request.is_ajax():
@@ -151,36 +186,29 @@ def load_posts(request, post_list, type_page):
                 return HttpResponseBadRequest()
 
             # posts_values = posts_paginator.object_list.values('slug', 'category', 'title', 'text_entry', 'image')
-
             # for value in posts_values:
             #   value['image'] = settings.MEDIA_URL + value['image']
-
             # posts_json = json.dumps(list(posts_values))
+            # return HttpResponse(posts_json)
 
             context = {'object_list': posts_paginator.object_list}
             html = render_to_string('card-posts-ajax.html', context)
             return HttpResponse(html)
 
-            # return HttpResponse(posts_json)
-
         else:
-            form = SubscribeEmailForm(label_suffix='')
             news = Headline.objects.all().order_by('-date')[:10]
-            startups = hunt_startups.objects.all().order_by('-time_create')[:30]
+            startups = hunt_startups.objects.all().order_by('-time_create')[:5]
 
-            context_st = {'object_list': startups, 'user': request.user}
-            # startups_html = render_to_string('hunt/post-list.html', context_st)
+            html = render_to_string('card-posts-ajax.html', {'object_list': paginator.page(1).object_list})
 
-            context = {'feat_posts': feat_posts, 'form': form, 'news_list': news, 'startups': startups, 'user': request.user}
+            context = {'feat_posts': feat_posts, 'news_list': news, 'startups': startups, 'user': request.user, 'articles': html}
 
-            if type_page != "articles":
-                return render(request, 'index-new.html', context)
-            else:
-                return render(request, 'index-posts.html', context)
+            # if type_page != "articles":
+            #    return render(request, 'index-new.html', context)
+
+            return render(request, 'articles.html', context)
 
             # return render_to_response('index-new.html', {"object_list": paginator.page(1).object_list})
-
-    post_list = None
 
 
 def email_create(request):
