@@ -139,7 +139,8 @@ def load_home(request):
     # return load_posts(request, post_list_home, 'home')
 
     news = Headline.objects.all().order_by('-date')[:10]
-    startups = hunt_startups.objects.all().order_by('-time_create')[:30]
+    startups_qs = hunt_startups.objects.all().order_by('-time_create')[:26]
+    startups = sorted(startups_qs, key=lambda item: item.upvotes_count, reverse=True)
 
     context = {'news_list': news, 'post_list': post_list, 'startups': startups, 'user': request.user}
     return render(request, 'home-page.html', context)
@@ -197,7 +198,8 @@ def load_posts(request, post_list):
 
         else:
             news = Headline.objects.all().order_by('-date')[:10]
-            startups = hunt_startups.objects.all().order_by('-time_create')[:5]
+            startups_qs = hunt_startups.objects.all().order_by('-time_create')[:5]
+            startups = sorted(startups_qs, key=lambda item: item.upvotes_count, reverse=True)
 
             html = render_to_string('card-posts-ajax.html', {'object_list': paginator.page(1).object_list})
 
@@ -306,7 +308,8 @@ class PostDetail(DetailView):
         if prev_post:
             context["prev_post"] = prev_post
 
-        startups = hunt_startups.objects.all().order_by('-time_create')[:10]
+        startups_qs = hunt_startups.objects.all().order_by('-time_create')[:10]
+        startups = sorted(startups_qs, key=lambda item: item.upvotes_count, reverse=True)
 
         context['user'] = self.request.user
         context['startups'] = startups

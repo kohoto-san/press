@@ -59,6 +59,10 @@
 			cursor: pointer;
 		}
 
+		.upvote-startup{
+            margin-left: 15px;
+        }
+
 		.product-post{
 			line-height: 0;
 		}
@@ -69,6 +73,7 @@
 
 		.product-post-item:hover{
 			background-color: #eee;
+			background-color: #fcfcfc;
 		}
 
 		.product-post>div{
@@ -256,4 +261,12 @@
 
 .product-post-body .title-item h5:hover{
 	text-decoration: underline;
+}
+
+.product-post-item{
+	-webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    -ms-transition: 0.25s;
+	transition: 0.25s;
 }
