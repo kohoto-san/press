@@ -1,18 +1,22 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.loader import render_to_string
 
-from hunt.models import Post, Comment, Profile
+from hunt.models import Post, Comment, Profile, Invite
+from hunt.forms import CommentForm
 
 from collections import OrderedDict
 from collections import defaultdict
 from itertools import groupby
+from unidecode import unidecode
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.text import slugify
+# from django.template.defaultfilters import slugify
 
 # class PostList(ListView):
     # model = Post
@@ -92,11 +96,30 @@ class PostCreate(CreateView):
 
     def form_valid(self, form):
         if self.request.user.is_authenticated():
+
+            title = unidecode(form.instance.title)
+            slug = slugify(title, allow_unicode=True)
+            num_iteration = 2
+            slug_exist = False
+
+            while(Post.objects.filter(slug=slug)):
+                if slug_exist:
+                    slug = slug[:slug.rfind('-')]
+                else:
+                    slug_exist = True
+
+                slug += '-%d' % num_iteration
+                num_iteration += 1
+
             profile = self.request.user.profile
+
             form.instance.author = profile
+            form.instance.slug = slug
+
             post = form.save()
 
             post.upvotes.add(profile)
+            post.save()
 
             return super(PostCreate, self).form_valid(form)
 
@@ -104,7 +127,7 @@ class PostCreate(CreateView):
             return HttpResponseRedirect('/startups')
 
     def get_success_url(self):
-        return reverse('post_detail', args=(self.object.id,))
+        return reverse('hunt:post_detail', args=(self.object.slug,))
 
     def dispatch(self, request, *args, **kwargs):
 
@@ -116,17 +139,35 @@ class PostCreate(CreateView):
 
 class PostDetail(CreateView):
     model = Comment
+    form_class = CommentForm
     template_name = 'hunt/post.html'
-
-    fields = ['text']
 
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
 
         post = get_object_or_404(Post, slug=self.kwargs['slug'])
+        comments = Comment.objects.filter(post=post)
+
         context['object'] = post
+        context['comments'] = comments
 
         return context
+
+    def form_valid(self, form):
+        if self.request.user.is_authenticated():
+
+            post = get_object_or_404(Post, slug=self.kwargs['slug'])
+            profile = self.request.user.profile
+
+            form.instance.profile = profile
+            form.instance.post = post
+
+            post = form.save()
+
+            return super(PostDetail, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('hunt:post_detail', args=(self.object.post.slug,))
 
 
 def vote(request, post_id):
@@ -158,6 +199,41 @@ class ProfileDetails(DetailView):
 def profile_details(request, id_profile):
     profile = get_object_or_404(Profile, id_profile=id_profile)
     return render(request, 'hunt/profile.html', {'profile': profile})
+
+"""
+class ProfileDetail(UpdateView):
+    model = Invite
+    template_name = 'hunt/profile.html'
+    fields = ['text']
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDetail, self).get_context_data(**kwargs)
+
+        profile = get_object_or_404(Profile, id_profile=self.kwargs['id_profile'])
+        context['profile'] = profile
+        return context
+
+    def get_success_url(self):
+        print(self.object.user.pk)
+        return reverse('hunt:profile_details', args=(self.object.user.pk,))
+"""
+
+
+def invite(request):
+    if request.user.is_authenticated() and request.method == 'POST':
+        invite_text = request.POST.get('invite_text')
+        invite = Invite.objects.filter(text=invite_text).first()
+        if invite and not invite.profile:
+            user = request.user.profile
+            user.type_profile = user.ACTIVE
+            user.save()
+
+            invite.profile = user
+            invite.save()
+            return HttpResponse('OK')
+
+        else:
+            return HttpResponse('incorrect')
 
 
 def redirect(request):

@@ -9,6 +9,8 @@ from django.utils import timezone
 
 import os
 import datetime
+import string
+import random
 
 
 @receiver(user_logged_in, dispatch_uid="some.unique.string.id.for.allauth.user_signed_up")
@@ -29,6 +31,17 @@ class Profile(models.Model):
         return os.path.join('avatars', str(instance.user.id) + filename[-4:])
 
     avatar = models.ImageField(upload_to=get_upload_path, default="default.png")
+
+    ACTIVE = 'active'
+    NO_ACTIVE = 'no_active'
+
+    TYPE_PROFILE_CHOICES = (
+        (ACTIVE, 'Active'),
+        (NO_ACTIVE, 'No Active'),
+    )
+    type_profile = models.CharField(max_length=20,
+                                    choices=TYPE_PROFILE_CHOICES,
+                                    default=NO_ACTIVE)
 
     """
     def save(self, *args, **kwargs):
@@ -56,15 +69,44 @@ class Profile(models.Model):
         return self.user.username
 
 
+def id_generator(size=32, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):
+    id_str = ''.join(random.choice(chars) for i in range(size))
+
+    while(Invite.objects.filter(text=id_str)):
+        id_str = ''.join(random.choice(chars) for i in range(size))
+
+    return id_str
+
+
+class Invite(models.Model):
+
+    profile = models.ForeignKey(Profile, blank=True, null=True)
+    text = models.CharField(max_length=32, blank=True)
+
+    def save(self, *args, **kwargs):
+
+        if self.pk is None:
+            self.text = id_generator()
+
+        return super(Invite, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Invite"
+        verbose_name_plural = "Invites"
+
+    def __str__(self):
+        return self.text
+
+
 class Post(models.Model):
 
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=80)
 
-    title = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
+    title = models.CharField(max_length=50, verbose_name='Название')
+    description = models.CharField(max_length=100, verbose_name='Описание')
     author = models.ForeignKey(Profile, blank=True)
 
-    link = models.URLField()
+    link = models.URLField(verbose_name='Ссылка на сайт')
 
     upvotes = models.ManyToManyField(Profile, related_name='post_upvotes', blank=True)
     makers = models.ManyToManyField(Profile, related_name='post_makers', blank=True)
@@ -98,6 +140,9 @@ class Comment(models.Model):
 
     post = models.ForeignKey(Post)
     # parent_comment = models.ForeignKey(Comment)
+
+    time_create = models.DateTimeField(default=timezone.now)
+    date_create = models.DateField(default=timezone.now)
 
     class Meta:
         verbose_name = "Comment"

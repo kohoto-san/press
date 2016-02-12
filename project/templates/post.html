@@ -40,28 +40,58 @@
 
     <div class="navbar row" style="position: relative; text-align: center; box-shadow: none;">
 
-                                            
-                                         <!-- l7 m7 s12 -->
+            {% comment %}
             <div class="navbar-categories col l7 offset-l2 m7 offset-m3 s12">
                 <a href="/links">Новости</a>
                 <a href="/articles">Статьи</a>
                 <a href="/startups">Стартапы</a>
             </div>
+            {% endcomment %}
 
-        </div> <!-- /navbar -->
+                                            
+                                         <!-- l7 m7 s12 -->
+            <div class="navbar-categories col l8 m8 s12 offset-l2 offset-m1">
+                <a href="/links">Новости</a>
+                <a href="/articles">Статьи</a>
+                <a href="/startups">Стартапы</a>
+
+                <div class="navbar-soc">
+                    <a href="https://vk.com/startupden" target="_blank">
+                        <i class="fa fa-vk fa-lg"></i>
+                    </a>
+            
+                    <a href="https://twitter.com/startupden_ru" target="_blank">
+                        <i class="fa fa-twitter fa-lg"></i>
+                    </a>
+            
+                    <a href="https://www.facebook.com/startupden.ru/" target="_blank">
+                        <i class="fa fa-facebook fa-lg"></i>
+                    </a>
+
+                    <a href="/feed" target="_blank">
+                        <i class="fa fa-rss fa-lg"></i>
+                    </a>
+
+                    <a href="{% url 'contact' %}" target="_blank">
+                        <i class="fa fa-envelope fa-lg"></i>
+                    </a>
+                </div>
+            </div> <!-- /.navbar-categories -->
+
+    </div> <!-- /navbar -->
 
 
     <div class="navbar navbar-post row valign-wrapper" style="position: relative; margin-top: 0px; right: 0;">
         
-        <div class="col m2 s12 navbar-logo">
-            <h4 style="margin: 0;"><a href="/" style="color: #000;">StartupDen</a></h4>
+        <div class="col l2 m1 s12 navbar-logo">
+            <h4><a href="/" style="color: #000;">StartupDen</a></h4>
         </div>
 
         <div class="col l7 hide-on-med-and-down" style="font-size: 18px;">
             {{post.title}}
         </div>
-            
-        <div class="share-btns share col l3 m5 offset-m5 s12 right-align">
+     
+        <div class="share-btns share col l3 m5 offset-m6 s12 right-align">
             {% comment %}
             <a class="vk popup" href="http://vk.com/share.php?url=" target="_blank"><img src="{% static 'vk_logo.png' %}"></a>
             <a class="twitter popup" href="http://twitter.com/share?text={{post.title}}" target="_blank"><img src="{% static 'twitter_logo.png' %}"></a>
@@ -80,16 +110,18 @@
                 <a class="facebook popup" href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank">
                     <i class="fa fa-facebook fa-2x"></i>
                 </a>
+
+                 {% if user.is_authenticated %}
+                    <a href="{% url 'hunt:profile_details' user.profile.id_profile %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
+                {% else %}
+                    <a href="#" id="login" class="profile-link" style="width: auto; vertical-align: super;">
+                        <i class="fa fa-sign-in fa-2x"></i> 
+                        <span style="vertical-align: super;">Войти</span>
+                    </a>
+                {% endif %}
+
             </div>
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'hunt:profile_details' user.profile.id_profile %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
-            {% else %}
-                <a href="#" id="login" class="profile-link" style="width: auto; vertical-align: super;">
-                    <i class="fa fa-sign-in fa-2x"></i> 
-                    <span style="vertical-align: super;">Войти</span>
-                </a>
-            {% endif %}
         </div>
 
     </div>
@@ -423,6 +455,11 @@
 {% endcomment %}
 
         $(document).ready(function() {
+
+            if( $(window).width() <= 460){
+                $('.navbar').removeClass('valign-wrapper');
+                $('.navbar').find('.valign').removeClass('valign');
+            }
 
             if($(window).width() > 500){
                 $('.post-cover-image').css('background-image', 'url({{post.image.url}})' );

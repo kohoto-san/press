@@ -78,61 +78,6 @@
             color: #000;
         }
 
-        @media (max-width: 865px){
-            
-            .navbar-categories a{
-                margin-right: 10px;
-            }
-        }
-
-        @media (max-width: 600px){
-
-            .navbar-logo h4{
-                margin-top: 0px;
-            }
-
-            .navbar {
-                height: 160px;
-            }
-
-            .navbar-categories{
-                line-height: 46px;
-            }
-
-            .navbar-categories a{
-                margin-right: 20px;
-            }
-        }
-
-        @media (max-width: 992px){
-            .navbar{
-                position: relative;
-            }
-
-            .post-cover{
-                margin-top: 0;
-            }
-
-        }
-
-        @media (max-width: 370px){
-            .post-cover-title{
-                font-size: 3rem;
-            }
-
-            .share-btns{
-                text-align: left;
-                margin-top: 20px;
-            }
-
-            .share-btns a{
-                margin-right: 15px;
-            }
-
-        }
-
-
-
 /*
         @media (max-width: 1250px){
         	.sidebar-share{
@@ -198,7 +143,7 @@
             }
         }
 
-        @media (max-width: 960px){
+        @media (max-width: 975px){
         	.card-post{
                 max-width: 380px;
     			position: relative;
@@ -252,6 +197,10 @@
             font-weight: 500;
             /*padding: 10px;*/
             margin: 10px;
+        }
+
+        .navbar .share a{
+            margin: 10px 10px 0;
         }
 
        .share-btns a{
@@ -565,8 +514,11 @@ nav .brand-logo {
     position: relative;
 }
 
+.post-text img{
+    max-width: 100%;
+}
 
-@media (max-width: 960px){
+@media (max-width: 975px){
     #content{
         /*max-width: 420px;*/
     }
@@ -662,15 +614,127 @@ nav .brand-logo {
 
 .navbar-soc a{
     margin-right: 10px;
+    color: rgb(140, 140, 140);
+}
+
+.navbar-soc a:hover{
+    color: #000;
 }
 
 .navbar .navbar-profile-wrapper{
     margin-top: 0;
     float: right;
+    line-height: 64px;
+    text-align: right;
+}
+
+#content-posts-wrapper .startups-wrapper{
+    padding: 0 20px;
+}
+
+.navbar-post .share-btns .popup{
+    vertical-align: super;
+}
+
+.product-external-link{
+    margin-right: 5px;
+    display: none;
+}
+
+.product-external-link i{
+    /*font-size: 18px;*/
+    margin-left: 5px;
+}
+.product-external-link:hover{
+    opacity: 0.5;
+}
+
+.product-post-item:hover .product-external-link{
+    display: inline-block;
 }
 
 @media (max-width: 600px){
     .navbar .navbar-profile-wrapper{
         float: none;
     }
+}
+
+@media (max-width: 880px){
+    
+    .navbar-categories a{
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 680px){
+
+    .navbar-logo h4{
+        margin-top: 10px;
+    }
+
+    .navbar {
+        height: 120px;
+    }
+
+    .navbar-categories{
+        line-height: 46px;
+        width: 100% !important;
+    }
+
+    .navbar-categories a{
+        margin-right: 20px;
+    }
+
+    .startups-footer {
+        width: 100%;
+    }
+
+    #content-posts-wrapper .startups-wrapper{
+        padding: 0;
+    }
+}
+
+@media (max-width: 530px){
+    .navbar {
+        height: 150px;
+    }
+    
+    .navbar .navbar-profile-wrapper{
+        line-height: 0;
+    }
+
+    .navbar .navbar-profile-wrapper #login{
+        padding-top: 10px;
+    }
+}
+
+@media (max-width: 992px){
+    .navbar{
+        position: relative;
+    }
+
+    .post-cover{
+        margin-top: 0;
+    }
+
+}
+
+@media (max-width: 370px){
+    .post-cover-title{
+        font-size: 3rem;
+    }
+
+    .share-btns{
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .share-btns a{
+        margin-right: 15px;
+    }
+
+}
+
+.errorlist{
+    margin: 0;
 }

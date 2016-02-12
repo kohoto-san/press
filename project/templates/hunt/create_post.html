@@ -2,26 +2,65 @@
 {% extends "hunt/base.html" %}
 
 {% block content %}
+	
+	<div class="container" style="min-height: 400px;">
+		<div class="row">
 
-	<div class="row">
-		<form class="col l4 offset-l4 s12 m10 offset-m1" id="form" action="" method="post">
-        	{% csrf_token %}
+			<h4 class="center-align" style="margin-top: 30px;">Добавить стартап</h4>
 
-            <h4 class="center-align">Добавить продукт</h4>
-                                 
-            {% for field in form %}
-                <div class="person-form-field input-field col l12">
-                    {{ field.errors }}
-                    {{ field }}
-                    {{ field.label_tag }}
-                </div>
-            {% endfor %}
 
-            <div class="col s12" style="margin: 30px 0 50px;">
-                <button type="submit" value="Create" class="waves-effect waves-light btn-large">Добавить</button>
-            </div>
+			{% if request.user.profile.type_profile == request.user.profile.ACTIVE %}			
+			    <!--
+			    <div class="col l4 s12 m10 offset-m1" style="background-color: #eee; height: 500px;">
+			    -->
+			    <div class="col l6 offset-l3 s12 m10 offset-m1">
 
-    	</form>
+					<form id="form" action="" method="post">
+			        	{% csrf_token %}
+			                                 
+			            {% for field in form %}
+			                <div class="person-form-field input-field col s12">
+			                    {{ field }}
+			                    {{ field.label_tag }}
+			                    {{ field.errors }}
+			                </div>
+			            {% endfor %}
+
+			            <div class="col s12" style="margin: 30px 0 50px;">
+			                <button type="submit" value="Create" class="waves-effect waves-light btn-large">Добавить</button>
+			            </div>
+
+			    	</form>
+
+				</div>
+			{% else %}
+				<h5 class="center-align">Для публикации новых проектов вы должны быть приглашены. Если у вас есть приглашение, вы можете его ввести в <a href="{% url 'hunt:profile_details' request.user.profile.id_profile %}">своём</a> профиле.</h5>
+
+			{% endif %}
+
+
+		</div>
 	</div>
 
 {% endblock content %}
+
+{% block scripts %}
+	{{block.super}}
+
+	<script type="text/javascript">
+
+	    function checkURL (abc) {
+		    var string = abc.value;
+		    if (string && !~string.indexOf("http")){
+		        string = "http://" + string;
+		    }
+		    abc.value = string;
+		    return abc
+		}
+
+		$('#id_link').blur(function(){
+			checkURL( this );
+		});
+
+	</script>
+{% endblock scripts %}

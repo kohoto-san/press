@@ -87,7 +87,7 @@
             {% endcomment %}
 
                 <div id="startups" class="row card-post stamp" style="max-width: 840px;">
-                    <div class="startups-wrapper card" style="padding: 0 20px;">
+                    <div class="startups-wrapper card">
                         {% for product in startups %}
                             {% include "item-startup.html" %}
                         {% endfor %}
@@ -101,8 +101,10 @@
 
                 <div class="articles-wrapper">
                     {% include "card-posts-ajax.html" with object_list=post_list only %}
-                    <a href="{% url 'articles' %}" class="more-articles blue-grey lighten-2 card-post card-post-article center-align waves-effect waves-light btn-large">
-                        <h5>Все статьи</h5>
+                    <a href="{% url 'articles' %}" class="more-articles card-post card-post-article">
+                        <div class="blue-grey lighten-2 center-align waves-effect waves-light btn-large" style="width: 100%;">
+                            <h5>Все статьи</h5>
+                        </div>
                     </a>
                 </div>
 

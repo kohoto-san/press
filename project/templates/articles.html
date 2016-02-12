@@ -57,11 +57,9 @@
                 <div class="row card-post card-post-article stamp">
 
                     <div class="startups-wrapper card">
-                        <div style="padding: 0 0 0 20px;">
                             {% for product in startups %}
                                 {% include "item-startup.html" %}
                             {% endfor %}
-                        </div>
 
                         <a href="{% url 'hunt:post_list' %}" class="startups-footer product-post product-post-item" style="width: 100%; background-color: #eee;">
                             <h5 style="margin: 0; color: #000;" class="center-align">Все стартапы <i class="material-icons" style="vertical-align: middle; font-size: 34px;">keyboard_arrow_right</i></h5>

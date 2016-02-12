@@ -39,7 +39,24 @@
 			</div>
 
 			<h5 class="center-align">{{profile.user.first_name}} {{profile.user.last_name}}</h5>
-        
+
+            {% if profile == request.user.profile and request.user.profile.type_profile == request.user.profile.NO_ACTIVE %}
+
+                <div class="col s12" id="invite-wrapper">
+                        
+                    <div class="input-field col l5 m12">
+                        <input id="invite_text" type="text" class="validate">
+                        <label for="invite_text">Введите инвайт</label>
+                    </div>
+
+                    <div class="col l2" style="margin: 30px 0 50px;">
+                        <button id="invite-btn" value="Create" class="waves-effect waves-light btn">Активировать</button>
+                    </div>
+
+                </div>
+            {% endif %}
+
+
             <div class="profile-share share post-content-share">
                 <a href="http://vk.com/share.php?url=" target="_blank" class="popup post-content-share-vk">
                     <i class="fa fa-vk fa-lg"></i> Поделиться
@@ -89,4 +106,31 @@
 {% block scripts %}
 	{{block.super}}
     {% include "hunt/load-startups.js" %}
+    
+    <script type="text/javascript">
+
+        $('#invite-btn').click(function(){
+            invite_text = $('#invite_text').val();
+
+            if(invite_text){
+                $.post( "{% url 'hunt:invite' %}", {invite_text: invite_text}, function( data ) {
+                    
+                    if(data == 'OK'){
+                        Materialize.toast('Поздравляем! Теперь у вас полноценный аккаунт и вы можете добавлять новые проекты.', 4000);
+
+                        $('#invite-wrapper').fadeOut(500, function() {
+                            $(this).hide();
+                        });
+                    }
+
+                    if(data == 'incorrect'){
+                        Materialize.toast('Ой, кажется, приглашение некорректно. Возможно его не существует, а возможно его уже использовали.', 4000);
+                    }
+
+                });
+            }
+
+        });
+
+    </script>
 {% endblock scripts %}

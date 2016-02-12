@@ -49,7 +49,8 @@
 
             	</div>
                 <a href="{% url 'hunt:post_list' %}" class="close">
-                	<i class="material-icons">close</i>
+                	 <!-- close -->
+                	<i class="material-icons">&#xE5CD;</i>
                	</a>
 			</div> <!-- /.product-details-header -->
 
@@ -65,9 +66,9 @@
 				{% else %}
 					<div class="upvote upvote-startup">
 				{% endif %}
-					<div class="upvote-triangle"></div>
-					<p> {{object.upvotes.count}} </p>
-				</div>
+						<div class="upvote-triangle"></div>
+						<p> {{object.upvotes.count}} </p>
+					</div>
 
 				<div class="product-post-body" data-id="{{object.pk}}">
 					<h5 style="display: inline-block; margin: 0;">{{object.title}}</h5>
@@ -80,7 +81,7 @@
 
 			<p class="post-description">{{object.upvotes.count}} голос(-ов)</p>
 
-			<div class="upvote-profiles">
+			<div class="upvote-profiles" style="margin-bottom: 50px;">
 			{% for upvote in object.upvotes.all %}
                 <a href="{% url 'hunt:profile_details' upvote.pk %}" class="profile-link">
                 	<img src="{{upvote.avatar.url}}">
@@ -88,11 +89,120 @@
 			{% endfor %}
 			</div>
 
+
+			<div class="thread_comment_wrapper">
+
+		        {% for comment in comments %}
+
+		            <div class="thread_comment">
+		                <img src="{{comment.profile.avatar.url}}" class="comment_ava" style="display: inline-block; vertical-align: top;"></img>
+
+		                <div style="display: inline-block; margin-left: 10px;">
+		                    <div class="comment_footer">
+		                    	{{comment.profile.user.first_name}} {{comment.profile.user.last_name}}
+		                    </div>
+		               	 	<p class="thread_comment_text"> {{ comment.text }} </p>
+		                </div>
+		            </div>
+
+		        {% endfor %}
+
+		    </div>
+
+			{% comment %}
 			<div class="comments-blocking">
 				<p>Оставлять комментарии могут только зарегестрированные пользователи, которые получили приглашение. Чтобы получить приглашение напишите нам на touch@startupden.ru или зарегестрируйтесь и проявляйте активность, голосуя за понравившиеся проекты.</p>
 			</div>
+			{% endcomment %}
 
-		</div>
+			{% if user.is_authenticated and request.user.profile.type_profile == request.user.profile.ACTIVE %}			
+			    <div class="col l6 s12 m10 offset-m1">
+
+					<form id="form" action="" method="post">
+			        	{% csrf_token %}
+			                                 
+			            {% for field in form %}
+			                <div class="person-form-field input-field col s12">
+			                    {{ field.errors }}
+			                    {{ field }}
+			                    {{ field.label_tag }}
+			                </div>
+			            {% endfor %}
+
+			            <div class="col s12" style="margin: 30px 0 50px;">
+			                <button type="submit" value="Create" class="waves-effect waves-light btn-large">Отправить</button>
+			            </div>
+
+			    	</form>
+
+				</div>
+			{% elif user.is_authenticated %}
+				<div class="comments-blocking">
+					<p>Пожалуйста, активируйте инвайт.</p>
+				</div>
+			{% else %}
+				<div class="comments-blocking">
+					<p>Оставлять комментарии могут только зарегестрированные пользователи, которые получили приглашение. Чтобы получить приглашение напишите нам на touch@startupden.ru или зарегестрируйтесь и проявляйте активность, голосуя за понравившиеся проекты.</p>
+				</div>
+
+			{% endif %}
+
+
+		</div> <!-- /.container product-details -->
+
 	</div>
+
+
+	<style type="text/css">
+
+		.thread_comment{
+			margin-left: 5px;
+			padding-top: 20px;
+		}
+
+		.thread_comment_text{
+			/*font-size: 20px;*/
+		    margin: 0 auto 20px;
+		}
+
+		.comment_ava{
+			display: inline-block;
+			width: 42px;
+		    height: 42px;
+		}
+
+		.comment_footer{
+			font-weight: 500;
+    		font-size: 16px;
+		}
+
+		.thread_comment_wrapper{
+			margin-bottom: 40px;
+		}
+
+
+
+
+
+
+
+
+		.comment_textarea{
+
+			background-color: transparent;
+
+		    outline: 0;
+			height: 50px;
+			border: 0;
+			padding: 10px 0px 40px 10px;
+			width: 100%;
+			resize: none; 
+
+			font-size: 20px;
+		}
+
+	</style>
+
+	
 
 {% endblock content %}

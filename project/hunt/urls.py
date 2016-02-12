@@ -23,12 +23,14 @@ urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
     url(r'^load-posts', views.load_posts, name='load_posts'),
 
-    # url(r'^new/', views.PostCreate.as_view(), name='post_create'),
+    url(r'^new/', views.PostCreate.as_view(), name='startup_create'),
 
     url(r'^(?P<slug>[\w-]+)/$', views.PostDetail.as_view(), name='post_detail'),
 
     # url(r'^profile/(?P<pk>\d+)/$', views.ProfileDetails.as_view(), name='profile_details'),
     url(r'^profile/(?P<id_profile>\d+)/$', views.profile_details, name='profile_details'),
+    # url(r'^profile/(?P<id_profile>\d+)/$', views.ProfileDetail.as_view(), name='profile_details'),
 
     url(r'^vote/(?P<post_id>\d+)/$', views.vote, name='vote'),
+    url(r'^invite', views.invite, name='invite'),
 ]

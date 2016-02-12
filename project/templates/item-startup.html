@@ -15,7 +15,7 @@
 	</div>
 
 	<div class="product-post-body" data-slug="{{product.slug}}" data-id="{{product.pk}}">
-		<div>
+		<div class="item-header-links">
 			<a class="title-item" href="{% url 'hunt:post_detail' product.slug %}"> 
 				<h5 style="display: inline-block; margin: 0;">{{product.title}}</h5>
 			</a>
@@ -30,8 +30,12 @@
 	</div> <!-- /.product-post-body -->
 
 	<div class="product-post-right">
-					
-		<a href="{% url 'hunt:profile_details' product.author.pk %}" class="profile-link">
+		
+		<a href="{% url 'redirect' %}?url={{product.link}}" target="_blank" class="product-external-link">
+			<i class="material-icons">&#xE89E;</i>
+		</a>
+
+		<a href="{% url 'hunt:profile_details' product.author.id_profile %}" class="profile-link">
             <img src="{{product.author.avatar.url}}">
         </a>
 		

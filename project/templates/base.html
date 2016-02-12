@@ -33,17 +33,22 @@
 
         <div class="navbar row" style="position: relative; text-align: center;">
 
-            <div class="col l2 m3 s12 navbar-logo">
-                <h4><a href="/" style="color: #000;">StartupDen</a></h4>
+            <div class="col l2 m1 navbar-logo">
+                <h4><a href="/" style="color: #000; margin-bottom: 0;">StartupDen</a></h4>
             </div>
 
                                                               <!-- l3 m4 s12 -->
-            <div class="navbar-profile-wrapper share-btns share col l1 m2 s4 offset-s4">
+            <div class="navbar-profile-wrapper share-btns share col l2 m3">
 
                 {% if user.is_authenticated %}
+                    <a href="{% url 'hunt:startup_create' %}">
+                        <!-- add -->
+                        <i class="material-icons" style="font-size: 30px; vertical-align: super;">&#xE145;</i>
+                    </a>
+
                     <a href="{% url 'hunt:profile_details' user.profile.id_profile %}" class="profile-link"><img src="{{user.profile.avatar.url}}"></a>
                 {% else %}
-                    <a href="#" id="login" class="profile-link" style="width: 73px;">
+                    <a href="#" id="login" class="profile-link" style="width: 73px; margin: 0;">
                         <i class="fa fa-sign-in fa-2x"></i> 
                         <span style="vertical-align: super;">Войти</span>
                     </a>
@@ -51,15 +56,13 @@
 
             </div> <!-- /share-btns -->
 
-
                                             
                                          <!-- l7 m7 s12 -->
-            <div class="navbar-categories col l9 m7 s12">
+            <div class="navbar-categories col l8 m8 s12">
                 <a href="/links">Новости</a>
                 <a href="/articles">Статьи</a>
                 <a href="/startups">Стартапы</a>
 
-                {% comment %}                    
                 <div class="navbar-soc">
                     <a href="https://vk.com/startupden" target="_blank">
                         <i class="fa fa-vk fa-lg"></i>
@@ -76,11 +79,12 @@
                     <a href="/feed" target="_blank">
                         <i class="fa fa-rss fa-lg"></i>
                     </a>
+
+                    <a href="{% url 'contact' %}" target="_blank">
+                        <i class="fa fa-envelope fa-lg"></i>
+                    </a>
                 </div>
-                {% endcomment %}
-
-
-            </div>
+            </div> <!-- /.navbar-categories -->
 
         </div> <!-- /navbar -->
 
@@ -158,6 +162,7 @@
 
 
     {% block footer %}
+    {% comment %}        
     <div id="footer" class="row blue-grey lighten-3">
         
         <div class="col l6 offset-l1 m10 offset-m1">
@@ -197,10 +202,10 @@
                 </div>
 
             </div>
-
         </div>
-
     </div>
+    {% endcomment %}
+    
     {% endblock footer %}
 
 
@@ -246,6 +251,19 @@
                 $('.navbar').removeClass('valign-wrapper');
                 $('.navbar').find('.valign').removeClass('valign');
             }
+
+            if( $(window).width() <= 975){
+                $('.navbar-logo a').text('SD');
+            }
+
+            $( window ).resize(function() {
+                if( $(window).width() <= 975){
+                    $('.navbar-logo a').text('SD');
+                }
+                else{
+                    $('.navbar-logo a').text('StartupDen');
+                }
+            });
 
         });
 
