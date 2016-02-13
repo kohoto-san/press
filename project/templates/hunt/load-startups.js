@@ -7,11 +7,30 @@
 			location.href = url;
 		});
 
+
+        var is_loading = false;
+        var all_post = false;
+        var page = 1;
+
+        function loading(turn){
+            // Когда посты загружены включить возможность загрузить ещё
+            if(turn == 'on'){
+                // $('#load_posts a').removeClass('disabled');
+                $('.preloader-wrapper').hide();
+                is_loading = false;
+            }
+            // Когда посты начали грузиться выключить возможность загрузить ещё
+            else{
+                // $('#load_posts a').addClass('disabled');
+                $('.preloader-wrapper').show();
+                is_loading = true;
+            }
+        }
+
 		$( window ).load(function() {
+            loading('off');
     		loadPosts();
 		});
-
-		var page = 1;
 
 		function loadPosts(){
 
@@ -27,14 +46,18 @@
             			var newElems = $( data );
         			}
 
-                    $('.preloader-wrapper').hide();
             		$container.append(newElems);
+
+                    page += 1;
+                    loading('on');
 
         		}) // success || done
                 
         		.fail(function() {
-        		    $('#load_posts').prepend('<p>Упс...Кажется все посты уже загружены.</p>')
-        		    $('#load_posts a').addClass('disabled');
+                    loading('on');
+                    all_post = true;
+        		    // $('#load_posts').prepend('<p>Упс...Кажется все посты уже загружены.</p>');
+        		    // $('#load_posts a').addClass('disabled');
         		}); // fail
     
 		} // function loadPosts

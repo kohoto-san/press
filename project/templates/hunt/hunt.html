@@ -11,9 +11,11 @@
 {% block content %}
     
 	<div class="row" style="min-height: 650px; margin-top: 30px; margin-bottom: 20px;">
-		<div class="col l8 offset-l1 m10 offset-m1 s12 container startups-wrapper">
+		<div class="col l8 offset-l1 m10 offset-m1 s12 container">
 			
-			<div class="preloader-wrapper big active" style="margin: auto; display: block;">
+			<div id="startups-wrapper" class="startups-wrapper" style="margin-bottom: 50px;"></div>
+
+			<div class="preloader-wrapper big active" style="margin: 50px auto; display: block;">
 		      	<div class="spinner-layer spinner-blue">
 			        <div class="circle-clipper left">
 			          	<div class="circle"></div>
@@ -111,3 +113,23 @@
 
     {% include "hunt/load-startups.js" %}
 {% endblock content %}
+
+{% block scripts %}
+    {{block.super}}
+
+    <script type="text/javascript">
+
+    	$(window).scroll(function () { 
+		   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+		   		if( !is_loading && !all_post){
+	                loading('off');
+	                loadPosts();
+            	}
+		   }
+		});
+    	
+    </script>
+
+
+	
+{% endblock scripts %}

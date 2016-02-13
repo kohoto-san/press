@@ -67,7 +67,7 @@ def load_posts(request):
                 res.append(date_post_list)
                 """
             # posts_json = json.dumps(res, cls=DjangoJSONEncoder)
-            paginator = Paginator(res, 10)
+            paginator = Paginator(res, 15)
 
             page = request.GET.get('page')
 
