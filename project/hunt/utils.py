@@ -14,7 +14,9 @@ def createProfile(social_account, user):
 
     try:
         profile = Profile.objects.get(user=user)
+        is_new_profile = False
     except Profile.DoesNotExist:
+        is_new_profile = True
         profile = Profile()
 
     profile.user = user
@@ -30,11 +32,12 @@ def createProfile(social_account, user):
 
     # profile.avatar = extra_data['photo_big']
 
-    try:
-        id_profile = Profile.objects.all().order_by('-id_profile').first().id_profile
-    except AttributeError:
-        id_profile = 0
-    profile.id_profile = id_profile + 1
+    if is_new_profile:
+        try:
+            id_profile = Profile.objects.all().order_by('-id_profile').first().id_profile
+        except AttributeError:
+            id_profile = 0
+        profile.id_profile = id_profile + 1
 
     img_format = avatar_url[-4:]
 
