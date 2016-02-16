@@ -51,7 +51,7 @@
 
 	    function checkURL (abc) {
 		    var string = abc.value;
-		    if (string && !~string.indexOf("http")){
+		    if (string && string.indexOf("http") != 0){
 		        string = "http://" + string;
 		    }
 		    abc.value = string;

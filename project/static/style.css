@@ -563,6 +563,12 @@ nav .brand-logo {
     }
 }
 
+@media (max-width: 600px){
+    .card-post-article {
+        max-width: 100%;
+    }
+}
+
 .collection .collection-footer{
     font-size: 2.28rem;
     line-height: 110%;

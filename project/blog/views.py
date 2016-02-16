@@ -140,7 +140,8 @@ def load_home(request):
 
     news = Headline.objects.all().order_by('-date')[:10]
     startups_qs = hunt_startups.objects.all().order_by('-time_create')[:26]
-    startups = sorted(startups_qs, key=lambda item: item.upvotes_count, reverse=True)
+    # startups = sorted(startups_qs, key=lambda item: item.upvotes_count, reverse=True)
+    startups = startups_qs
 
     context = {'news_list': news, 'post_list': post_list, 'startups': startups, 'user': request.user}
     return render(request, 'home-page.html', context)

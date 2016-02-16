@@ -54,7 +54,7 @@
                	</a>
 			</div> <!-- /.product-details-header -->
 
-			<a href="{% url 'hunt:profile_details' object.author.pk %}" class="product-author">
+			<a href="{% url 'hunt:profile_details' object.author.id_profile %}" class="product-author">
 				<div class="profile-link"><img src="{{object.author.avatar.url}}"></div>
 				<span>Опубликовал(-а) {{object.author.user.first_name}} {{object.author.user.last_name}}</span>
 			</a>
@@ -83,7 +83,7 @@
 
 			<div class="upvote-profiles" style="margin-bottom: 50px;">
 			{% for upvote in object.upvotes.all %}
-                <a href="{% url 'hunt:profile_details' upvote.pk %}" class="profile-link">
+                <a href="{% url 'hunt:profile_details' upvote.id_profile %}" class="profile-link">
                 	<img src="{{upvote.avatar.url}}">
                 </a>
 			{% endfor %}
